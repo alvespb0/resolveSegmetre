@@ -76,28 +76,45 @@ include_once('navbar.php');
     <div class="container1">
     <div class="container">
         <h2>Registro</h2>
-        <form action = "route.php" method="POST" id = "formCadastro">
-            <input type="text" placeholder="Usuário" name = "usuario"required>
-            <input type="text" placeholder="Email" name = "email"required>
-            <input type="password" placeholder="Senha" name = "senha" required>
-            <select id="tipo" required>
-                <option value="operador">Operador</option>
-                <option value="usuario">Usuário</option>
-            </select>
-            <input type="text" id="cnpj" class="hidden" placeholder="CNPJ">
-            <button type="submit">Registrar</button>
-        </form>
+            <form id="formCadastro">
+                <input type="text" placeholder="Usuário" name="usuario" required>
+                <input type="text" placeholder="Email" name="email" required>
+                <input type="password" placeholder="Senha" name="senha" required>
+                <select id="tipo" name="type" required>
+                    <option value="operador">Operador</option>
+                    <option value="usuario">Usuário</option>
+                </select>
+                <input type="text" id="cnpj" class="hidden" placeholder="CNPJ">
+                <button type="submit">Registrar</button>
+            </form>
     </div>
     <script>
-        document.getElementById('tipo').addEventListener('change', function() {
-            let cnpjField = document.getElementById('cnpj');
-            if (this.value === 'usuario') {
-                cnpjField.classList.remove('hidden');
-            } else {
-                cnpjField.classList.add('hidden');
-            }
+        document.getElementById('formCadastro').addEventListener('submit', function(event) {
+        event.preventDefault(); // Impede o envio padrão do formulário
+
+        const formData = new FormData(this);
+        const data = {};
+        formData.forEach((value, key) => {
+            data[key] = value;
+        });
+
+        fetch('route.php', { 
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data),
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log('Success:', data); 
+        })
+        .catch((error) => {
+            console.error('Error:', error); // Caso ocorra algum erro
+        });
         });
     </script>
+
     </div>
 </body>
 </html>

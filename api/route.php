@@ -4,13 +4,13 @@ header("Content-Type: application/json"); #isso básicamente define que o conte�
 $data = json_decode(file_get_contents("php://input"), true); #Recebe os dados via POST e converte JSON para um array
 
 if (!isset($data['type']) || !isset($data['usuario']) || !isset($data['senha'])) { #Verifica se todos os campos do formulário estão preenchidos
-    echo json_encode(["error" => "Campos obrigatórios faltantes."]);
+    echo json_encode(["error" => "Campos obrigatorios faltantes."]);
     exit;
 }else{
     $type = $data['type'];
-    if ($type === 'operator') {
+    if ($type === 'operador') {
         $url = "auth/registerOperador.php";
-    } elseif ($type === 'user') {
+    } elseif ($type === 'usuario') {
         $url = "auth/registerUsuario.php";
     } else {
         echo json_encode(["error" => "Tipo inválido"]);
@@ -25,6 +25,16 @@ if (!isset($data['type']) || !isset($data['usuario']) || !isset($data['senha']))
 
     $response = curl_exec($ch); #Executa a requisição
     curl_close($ch); #fecha a requisição
+    if (curl_errno($ch)) {
+        echo json_encode(["error" => "Erro na requisição cURL: " . curl_error($ch)]);
+        curl_close($ch);
+        exit;
+    }
+    if (empty($response)) {
+        echo json_encode(["error" => "Resposta vazia do servidor"]);
+        exit;
+    }
+
 
     echo $response;
 }

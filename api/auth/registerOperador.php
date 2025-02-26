@@ -15,14 +15,18 @@ if (!isset($data['name']) || !isset($data['email']) || !isset($data['password'])
 
     try{
         $conn = new \MySQLi($host, $username, "", $dbname); #Inicia conexão com o banco
-        $sqlInsert = $conn->prepare("INSERT INTO operators ('name', email, password_hash) VALUES (?, ?, ?)");
+        $sqlInsert = $conn->prepare("INSERT INTO operators (`name`, email, password_hash) VALUES (?, ?, ?)");
         $sqlInsert->bind_param("sss", $name, $email, $password);
         $sqlInsert->execute();
 
         if(!$sqlInsert->error){
             echo json_encode(["message" => "Operador cadastrado com sucesso"]);
+            $sqlInsert->close();
+            $conn->close();
         }else{
             echo json_encode(["error" => "Erro ao cadastrar operador"]);
+            $sqlInsert->close();
+            $conn->close();
         }
     }catch(\Exception $e){
         die($e->getMessage());
