@@ -83,11 +83,19 @@ include_once('navbar.php');
                     <option value="operador">Operador</option>
                     <option value="usuario">Usuário</option>
                 </select>
-                <input type="text" id="cnpj" class="hidden" placeholder="CNPJ">
+                <input type="text" name = "cnpj" id="cnpj" class="hidden" placeholder="CNPJ">
                 <button type="submit">Registrar</button>
             </form>
     </div>
     <script>
+        document.getElementById('tipo').addEventListener('change', function() {
+            let cnpjField = document.getElementById('cnpj');
+            if (this.value === 'usuario') {
+                cnpjField.classList.remove('hidden');
+            } else {
+                cnpjField.classList.add('hidden');
+            }
+        });
         document.getElementById('formCadastro').addEventListener('submit', function(event) {
         event.preventDefault(); // Impede o envio padrão do formulário
 

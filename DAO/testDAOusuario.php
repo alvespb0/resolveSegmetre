@@ -12,7 +12,7 @@ $empresa->CNPJEmpresa = 123456789;
 
 $usuario = new Usuario;
 $usuario->nomeFuncionario = "arthur";
-$usuario->emailUsuario = "arthur@gmail";
+$usuario->emailUsuario = "arthur1@gmail";
 $usuario->senhaUsuario = "123456";
 
 $daoUsuario = new DAOusuario;
