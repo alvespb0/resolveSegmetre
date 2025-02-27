@@ -122,7 +122,7 @@ include_once('navbar.php');
             .then(data => {
                 if (data.message) {
                     alert(data.message);
-                    window.location.href = "dashboard.php"; // Redireciona para a área logada
+                    window.location.href = "dashboard.php"; //  // Redireciona para a área logada
                 }
                 if (data.error) {
                     alert(data.error);

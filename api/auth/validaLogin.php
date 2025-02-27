@@ -27,6 +27,9 @@ if (!isset($data['email']) || !isset($data['senha']) || !isset($data['type'])) {
                 $_SESSION['userName'] = $usuario['name'];
                 $_SESSION['empresaId'] = $usuario['company_id'];
 
+                echo json_encode($_SESSION);
+                exit;
+
                 echo json_encode(["message" => "Login Efetuado!",
                                   "userName" => $usuario['name'],
                                   "empresaId" => $usuario['company_id']]);
