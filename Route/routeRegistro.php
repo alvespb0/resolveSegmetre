@@ -9,9 +9,14 @@ if (!isset($data['type']) || !isset($data['usuario']) || !isset($data['senha']))
 }else{
     $type = $data['type'];
     if ($type === 'operador') {
-        $url = "auth/registerOperador.php";
+        $url = (isset($_SERVER['HTTP_HOST']) && $_SERVER['HTTP_HOST'] !== 'localhost') ? 
+        "http://{$_SERVER['HTTP_HOST']}/resolvesegmetre/api/auth/registerOperador.php" : 
+        "http://localhost/resolvesegmetre/api/auth/registerOperador.php";
+        
     } elseif ($type === 'usuario') {
-        $url = "auth/registerUsuario.php";
+        $url = (isset($_SERVER['HTTP_HOST']) && $_SERVER['HTTP_HOST'] !== 'localhost') ? 
+        "http://{$_SERVER['HTTP_HOST']}/resolvesegmetre/api/auth/registerUsuario.php" : 
+        "http://localhost/resolvesegmetre/api/auth/registerUsuario.php";
     } else {
         echo json_encode(["error" => "Tipo inválido"]);
         exit;

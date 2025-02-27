@@ -1,6 +1,6 @@
 <?php
-$host = "localhost"; // ou o IP do seu servidor MySQL
-$dbname = "segmetre"; // Nome do banco de dados
-$username = "root"; // Usuário do banco
+$dbhost = "localhost"; // ou o IP do seu servidor MySQL
+$banco = "segmetre"; // Nome do banco de dados
+$user = "root"; // Usuário do banco
 $password = ""; // Senha do banco
 ?>

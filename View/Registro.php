@@ -13,7 +13,6 @@ include_once('navbar.php');
         }
         .container1 {
             font-family: Arial, sans-serif;
-            
             display: flex;
             justify-content: center;
             align-items: center;
@@ -98,24 +97,30 @@ include_once('navbar.php');
             data[key] = value;
         });
 
-        fetch('route.php', { 
+        fetch('../Route/routeRegistro.php', { 
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify(data),
         })
-        .then(response => response.json())
+        .then(response => response.json())  // Converte a resposta para JSON
         .then(data => {
-            console.log('Success:', data); 
+        console.log('Success:', data);
+        if (data.message) {
+            alert(data.message);  // Exibe a mensagem em um alerta
+        }
+        if (data.error) {
+            alert(data.error);  // Exibe a mensagem de erro em um alerta
+        }
         })
         .catch((error) => {
-            console.error('Error:', error); // Caso ocorra algum erro
+            console.error('Error:', error);
         });
+
         });
     </script>
 
     </div>
 </body>
 </html>
-
