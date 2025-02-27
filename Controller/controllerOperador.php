@@ -32,5 +32,21 @@ class ControllerOperador{
             return false;
         }
     }
+
+    /**
+     * Recebe um email e chama a função getOperador
+     * @param string
+     * @return Array|false
+     */
+    public function obtainOperador($email){
+        $daoOperador = new DAOoperador;
+        $operador = $daoOperador->getOperador($email);
+
+        if($operador){
+            return $operador;
+        }else{
+            return false;
+        }
+    }
 }
 ?>

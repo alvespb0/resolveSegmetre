@@ -7,15 +7,16 @@ use models\Empresa;
 use models\Usuario;
 use DAO\DAOusuario;
 
-$empresa = new Empresa;
+/* $empresa = new Empresa;
 $empresa->CNPJEmpresa = 123456789;
 
 $usuario = new Usuario;
 $usuario->nomeFuncionario = "arthur";
 $usuario->emailUsuario = "arthur1@gmail";
 $usuario->senhaUsuario = "123456";
-
+ */
 $daoUsuario = new DAOusuario;
 
-$daoUsuario->addUsuario($usuario, $empresa);
+$teste = $daoUsuario->getUsuario("adami@postmaster");
+var_dump($teste);
 ?>

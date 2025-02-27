@@ -26,7 +26,7 @@ class DAOoperador{
             define('BASE_DIR', dirname(__FILE__) . DS);
         }
 
-        require_once($_SERVER['DOCUMENT_ROOT'] . '/ResolveSegmetre/api/config/database.php'); // Inclui as configurações do banco de dados
+        require(BASE_DIR . '../api/config/database.php'); // Inclui as configurações do banco de dados
 
         try {
             $conn = new \MySQLi($dbhost, $user, $password, $banco);  // Cria a conexão
@@ -66,6 +66,43 @@ class DAOoperador{
         }catch(\Exception $e){
             echo json_encode(["error"=>$e->getMessage()]);
         }
+    }
+
+    /**
+     * Faz a busca do Operador dado Email 
+     * e para o valida login
+     * @return Array|Exception
+     */
+    public function getOperador($email){
+        try{
+            $conexaoDB = $this->conectarBanco();
+        }catch(\Exception $e){
+            die($e->getMessage());
+        }
+
+        try{
+            $sqlSelect = $conexaoDB->prepare("SELECT * FROM operators where email = ?");
+            $sqlSelect->bind_param("s", $email);
+            $sqlSelect->execute();
+
+            $resultado = $sqlSelect->get_result();
+
+            if($resultado->num_rows > 0){
+                $operador = $resultado->fetch_assoc();
+                $sqlSelect->close();
+                $conexaoDB->close();
+                return $operador;
+            }else{
+                $sqlSelect->close();
+                $conexaoDB->close();
+                return json_encode(['message'=>'nenhum operador encontrado']);
+            }
+        }catch(\Exception $e){
+            $sqlSelect->close();
+            $conexaoDB->close();
+            return ['error' => 'Erro na consulta: ' . $e->getMessage()];
+        }
+
     }
 }
 

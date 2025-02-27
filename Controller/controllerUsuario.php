@@ -1,7 +1,7 @@
 <?php
 namespace controllers;
 
-require_once($_SERVER['DOCUMENT_ROOT'] . '/ResolveSegmetre/DAO/DAOUsuario.php');
+require_once($_SERVER['DOCUMENT_ROOT'] . '/ResolveSegmetre/DAO/daoUsuario.php');
 require_once($_SERVER['DOCUMENT_ROOT'] . '/ResolveSegmetre/Model/empresa.php');
 require_once($_SERVER['DOCUMENT_ROOT'] . '/ResolveSegmetre/Model/usuario.php');
 
@@ -34,6 +34,22 @@ class ControllerUsuario{
 
         if($return){
             return true;
+        }else{
+            return false;
+        }
+    }
+
+    /**
+     * Recebe um email e chama a função getUsuario
+     * @param string
+     * @return Array|false
+     */
+    public function obtainUsuario($email){
+        $daoUsuario = new DAOusuario;
+        $usuario = $daoUsuario->getUsuario($email);
+
+        if($usuario){
+            return $usuario;
         }else{
             return false;
         }

@@ -109,5 +109,40 @@ class DAOusuario{
         }
     }
 
+    /**
+     * Faz a busca do usuario dado Email 
+     * e para o valida login
+     * @return Array|Exception
+     */
+    public function getUsuario($email){
+        try{
+            $conexaoDB = $this->conectarBanco();
+        }catch(\Exception $e){
+            die($e->getMessage());
+        }
+
+        try{
+            $sqlSelect = $conexaoDB->prepare("SELECT * FROM users where email = ?");
+            $sqlSelect->bind_param("s", $email);
+            $sqlSelect->execute();
+
+            $resultado = $sqlSelect->get_result();
+
+            if($resultado->num_rows > 0){
+                $usuario = $resultado->fetch_assoc();
+                $sqlSelect->close();
+                $conexaoDB->close();
+                return $usuario;
+            }else{
+                $sqlSelect->close();
+                $conexaoDB->close();
+                return json_encode(['message'=>'nenhum usuário encontrado']);
+            }
+        }catch(\Exception $e){
+            $sqlSelect->close();
+            $conexaoDB->close();
+            return ['error' => 'Erro na consulta: ' . $e->getMessage()];
+        }
+    }
 }
 ?>
