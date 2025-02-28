@@ -122,7 +122,25 @@ include_once('navbar.php');
             .then(data => {
                 if (data.message) {
                     alert(data.message);
-                    window.location.href = "dashboard.php"; //  // Redireciona para a área logada
+
+                    fetch("../SetSession/setSession.php", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({
+                        userName: data.userName,
+                        empresaId: data.empresaId
+                    })
+                    })
+                    .then(response => response.json())
+                    .then(result => {
+                        if (data.type === "operador") {
+                            window.location.href = "dashboardOperador.php";
+                        } else {
+                            window.location.href = "dashboard.php";
+                        }
+                    })
                 }
                 if (data.error) {
                     alert(data.error);

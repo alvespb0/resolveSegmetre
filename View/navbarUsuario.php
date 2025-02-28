@@ -40,7 +40,7 @@
 <body>
     <div class="navbar">
         <div class="user-info">
-            <span>Olá, <?php echo ""; ?>!</span>
+            <span>Olá, <?php echo $_SESSION['userName']; ?>!</span>
         </div>
         <div>
             <a href="logout.php">Sair</a>

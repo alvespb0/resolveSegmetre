@@ -23,16 +23,10 @@ if (!isset($data['email']) || !isset($data['senha']) || !isset($data['type'])) {
         if(is_array($usuario)){
             if($usuario['email'] && password_verify($password, $usuario['password_hash'])){
 
-                session_start();
-                $_SESSION['userName'] = $usuario['name'];
-                $_SESSION['empresaId'] = $usuario['company_id'];
-
-                echo json_encode($_SESSION);
-                exit;
-
                 echo json_encode(["message" => "Login Efetuado!",
                                   "userName" => $usuario['name'],
-                                  "empresaId" => $usuario['company_id']]);
+                                  "empresaId" => $usuario['company_id'],
+                                  "type" => "usuario"]);
             }else{
                 echo json_encode(["error" => "Login e/ou senha incorreta!"]); // ele valida que é uma array então existe usuario com esse email, mas a senha está errada
             }
@@ -44,11 +38,10 @@ if (!isset($data['email']) || !isset($data['senha']) || !isset($data['type'])) {
         $operador = $controllerOperador->obtainOperador($email);
         if(is_array($operador)){
             if($operador && password_verify($password, $operador['password_hash'])){
-
-                session_start();
-                $_SESSION['userName'] = $operador['name'];
                 echo json_encode(["message" => "Login Efetuado!",
-                                  "userName" => $operador['name']]);
+                                  "userName" => $operador['name'],
+                                  "empresaId" => null,
+                                  "type" => "operador"]);
             }else{
                 echo json_encode(["error" => "Login e/ou senha incorreta!"]); // ele valida que é uma array então existe usuario com esse email, mas a senha está errada
             }

@@ -1,10 +1,7 @@
 <?php
-if (session_status() != PHP_SESSION_ACTIVE) {
-    echo "sessão não iniciada";
-    session_start();
-}else{
-    echo "teste";
-}
+session_start();
+echo $_SESSION['userName'];
+echo $_SESSION['empresaId'];
 ?>
 <!DOCTYPE html>
 <html lang="pt-BR">
@@ -76,7 +73,7 @@ if (session_status() != PHP_SESSION_ACTIVE) {
     </style>
 </head>
 <body>
-    <?php include 'navbarUsuario.php'; ?>
+    <?php include 'navbarUsuario.php';  ?>
     <div class="container">
         <h2>Arquivos Disponíveis</h2>
         <table>
@@ -101,5 +98,6 @@ if (session_status() != PHP_SESSION_ACTIVE) {
             </tbody>
         </table>
     </div>
+    <?php include 'footer.php'; ?>
 </body>
 </html>
