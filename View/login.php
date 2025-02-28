@@ -130,7 +130,8 @@ include_once('navbar.php');
                     },
                     body: JSON.stringify({
                         userName: data.userName,
-                        empresaId: data.empresaId
+                        empresaId: data.empresaId,
+                        type: data.type
                     })
                     })
                     .then(response => response.json())
