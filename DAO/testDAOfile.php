@@ -1,19 +1,16 @@
 <?php
-require_once 'daoFiles.php';
-require_once '../Model/files.php';
+require_once 'daoUsuario.php';
 
-use models\Files;
-use DAO\DAOfiles;
+use DAO\DAOusuario;
 
-$file = new files;
-$file->nameFile = "teste";
-$file->filePath = "teste/teste";
-$file->dataUpload = "16/10/2005";
-$file->userId = 16;
-$file->companyId = 11;
 
-$dao = new DAOfiles;
 
-$dao->addFile($file);
+$dao = new DAOusuario;
+
+$resultado = $dao->getIdCompany();
+
+foreach ($resultado as $name => $company_id) {
+    echo "Nome da Empresa: " . $name . " | ID da Empresa: " . $company_id . "<br>";
+}
 
 ?>

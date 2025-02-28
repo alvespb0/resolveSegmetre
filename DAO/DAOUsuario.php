@@ -144,5 +144,41 @@ class DAOusuario{
             return ['error' => 'Erro na consulta: ' . $e->getMessage()];
         }
     }
+
+    /**
+     * Faz a busca de todos os usuarios e idcompanys vinculados
+     * @return Array|Exception
+     */
+    public function getIdCompany(){
+        try{
+            $conexaoDB = $this->conectarBanco();
+        }catch(\Exception $e){
+            die($e->getMessage());
+        }
+
+        try{
+            $sqlSelect = "SELECT company_id, `name` from users";
+            $resultado = $conexaoDB->query($sqlSelect);
+
+            $companies = array();
+
+            if ($resultado->num_rows > 0) {
+                while ($row = $resultado->fetch_assoc()) {
+                    $companies[$row['name']] = $row['company_id'];
+                }
+                $conexaoDB->close();
+                return $companies;
+            }else{
+                $conexaoDB->close();
+                return json_encode("Nenhuma empresa localizada!!");
+            }
+
+
+        }catch(\Exception $e){
+            $sqlSelect->close();
+            $conexaoDB->close();
+            return ['error' => 'Erro na consulta: ' . $e->getMessage()];
+        }
+    }
 }
 ?>

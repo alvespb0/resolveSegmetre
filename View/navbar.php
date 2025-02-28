@@ -5,10 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Navbar</title>
     <style>
-        body {
-            margin: 0;
-            font-family: 'Arial', sans-serif;
-        }
+
         .navbar {
             background: linear-gradient(135deg, #518076, #79a79a);
             display: flex;

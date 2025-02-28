@@ -1,9 +1,18 @@
 <?php
-require_once ('../')
+require_once ('../Controller/controllerUsuario.php');
+use controllers\ControllerUsuario;
 session_start();
 var_dump($_SESSION);
 
+$controllerUsuario = new ControllerUsuario;
 
+$empresas = $controllerUsuario->obtainIdCompany();
+
+if ($_SESSION['type'] !== 'operador') {
+    echo json_encode(["error" => "tela somente de operadores!"]);
+    header("Location: http://{$_SERVER['HTTP_HOST']}/resolvesegmetre/View/Login.php");
+    exit; // Importante para interromper a execução após o redirecionamento
+}else{
 ?>
 
 <!DOCTYPE html>
@@ -17,12 +26,15 @@ var_dump($_SESSION);
         .dashboard-container {
             display: flex;
             justify-content: center;
-            align-items: center;
-            min-height: 100vh;
+            align-items: flex-start; /* Ajusta o alinhamento para o topo */
             background-color: #eef2f3;
             margin: 0;
+            padding: 1.8%; /* Remover qualquer padding-top fixo */
+            overflow: hidden; /* Impede o scroll na página */
+            position: relative; /* Garantir que o container não seja fixo */
         }
 
+        /* Form Container */
         .form-container {
             background: white;
             padding: 30px;
@@ -31,6 +43,8 @@ var_dump($_SESSION);
             width: 100%;
             max-width: 600px;
             transition: 0.3s;
+            overflow-y: auto; /* Permite o scroll interno, se necessário, no formulário */
+            height: 100%; /* Ocupa a altura disponível */
         }
 
         .form-container:hover {
@@ -48,7 +62,7 @@ var_dump($_SESSION);
         .form-container label {
             font-size: 16px;
             color: #333;
-            margin: 10px 0 5px;
+            margin: 20px 0 5px;
             display: block;
         }
 
@@ -123,6 +137,13 @@ var_dump($_SESSION);
                 <label for="company">Empresa:</label>
                 <select name="company_id" id="company" required>
                     <option value="">Selecione uma empresa</option>
+                    <?php
+                    foreach ($empresas as $name => $company_id) {
+                        echo "<option value'".$company_id."'>";
+                        echo $name;
+                        echo "</option>";
+                    }
+                    ?>
                     <!-- Opções das empresas serão inseridas aqui -->
                 </select>
 
@@ -173,3 +194,4 @@ var_dump($_SESSION);
 
 </body>
 </html>
+<?php } ?>

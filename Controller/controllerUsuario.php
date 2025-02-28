@@ -54,5 +54,19 @@ class ControllerUsuario{
             return false;
         }
     }
+
+    /**
+     * Recebe todos os logins de usuarios e sua company_id em forma de array associativa
+     * @return Array|Exception
+     */
+    public function obtainIdCompany(){
+        $daoUsuario = new DAOusuario;
+        try{
+        $empresas = $daoUsuario->getIdCompany();
+        return $empresas;
+        }catch(\Exception $e){
+            return ['error' => 'Erro: ' . $e->getMessage()];
+        }
+    }
 }
 ?>

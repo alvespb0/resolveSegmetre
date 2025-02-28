@@ -2,6 +2,7 @@
 header("Content-Type: application/json");
 
 // Verifica se o arquivo foi enviado
+
 if (!isset($_FILES['file']) || !isset($_POST['company_id']) || !isset($_POST['file_name']) || !isset($_POST['upload_date'])) {
     echo json_encode(["error" => "Campos obrigatórios faltantes."]);
     exit;
