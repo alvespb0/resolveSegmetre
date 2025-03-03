@@ -13,12 +13,12 @@ echo $_SESSION['empresaId'];
         body {
             margin: 0;
             font-family: 'Arial', sans-serif;
-            background-color: #eef2f3;
+            background-color: #DDEDEB; /* Verde suave para fundo */
             text-align: center;
         }
         .container {
             max-width: 900px;
-            margin: 40px auto;
+            margin: 60px auto;
             background: white;
             padding: 30px;
             border-radius: 12px;
@@ -30,9 +30,10 @@ echo $_SESSION['empresaId'];
             box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
         }
         h2 {
-            color: #333;
-            font-size: 24px;
+            color: #1F7262; /* Cor do logo */
+            font-size: 26px;
             margin-bottom: 20px;
+            font-weight: bold;
         }
         table {
             width: 100%;
@@ -49,15 +50,16 @@ echo $_SESSION['empresaId'];
             text-align: left;
         }
         th {
-            background: linear-gradient(135deg, #518076, #79a79a);
+            background: linear-gradient(135deg, #1F7262, #3CA597);
             color: white;
             font-size: 16px;
+            text-transform: uppercase;
         }
         tr:hover {
             background-color: #f1f1f1;
         }
         .btn-download {
-            background: linear-gradient(135deg, #518076, #79a79a);
+            background: linear-gradient(135deg, #1F7262, #3CA597);
             color: white;
             padding: 10px 15px;
             border: none;
@@ -67,7 +69,7 @@ echo $_SESSION['empresaId'];
             font-weight: bold;
         }
         .btn-download:hover {
-            background: linear-gradient(135deg, #406659, #5c8b7f);
+            background: linear-gradient(135deg, #165A50, #2B8A7A);
             transform: scale(1.05);
         }
     </style>

@@ -16,7 +16,7 @@ include_once('navbar.php');
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
+            height: 75vh;
             margin: 0;
         }
         .container {
@@ -153,5 +153,6 @@ include_once('navbar.php');
             });
         });
     </script>
+    <?php include 'footer.php';?>
 </body>
 </html>

@@ -11,7 +11,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         echo json_encode(["success" => true]);
     }else if($data['type'] === 'usuario'){
         $_SESSION['userName'] = $data['userName'];
-        $_SESSION['userType'] = $data['type'];
+        $_SESSION['type'] = $data['type'];
         $_SESSION['empresaId'] = $data['empresaId'];
         echo json_encode(["success" => true]);
     }

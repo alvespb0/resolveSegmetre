@@ -30,21 +30,18 @@ if ($_SESSION['type'] !== 'operador') {
             background-color: #eef2f3;
             margin: 0;
             padding: 1.8%; /* Remover qualquer padding-top fixo */
-            overflow: hidden; /* Impede o scroll na página */
-            position: relative; /* Garantir que o container não seja fixo */
+            position: center; /* Garantir que o container não seja fixo */
         }
 
         /* Form Container */
         .form-container {
             background: white;
-            padding: 30px;
+            padding: 22px;
             border-radius: 12px;
             box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
             width: 100%;
             max-width: 600px;
             transition: 0.3s;
-            overflow-y: auto; /* Permite o scroll interno, se necessário, no formulário */
-            height: 100%; /* Ocupa a altura disponível */
         }
 
         .form-container:hover {
@@ -127,7 +124,14 @@ if ($_SESSION['type'] !== 'operador') {
     </style>
 </head>
 <body>
-<?php include 'navbar.php';  ?>
+<?php 
+if($_SESSION['userName'] == 'administrator'){
+    include 'navbarAdministrador.php';
+}else{
+    include 'navbarOperador.php';  
+}
+
+?>
     <div class="dashboard-container">
         
         <div class="form-container">

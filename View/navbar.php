@@ -5,9 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Navbar</title>
     <style>
-
         .navbar {
-            background: linear-gradient(135deg, #518076, #79a79a);
+            background: linear-gradient(135deg, #1F7262, #3CA597); /* Tons baseados no logo */
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -15,6 +14,7 @@
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
             border-radius: 0 0 12px 12px;
         }
+
         .navbar a {
             color: white;
             text-decoration: none;
@@ -24,10 +24,21 @@
             border-radius: 8px;
             transition: 0.3s ease-in-out;
         }
+
         .navbar a:hover {
             background: rgba(255, 255, 255, 0.2);
             transform: scale(1.05);
         }
+
+        .navbar-brand img {
+            height: 35px;
+        }
+
+        .menu {
+            display: flex;
+            align-items: center;
+        }
+
         .hidden {
             display: none;
         }
@@ -35,20 +46,14 @@
 </head>
 <body>
     <div class="navbar">
-        <div>
+        <a href="index.php" class="navbar-brand">
+            <img src="logo1.png" alt="Logo" >
+        </a>
+        <div class="menu">
             <a href="login.php">Login</a>
-            <a href="registro.php">Registro</a>
-        </div>
-        <div id="operadorMenu" class="hidden">
-            <a href="cadastro_arquivo.php">Cadastro de Arquivo</a>
+            <a href="sobre.php">Sobre</a>
+            <a href="contato.php">Contato</a>
         </div>
     </div>
-    <script>
-        // Simulando sessão de usuário logado
-        let usuarioLogado = "operador"; // Alterar para "usuario" para testar
-        if (usuarioLogado === "operador") {
-            document.getElementById("operadorMenu").classList.remove("hidden");
-        }
-    </script>
 </body>
 </html>

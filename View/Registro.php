@@ -1,5 +1,13 @@
 <?php
-include_once('navbar.php');
+session_start();
+include_once('navbarAdministrador.php');
+
+if (!isset($_SESSION['userName']) || $_SESSION['userName'] !== 'administrator') {
+    // Redireciona o usuário não autorizado
+    header("Location: http://{$_SERVER['HTTP_HOST']}/resolvesegmetre/View/Login.php");
+    exit(); // Garante que o código abaixo não será executado
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="pt-BR">
@@ -130,5 +138,6 @@ include_once('navbar.php');
     </script>
 
     </div>
+    <?php include 'footer.php';?>
 </body>
 </html>

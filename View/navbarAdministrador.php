@@ -46,7 +46,8 @@
             <span>Olá, <?php echo $_SESSION['userName']; ?>!</span>
         </div>
         <div>
-        <a href="../setSession/logout.php">Sair</a>
+            <a href="Registro.php">Registro</a>
+            <a href="../setSession/logout.php">Sair</a>
         </div>
     </div>
 </body>

@@ -14,7 +14,7 @@
             flex: 1;
         }
         .footer {
-            background: linear-gradient(135deg, #518076, #79a79a);
+            background: linear-gradient(135deg, #1F7262, #3CA597); /* Cores ajustadas ao logo */
             color: white;
             text-align: center;
             padding: 15px 20px;
@@ -28,10 +28,10 @@
             left: 0;
         }
         .footer a {
-            color: white;
+            color: #FFD700; /* Amarelo ouro para destacar links */
             text-decoration: none;
             font-weight: bold;
-            transition: 0.3s;
+            transition: 0.3s ease-in-out;
         }
         .footer a:hover {
             text-decoration: underline;
