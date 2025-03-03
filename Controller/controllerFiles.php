@@ -35,6 +35,18 @@ class ControllerFiles{
             return false;
         }
     }
+
+    /**
+     * recebe um ID de empresa e retorna um array 
+     * @param int
+     * @return Array
+     */
+    public function obtainFilesbyId($id){
+        $daoFile = new DAOfiles();
+        $return = $daoFile->getFilesById($id);
+
+        return $return;
+    }
 }
 
 ?>

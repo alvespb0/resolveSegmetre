@@ -31,7 +31,7 @@
         }
 
         .navbar-brand img {
-            height: 35px;
+            height: 27px;
         }
 
         .menu {

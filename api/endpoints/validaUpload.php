@@ -19,8 +19,10 @@ if (!is_dir($path)) { #Verifica se a pasta não existe
         $destination = $path . "/" . basename($fileData['name']);
         if (move_uploaded_file($fileData['tmp_name'], $destination)) {
             #entra nessa condição se conseguiu mover o arquivo para a path
+            $destination = str_replace("\\", "/", $destination);
+
             $controllerFiles = new ControllerFiles;
-            $return = $controllerFiles->createFile($postData, $path);
+            $return = $controllerFiles->createFile($postData, $destination);
             if($return){
                 echo json_encode([
                     "message" => "Arquivo enviado com sucesso!",
@@ -47,8 +49,10 @@ if (!is_dir($path)) { #Verifica se a pasta não existe
     #entra nessa condição se a path existe
     $destination = $path . "/" . basename($fileData['name']);
     if (move_uploaded_file($fileData['tmp_name'], $destination)) {
+        $destination = str_replace("\\", "/", $destination);
+
         $controllerFiles = new ControllerFiles;
-        $return = $controllerFiles->createFile($postData, $path);
+        $return = $controllerFiles->createFile($postData, $destination);
         if($return){
             echo json_encode([
                 "message" => "Arquivo enviado com sucesso!",

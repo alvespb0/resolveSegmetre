@@ -1,8 +1,14 @@
 <?php
 session_start();
-echo $_SESSION['userName'];
-echo $_SESSION['empresaId'];
-?>
+
+require '../Controller/controllerFiles.php';
+use controllers\ControllerFiles;
+
+$controllerFiles = new ControllerFiles;
+
+$files = $controllerFiles->obtainFilesbyId($_SESSION['empresaId']);
+/* var_dump($files);
+ */?>
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -81,25 +87,71 @@ echo $_SESSION['empresaId'];
         <table>
             <thead>
                 <tr>
+                    <th>ID</th>
                     <th>Nome do Arquivo</th>
                     <th>Data</th>
                     <th>Ação</th>
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td>Exame_123.pdf</td>
-                    <td>25/02/2025</td>
-                    <td><button class="btn-download">Download</button></td>
-                </tr>
-                <tr>
-                    <td>ASO_456.pdf</td>
-                    <td>24/02/2025</td>
-                    <td><button class="btn-download">Download</button></td>
-                </tr>
+            <?php foreach ($files as $file) : ?>
+            <tr>
+                <td><?= $file['id'] ?></td>
+                <td><?= htmlspecialchars($file['file_name']) ?></td>
+                <td><?= date("d/m/Y", strtotime($file['uploaded_at'])) ?></td>
+                <td>
+                    <button class="btn-download" data-id="<?= $file['id'] ?>" data-path="<?= htmlspecialchars($file['file_path']) ?>">
+                        Download
+                    </button>
+                    </a>
+                </td>
+            </tr>
+        <?php endforeach; ?>
+
             </tbody>
         </table>
     </div>
     <?php include 'footer.php'; ?>
+    <script>
+        document.querySelectorAll('.btn-download').forEach(button => {
+            button.addEventListener('click', function() {
+                const fileId = this.getAttribute('data-id'); // Pega o ID do arquivo
+                const filePath = this.getAttribute('data-path'); // Pega o caminho do arquivo
+
+                fetch('../Route/routeDownload.php', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ id: fileId, path: filePath }) // Envia ID e path
+                })
+                .then(response => {
+                    // Verifica se a resposta é válida
+                    if (response.ok) {
+                        return response.blob(); // Converte a resposta em um blob (arquivo)
+                    }
+                    throw new Error('Erro ao processar download.');
+                })
+                .then(blob => {
+                    // Cria um link temporário para o download
+                    const url = window.URL.createObjectURL(blob);
+                    const a = document.createElement('a');
+                    a.style.display = 'none';
+                    a.href = url;
+                    a.download = filePath.split('/').pop(); // Pega o nome do arquivo do path
+                    document.body.appendChild(a);
+                    a.click();
+                    window.URL.revokeObjectURL(url); // Libera o URL após o download
+                })
+                .catch(error => {
+                    console.error("Erro na requisição:", error);
+                    alert("Erro no download: " + error.message);
+                });
+            });
+        });
+
+    </script>
+
+
 </body>
 </html>

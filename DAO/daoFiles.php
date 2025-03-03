@@ -69,5 +69,40 @@ class DAOfiles{
         }
     }
 
+    /**
+     * recebe o id da empresa e retorna todos os files vinculados nesse 
+     * @param int
+     * @return Array|Exception
+     */
+    public function getFilesById($id){
+        try{
+            $conexaoDB = $this->conectarBanco();
+        }catch(\Exception $e){
+            die($e->getMessage());
+        }
+
+        try{
+            $sqlSelect = $conexaoDB->prepare("SELECT * FROM files where company_id = ?");
+            $sqlSelect->bind_param("i", $id);
+            $sqlSelect->execute();
+            $resultado = $sqlSelect->get_result();
+
+            $files = [];
+
+            if($resultado->num_rows > 0){
+                while ($row = $resultado->fetch_assoc()) {
+                    $files[] = $row; // Adiciona cada linha no array
+                }
+                $sqlSelect->close();
+                $conexaoDB->close();
+                return $files;
+            }else{
+                return json_encode(["Error" => "Nenhum arquivo localizado"]);
+            }
+        }catch(\Exception $e){
+            echo json_encode(["error"=>$e->getMessage()]);
+        }
+    }
+
 }
 ?>
