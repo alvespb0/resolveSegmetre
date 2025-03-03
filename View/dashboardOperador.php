@@ -134,12 +134,13 @@ if ($_SESSION['type'] !== 'operador') {
             <h2>Upload de Arquivo</h2>
             
             <form id="uploadForm" enctype="multipart/form-data">
+                <input type="hidden" name="OperadorId" value = "<?php echo $_SESSION['idOperador']; ?>">
                 <label for="company">Empresa:</label>
                 <select name="company_id" id="company" required>
                     <option value="">Selecione uma empresa</option>
                     <?php
                     foreach ($empresas as $name => $company_id) {
-                        echo "<option value'".$company_id."'>";
+                        echo "<option value='".$company_id."'>";
                         echo $name;
                         echo "</option>";
                     }
@@ -179,7 +180,6 @@ if ($_SESSION['type'] !== 'operador') {
             .then(data => {
                 if (data.message) {
                     alert(data.message);
-                    window.location.href = "dashboardOperador.php"; // ou para qualquer outra página
                 }
                 if (data.error) {
                     alert(data.error);

@@ -131,6 +131,7 @@ include_once('navbar.php');
                     body: JSON.stringify({
                         userName: data.userName,
                         empresaId: data.empresaId,
+                        operadorId: data.operadorId,
                         type: data.type
                     })
                     })

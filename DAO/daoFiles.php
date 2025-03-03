@@ -47,11 +47,11 @@ class DAOfiles{
         }catch(\Exception $e){
             die($e->getMessage());
         }
-        
+
         try{
-            $sqlInsert = $conexaoDB->prepare("INSERT INTO files(company_id, file_name, file_path, uploaded_at, user_id)
+            $sqlInsert = $conexaoDB->prepare("INSERT INTO files(company_id, file_name, file_path, uploaded_at, operator_id)
                                              values (?,?,?,?,?)");
-            $sqlInsert->bind_param("isssi", $file->companyId, $file->nameFile, $file->filePath, $file->dataUpload, $file->userId);
+            $sqlInsert->bind_param("isssi", $file->companyId, $file->nameFile, $file->filePath, $file->dataUpload, $file->operatorId);
             $sqlInsert->execute();
 
             if(!$sqlInsert->error){

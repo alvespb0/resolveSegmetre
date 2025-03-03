@@ -40,6 +40,7 @@ if (!isset($data['email']) || !isset($data['senha']) || !isset($data['type'])) {
             if($operador && password_verify($password, $operador['password_hash'])){
                 echo json_encode(["message" => "Login Efetuado!",
                                   "userName" => $operador['name'],
+                                  "operadorId" => $operador['id'],
                                   "empresaId" => null,
                                   "type" => "operador"]);
             }else{

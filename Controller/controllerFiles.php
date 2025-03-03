@@ -18,16 +18,16 @@ class ControllerFiles{
      * @param Array data
      * @return bool
      */
-    public function createFile($data){
+    public function createFile($postData, $path){
         $file = new Files;
-        $file->nameFile = $data['nameFile'];
-        $file->filePath = $data['filePath'];
-        $file->dataUpload = $data['data'];
-        $file->userId = $data['userId'];
-        $file->companyId = $data['companyId'];
+        $file->nameFile = $postData['file_name'];
+        $file->filePath = $path;
+        $file->dataUpload = $postData['upload_date'];
+        $file->operatorId = $postData['operadorId'];
+        $file->companyId = $postData['company_id'];
 
         $daoFile = new DAOfiles();
-        $return = $daoOperador->addFile($data);
+        $return = $daoFile->addFile($file);
 
         if($return){
             return true;

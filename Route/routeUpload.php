@@ -18,6 +18,7 @@ $data = [
     'company_id' => $_POST['company_id'],
     'file_name' => $_POST['file_name'],
     'upload_date' => $_POST['upload_date'],
+    'operadorId' => $_POST['OperadorId'],
     'file' => new CURLFile($_FILES['file']['tmp_name'], $_FILES['file']['type'], $_FILES['file']['name'])
 ];
 

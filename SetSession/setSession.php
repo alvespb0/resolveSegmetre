@@ -6,6 +6,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     if($data['type'] === 'operador'){
         $_SESSION['userName'] = $data['userName'];
         $_SESSION['type'] = $data['type'];
+        $_SESSION['idOperador'] = $data['operadorId'];
         $_SESSION['empresaId'] = null;
         echo json_encode(["success" => true]);
     }else if($data['type'] === 'usuario'){

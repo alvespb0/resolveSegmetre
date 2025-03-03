@@ -31,10 +31,10 @@ class Files{
     public $dataUpload;
 
     /**
-     * chave estrangeira referente a user ID (no banco é user_id)
+     * chave estrangeira referente a operator ID (no banco é operator_id)
      * @var int
      */
-    public $userId;
+    public $operatorId;
 
     /**
      * chave estrangeira referente ao ID da empresa (no banco é company_id)
@@ -42,12 +42,12 @@ class Files{
      */
     public $companyId;
 
-    public function __construct($idFile = null, $nameFile = null, $filePath = null, $dataUpload = null, $userId = null, $companyId = null){
+    public function __construct($idFile = null, $nameFile = null, $filePath = null, $dataUpload = null, $operatorId = null, $companyId = null){
         $this->idFile = $idFile;
         $this->nameFile = $nameFile;
         $this->filePath = $filePath;
         $this->dataUpload = $dataUpload;
-        $this->userId = $userId;
+        $this->operatorId = $operatorId;
         $this->companyId = $companyId;
     }
 }
