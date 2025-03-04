@@ -48,5 +48,30 @@ class ControllerOperador{
             return false;
         }
     }
+
+    /**
+     * recebe uma array de todos os operadores, não é necessário ajustar dados
+     * @return Array|false
+     */
+    public function obtainAllOperadores(){
+        $daoOperador = new DAOoperador;
+        $operadores = $daoOperador->getAllOperadores();
+
+        if($operadores){
+            return $operadores;
+        }else{
+            return false;
+        }
+    }
+
+    /**
+     * recebe um id e deleta o operador vinculado a esse id
+     * @param int
+     * @return bool
+     */
+    public function deleteOperador($id){
+        $daoOperador = new DAOoperador;
+        $daoOperador->deleteOperadorById($id);
+    }
 }
 ?>

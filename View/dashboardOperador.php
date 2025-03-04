@@ -2,7 +2,6 @@
 require_once ('../Controller/controllerUsuario.php');
 use controllers\ControllerUsuario;
 session_start();
-var_dump($_SESSION);
 
 $controllerUsuario = new ControllerUsuario;
 
@@ -22,15 +21,20 @@ if ($_SESSION['type'] !== 'operador') {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard Operador</title>
     <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #DDEDEB; /* Verde suave para o fundo de toda a página */
+        }
         /* Estilização para o conteúdo específico da página */
         .dashboard-container {
             display: flex;
             justify-content: center;
             align-items: flex-start; /* Ajusta o alinhamento para o topo */
-            background-color: #eef2f3;
+            background-color: #DDEDEB;
             margin: 0;
             padding: 1.8%; /* Remover qualquer padding-top fixo */
-            position: center; /* Garantir que o container não seja fixo */
+            position: relative; /* Garantir que o container não seja fixo */
         }
 
         /* Form Container */
@@ -76,7 +80,7 @@ if ($_SESSION['type'] !== 'operador') {
         }
 
         .form-container button {
-            background: linear-gradient(135deg, #518076, #79a79a);
+            background: linear-gradient(135deg, #1F7262, #3CA597);
             color: white;
             padding: 10px 15px;
             border: none;
@@ -149,7 +153,6 @@ if($_SESSION['userName'] == 'administrator'){
                         echo "</option>";
                     }
                     ?>
-                    <!-- Opções das empresas serão inseridas aqui -->
                 </select>
 
                 <label for="file_name">Nome do Arquivo:</label>

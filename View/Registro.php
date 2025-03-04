@@ -17,7 +17,7 @@ if (!isset($_SESSION['userName']) || $_SESSION['userName'] !== 'administrator') 
     <title>Registro</title>
     <style>
         body{
-            background-color: #f4f4f4;
+            background-color: #DDEDEB;
         }
         .container1 {
             font-family: Arial, sans-serif;

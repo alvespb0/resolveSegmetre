@@ -102,6 +102,63 @@ class DAOoperador{
             $conexaoDB->close();
             return ['error' => 'Erro na consulta: ' . $e->getMessage()];
         }
+    }
+
+    /**
+     * faz a busca de todos os operadores e retorna array
+     * servirá para a tela para o administrador verificar todos os usuarios
+     * @return Array|Exception
+     */
+    public function getAllOperadores(){
+        try{
+            $conexaoDB = $this->conectarBanco();
+        }catch(\Exception $e){
+            die($e->getMessage());
+        }
+        try{
+            $sqlSelect = "SELECT `name`, id FROM operators";
+            $resultado = $conexaoDB->query($sqlSelect);
+
+            if ($resultado === false) {
+                throw new \Exception("Erro ao executar a consulta: " . $conexaoDB->error); 
+            }else{
+                $operadores = [];
+                while($row = $resultado->fetch_assoc()){
+                    $operadores [] = $row;
+                }
+                $conexaoDB->close();
+                return $operadores;
+            }
+        }catch(\Exception $e){
+            die($e->getMessage());
+        }
+    }
+
+    /**
+     * recebe um id de operador e faz a exclusão dada aquela ID
+     * @param int
+     * @return TRUE|Exception
+     */
+    public function deleteOperadorById($id){
+        try{
+            $conexaoDB = $this->conectarBanco();
+        }catch(\Exception $e){
+            die($e->getMessage());
+        }
+
+        $sqlDelete = $conexaoDB->prepare("DELETE from operators where id = ?");
+        $sqlDelete->bind_param("i", $id);
+        $sqlDelete->execute();
+
+        if(!$sqlDelete->error){
+            $retorno = TRUE;
+        }else{
+            throw new \Exception("Não foi possível excluir a empresa, entre em contato com Cassio ou Arthur");
+            die;
+        }
+        $conexaoDB->close();
+        $sqlDelete->close();
+        return $retorno;
 
     }
 }

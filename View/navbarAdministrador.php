@@ -47,6 +47,10 @@
         </div>
         <div>
             <a href="Registro.php">Registro</a>
+            <a href="usuarios.php">Usuarios</a>
+            <a href="operadores.php">Operadores</a>
+            <a href="exames.php">Exames Cadastrados</a>
+            <a href="dashboardOperador.php">Cadastrar Exames</a>
             <a href="../setSession/logout.php">Sair</a>
         </div>
     </div>
