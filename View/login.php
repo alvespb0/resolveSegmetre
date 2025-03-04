@@ -9,6 +9,7 @@ include_once('navbar.php');
     <title>Login</title>
     <style>
         body {
+            margin:0;
             background-color: #DDEDEB;
         }
         .container1 {
@@ -16,8 +17,7 @@ include_once('navbar.php');
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 75vh;
-            margin: 0;
+            height: 100vh;
         }
         .container {
             background: #fefefe;
@@ -53,7 +53,7 @@ include_once('navbar.php');
             box-shadow: 0 0 8px rgba(81, 128, 118, 0.6);
         }
         button {
-            background: #518076;
+            background: linear-gradient(135deg, #1F7262, #3CA597);;
             color: white;
             border: none;
             padding: 10px;
@@ -64,7 +64,7 @@ include_once('navbar.php');
             margin-top: 10px;
         }
         button:hover {
-            background: #79a79a;
+            transform: translateY(-3px);
         }
         input, select {
             width: 90%;

@@ -3,16 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Navbar</title>
     <style>
         .navbar {
             background: linear-gradient(135deg, #1F7262, #3CA597); /* Tons baseados no logo */
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 15px 20px;
+            padding: 8px 12px;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
             border-radius: 0 0 12px 12px;
+            position: fixed;
+            left: 0;        
+            right: 0;
         }
 
         .navbar a {
@@ -33,14 +35,10 @@
         .navbar-brand img {
             height: 27px;
         }
-
+        
         .menu {
             display: flex;
             align-items: center;
-        }
-
-        .hidden {
-            display: none;
         }
     </style>
 </head>

@@ -68,5 +68,26 @@ class ControllerUsuario{
             return ['error' => 'Erro: ' . $e->getMessage()];
         }
     }
+
+    /**
+     * recebe um id e deleta o operador vinculado a esse id
+     * @param int
+     * @return bool
+     */
+    public function deleteUsuario($id){
+        $daoUsuario = new DAOusuario;
+        $daoUsuario->deleteUsuarioById($id);
+        unset($daoUsuario);
+    }
+
+    /**
+     * recebe um id e deleta o operador vinculado a esse id
+     * @param int
+     * @return bool
+     */
+    public function deleteCompany($id){
+        $daoUsuario = new DAOusuario;
+        $daoUsuario->deleteCompanyById($id);
+    }
 }
 ?>

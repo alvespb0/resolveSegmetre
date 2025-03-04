@@ -7,8 +7,8 @@ use controllers\ControllerFiles;
 $controllerFiles = new ControllerFiles;
 
 $files = $controllerFiles->obtainFilesbyId($_SESSION['empresaId']);
-/* var_dump($files);
- */?>
+
+?>
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -83,6 +83,7 @@ $files = $controllerFiles->obtainFilesbyId($_SESSION['empresaId']);
 <body>
     <?php include 'navbarUsuario.php';  ?>
     <div class="container">
+    <?php if(is_array($files)){ ?>
         <h2>Arquivos Disponíveis</h2>
         <table>
             <thead>
@@ -94,7 +95,8 @@ $files = $controllerFiles->obtainFilesbyId($_SESSION['empresaId']);
                 </tr>
             </thead>
             <tbody>
-            <?php foreach ($files as $file) : ?>
+            <?php 
+            foreach ($files as $file) : ?>
             <tr>
                 <td><?= $file['id'] ?></td>
                 <td><?= htmlspecialchars($file['file_name']) ?></td>
@@ -106,7 +108,7 @@ $files = $controllerFiles->obtainFilesbyId($_SESSION['empresaId']);
                     </a>
                 </td>
             </tr>
-        <?php endforeach; ?>
+        <?php endforeach;}else{ echo "<h2>Nenhum Arquivo Disponível!</h2>";};?>
 
             </tbody>
         </table>

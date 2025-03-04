@@ -28,7 +28,7 @@ class DAOusuario{
             define('BASE_DIR', dirname(__FILE__) . DS);
         }
 
-        require_once($_SERVER['DOCUMENT_ROOT'] . '/ResolveSegmetre/api/config/database.php'); // Inclui as configurações do banco de dados
+        require($_SERVER['DOCUMENT_ROOT'] . '/ResolveSegmetre/api/config/database.php'); // Inclui as configurações do banco de dados
 
         try {
             $conn = new \MySQLi($dbhost, $user, $password, $banco);  // Cria a conexão
@@ -179,6 +179,60 @@ class DAOusuario{
             $conexaoDB->close();
             return ['error' => 'Erro na consulta: ' . $e->getMessage()];
         }
+    }
+
+    /**
+     * recebe um id de usuario e faz a exclusão dada aquela ID
+     * @param int
+     * @return TRUE|Exception
+     */
+    public function deleteUsuarioById($id){
+        try{
+            $conexaoDB = $this->conectarBanco();
+        }catch(\Exception $e){
+            die($e->getMessage());
+        }
+
+        $sqlDelete = $conexaoDB->prepare("DELETE from users where company_id = ?");
+        $sqlDelete->bind_param("i", $id);
+        $sqlDelete->execute();
+
+        if(!$sqlDelete->error){
+            $retorno = TRUE;
+        }else{
+            throw new \Exception("Não foi possível excluir o usuario");
+            die;
+        }
+        $conexaoDB->close();
+        $sqlDelete->close();
+        return $retorno;
+    }
+
+    /**
+     * recebe um id de usuario e faz a exclusão dada aquela ID
+     * @param int
+     * @return TRUE|Exception
+     */
+    public function deleteCompanyById($id){
+        try{
+            $conexaoDB = $this->conectarBanco();
+        }catch(\Exception $e){
+            die($e->getMessage());
+        }
+
+        $sqlDelete = $conexaoDB->prepare("DELETE from companies where id = ?");
+        $sqlDelete->bind_param("i", $id);
+        $sqlDelete->execute();
+
+        if(!$sqlDelete->error){
+            $retorno = TRUE;
+        }else{
+            throw new \Exception("Não foi possível excluir o usuario");
+            die;
+        }
+        $conexaoDB->close();
+        $sqlDelete->close();
+        return $retorno;
     }
 }
 ?>

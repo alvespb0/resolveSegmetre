@@ -22,10 +22,10 @@
             font-weight: bold;
             border-radius: 12px 12px 0 0;
             box-shadow: 0 -4px 10px rgba(0, 0, 0, 0.2);
-            width: 100%;
             position: fixed;
             bottom: 0;
             left: 0;
+            right: 0;
         }
         .footer a {
             color: #FFD700; /* Amarelo ouro para destacar links */

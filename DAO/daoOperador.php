@@ -153,7 +153,7 @@ class DAOoperador{
         if(!$sqlDelete->error){
             $retorno = TRUE;
         }else{
-            throw new \Exception("Não foi possível excluir a empresa, entre em contato com Cassio ou Arthur");
+            throw new \Exception("Não foi possível excluir o operador");
             die;
         }
         $conexaoDB->close();

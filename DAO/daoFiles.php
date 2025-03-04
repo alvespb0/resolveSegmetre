@@ -104,5 +104,33 @@ class DAOfiles{
         }
     }
 
+    /**
+     * recebe um id de company e faz a exclusão de TODOS os arquivos dado a ID company
+     * @param int
+     * @return TRUE|Exception
+     */
+    public function deleteFilesByIdCompany($id){
+        try{
+            $conexaoDB = $this->conectarBanco();
+        }catch(\Exception $e){
+            die($e->getMessage());
+        }
+
+        $sqlDelete = $conexaoDB->prepare("DELETE from files where company_id = ?");
+        $sqlDelete->bind_param("i", $id);
+        $sqlDelete->execute();
+
+        if(!$sqlDelete->error){
+            $retorno = TRUE;
+        }else{
+            throw new \Exception("Não foi possível excluir os arquivos");
+            die;
+        }
+        $conexaoDB->close();
+        $sqlDelete->close();
+        return $retorno;
+
+    }
+
 }
 ?>

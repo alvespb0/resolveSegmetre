@@ -1,10 +1,8 @@
 <?php
-require_once($_SERVER['DOCUMENT_ROOT'] . '/ResolveSegmetre/DAO/daoFiles.php');
-use DAO\DAOfiles;
+require 'daoUsuario.php';
+use DAO\DAOusuario;
 
-$dao = new DAOfiles;
+$daoUser = new DAOusuario;
 
-$return = $dao->getFilesById(12);
-
-print_r($return);
+$daoUser->deleteUsuarioById(11);
 ?>

@@ -18,14 +18,15 @@ if (!isset($_SESSION['userName']) || $_SESSION['userName'] !== 'administrator') 
     <style>
         body{
             background-color: #DDEDEB;
+            margin: 0;
         }
         .container1 {
             font-family: Arial, sans-serif;
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
-            margin: 0;
+            height: 90vh;
+
         }
         .container {
             background: #fefefe;

@@ -45,7 +45,21 @@ class ControllerFiles{
         $daoFile = new DAOfiles();
         $return = $daoFile->getFilesById($id);
 
-        return $return;
+        if(is_array($return)){
+            return $return;
+        }else{
+            return false;
+        }
+    }
+
+    /**
+     * recebe um id e deleta os files vinculado a esse id
+     * @param int
+     * @return bool
+     */
+    public function deleteFiles($id){
+        $daoFile = new DAOfiles();
+        $daoFile->deleteFilesByIdCompany($id);
     }
 }
 
