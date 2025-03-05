@@ -8,9 +8,8 @@ if (!isset($data['email']) || !isset($data['senha']) || !isset($data['type'])) {
     exit;
 }else{
     // Define a URL correta
-    $url = (isset($_SERVER['HTTP_HOST']) && $_SERVER['HTTP_HOST'] !== 'localhost') 
-        ? "http://{$_SERVER['HTTP_HOST']}:8081/resolvesegmetre/api/auth/validaLogin.php"
-        : "http://localhost/resolvesegmetre/api/auth/validaLogin.php";
+
+    $url = "http://{$_SERVER['HTTP_HOST']}/resolvesegmetre/api/auth/validaLogin.php";
 
     // Inicializa cURL
     $ch = curl_init($url);
