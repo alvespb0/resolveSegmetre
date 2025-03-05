@@ -8,6 +8,11 @@ $controllerFiles = new ControllerFiles;
 
 $files = $controllerFiles->obtainFilesbyId($_SESSION['empresaId']);
 
+if ($_SESSION['type'] !== 'usuario') {
+    echo json_encode(["error" => "tens de fazer login!"]);
+    header("Location: http://{$_SERVER['HTTP_HOST']}/resolvesegmetre/View/Login.php");
+    exit; // Importante para interromper a execução após o redirecionamento
+}
 ?>
 <!DOCTYPE html>
 <html lang="pt-BR">

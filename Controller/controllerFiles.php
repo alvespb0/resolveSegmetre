@@ -46,6 +46,7 @@ class ControllerFiles{
         $return = $daoFile->getFilesById($id);
 
         if(is_array($return)){
+            unset($daoFile);
             return $return;
         }else{
             return false;
@@ -53,13 +54,41 @@ class ControllerFiles{
     }
 
     /**
-     * recebe um id e deleta os files vinculado a esse id
+     * recebe todos os files em um array
+     * @return Array|False
+     */
+    public function obtainAllFiles(){
+        $daoFile = new DAOfiles();
+        $return = $daoFile->getAllFiles();
+
+        if(is_array($return)){
+            unset($daoFile);
+            return $return;
+        }else{
+            return false;
+        }
+    }
+
+    /**
+     * recebe um id e deleta os files vinculado a esse id de empresa
      * @param int
      * @return bool
      */
     public function deleteFiles($id){
         $daoFile = new DAOfiles();
         $daoFile->deleteFilesByIdCompany($id);
+        unset($daoFile);
+    }
+
+    /**
+     * recebe um id e deleta os files vinculado a esse id
+     * @param int
+     * @return bool
+     */
+    public function deleteFilesId($id){
+        $daoFile = new DAOfiles();
+        $daoFile->deleteFilesById($id);
+        unset($daoFile);
     }
 }
 

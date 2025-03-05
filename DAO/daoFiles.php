@@ -61,7 +61,7 @@ class DAOfiles{
             }else{
                 $sqlInsert->close();
                 $conexaoDB->close();
-                throw new \Exception ("não foi possível incluir o operador");
+                throw new \Exception ("não foi possível incluir o file");
                 die;
             }
         }catch(\Exception $e){
@@ -105,6 +105,35 @@ class DAOfiles{
     }
 
     /**
+     * recebe todos os files dado o select
+     * @return Array|Exception
+     */
+    public function getAllFiles(){
+        try{
+            $conexaoDB = $this->conectarBanco();
+        }catch(\Exception $e){
+            die($e->getMessage());
+        }
+        try{
+            $sqlSelect = "SELECT file_name, id, uploaded_at, operator_id, company_id FROM files";
+            $resultado = $conexaoDB->query($sqlSelect);
+
+            if ($resultado === false) {
+                throw new \Exception("Erro ao executar a consulta: " . $conexaoDB->error); 
+            }else{
+                $files = [];
+                while($row = $resultado->fetch_assoc()){
+                    $files [] = $row;
+                }
+                $conexaoDB->close();
+                return $files;
+            }
+        }catch(\Exception $e){
+            die($e->getMessage());
+        }
+    }
+    
+    /**
      * recebe um id de company e faz a exclusão de TODOS os arquivos dado a ID company
      * @param int
      * @return TRUE|Exception
@@ -129,8 +158,33 @@ class DAOfiles{
         $conexaoDB->close();
         $sqlDelete->close();
         return $retorno;
-
     }
 
+    /**
+     * recebe um id de company e faz a exclusão de TODOS os arquivos dado a ID company
+     * @param int
+     * @return TRUE|Exception
+     */
+    public function deleteFilesById($id){
+        try{
+            $conexaoDB = $this->conectarBanco();
+        }catch(\Exception $e){
+            die($e->getMessage());
+        }
+
+        $sqlDelete = $conexaoDB->prepare("DELETE from files where id = ?");
+        $sqlDelete->bind_param("i", $id);
+        $sqlDelete->execute();
+
+        if(!$sqlDelete->error){
+            $retorno = TRUE;
+        }else{
+            throw new \Exception("Não foi possível excluir os arquivos");
+            die;
+        }
+        $conexaoDB->close();
+        $sqlDelete->close();
+        return $retorno;
+    }
 }
 ?>
