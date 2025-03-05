@@ -9,9 +9,7 @@ if (!isset($_FILES['file']) || !isset($_POST['company_id']) || !isset($_POST['fi
 }
 
 // Define a URL correta
-$url = (isset($_SERVER['HTTP_HOST']) && $_SERVER['HTTP_HOST'] !== 'localhost') 
-    ? "http://{$_SERVER['HTTP_HOST']}/resolvesegmetre/api/endpoints/validaUpload.php"
-    : "http://localhost/resolvesegmetre/api/endpoints/validaUpload.php";
+$url = "http://{$_SERVER['HTTP_HOST']}/ResolveSegmetre/api/endpoints/validaUpload.php";
 
 // Dados para enviar no cURL
 $data = [

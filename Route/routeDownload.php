@@ -12,9 +12,7 @@ $fileId = $data['id'];
 $filePath = $data['path'];
 
 // Define a URL correta para validaDownload.php
-$url = (isset($_SERVER['HTTP_HOST']) && $_SERVER['HTTP_HOST'] !== 'localhost') 
-    ? "http://{$_SERVER['HTTP_HOST']}/resolvesegmetre/api/endpoints/validaDownload.php"
-    : "http://localhost/resolvesegmetre/api/endpoints/validaDownload.php";
+$url = "http://{$_SERVER['HTTP_HOST']}/ResolveSegmetre/api/endpoints/validaDownload.php";
 
 // Configuração do cURL para enviar ID e path para validaDownload.php
 $ch = curl_init($url);
