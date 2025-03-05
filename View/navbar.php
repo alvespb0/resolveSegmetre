@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="logo1.png">
     <style>
         .navbar {
             background: linear-gradient(135deg, #1F7262, #3CA597); /* Tons baseados no logo */
@@ -50,7 +51,7 @@
         <div class="menu">
             <a href="login.php">Login</a>
             <a href="sobre.php">Sobre</a>
-            <a href="contato.php">Contato</a>
+            <a href="https://wa.me/+554999480118" target="_blank">Contato</a>
         </div>
     </div>
 </body>
