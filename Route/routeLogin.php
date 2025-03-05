@@ -10,8 +10,7 @@ if (!isset($data['email']) || !isset($data['senha']) || !isset($data['type'])) {
     // Define a URL correta
 
     $url = "http://{$_SERVER['HTTP_HOST']}/resolvesegmetre/api/auth/validaLogin.php";
-echo json_encode($url);
-exit;
+
     // Inicializa cURL
     $ch = curl_init($url);
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
@@ -32,7 +31,7 @@ exit;
 
     // Se o HTTP Code não for 200, algo deu errado no destino
     if ($httpCode !== 200) {
-        echo json_encode(["error" => "Falha ao acessar validaLogin.php, código HTTP: " . $httpCode]);
+        echo json_encode(["error" => "Falha ao acessar validaLogin.php, código HTTP: " . $httpCode, "URL:" => $url]);
         exit;
     }
 
