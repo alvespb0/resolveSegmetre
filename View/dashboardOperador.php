@@ -72,9 +72,9 @@ if ($_SESSION['type'] !== 'operador') {
         .form-container input[type="date"],
         .form-container select,
         .form-container input[type="file"] {
-            width: 100%;
+            max-width: 100%;
             padding: 10px;
-            margin-bottom: 20px;
+            margin-bottom: 15px;
             border: 1px solid #ddd;
             border-radius: 8px;
             font-size: 16px;
