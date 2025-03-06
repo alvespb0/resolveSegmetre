@@ -1,8 +1,8 @@
 <?php
 namespace DAO;
 
-require_once($_SERVER['DOCUMENT_ROOT'] . '/ResolveSegmetre/Model/empresa.php');
-require_once($_SERVER['DOCUMENT_ROOT'] . '/ResolveSegmetre/Model/usuario.php');
+require_once($_SERVER['DOCUMENT_ROOT'] . '/Model/empresa.php');
+require_once($_SERVER['DOCUMENT_ROOT'] . '/Model/usuario.php');
 
 use models\Empresa;
 use models\Usuario;

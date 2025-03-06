@@ -1,8 +1,8 @@
 <?php
 namespace controllers;
 
-require_once($_SERVER['DOCUMENT_ROOT'] . '/ResolveSegmetre/DAO/daoFiles.php');
-require_once($_SERVER['DOCUMENT_ROOT'] . '/ResolveSegmetre/Model/files.php');
+require_once($_SERVER['DOCUMENT_ROOT'] . '/DAO/daoFiles.php');
+require_once($_SERVER['DOCUMENT_ROOT'] . '/Model/files.php');
 
 use models\Files;
 use DAO\DAOfiles;
