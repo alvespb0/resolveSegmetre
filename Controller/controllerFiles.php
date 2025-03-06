@@ -89,8 +89,8 @@ class ControllerFiles{
         $daoFile = new DAOfiles();
         $file_path = $daoFile->getFileByIndex($id); #recebe o file_path para excluir na pasta também
         try{
-            if(file_exists($file_path)){
-                if(unlink($file_path)){
+            if(file_exists($file_path['file_path'])){
+                if(unlink($file_path['file_path'])){
                     $daoFile->deleteFilesById($id); #deleta o metadado inteiro do file no bd
                     unset($daoFile);
                     return true;
