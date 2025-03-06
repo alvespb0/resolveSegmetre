@@ -1,7 +1,9 @@
 <?php
 require('../../Controller/controllerFiles.php');
+require('../../Controller/controllerUsuario.php');
 
 use controllers\ControllerFiles;
+use controllers\ControllerUsuario;
 
 header("Content-Type: application/json");
 
@@ -24,11 +26,21 @@ if (!is_dir($path)) { #Verifica se a pasta não existe
             $controllerFiles = new ControllerFiles;
             $return = $controllerFiles->createFile($postData, $destination);
             if($return){
-                echo json_encode([
-                    "message" => "Arquivo enviado com sucesso!",
-                    "file_path" => $destination
-                ]);
-                exit;
+                $controllerUsuario = new ControllerUsuario;
+                if($controllerUsuario->sendEmail($postData['company_id'])){
+                    echo json_encode([
+                        "message" => "Arquivo enviado com sucesso!",
+                        "file_path" => $destination
+                    ]);
+                    exit;
+                }else{
+                    echo json_encode([
+                        "message" => "Arquivo enviado com sucesso! Porém, falha ao enviar o email para o cliente.",
+                        "file_path" => $destination
+                    ]);
+                    exit;
+                }
+                
             }else{
                 echo json_encode([
                     "message" => "Erro ao enviar o arquivo!",
@@ -54,11 +66,20 @@ if (!is_dir($path)) { #Verifica se a pasta não existe
         $controllerFiles = new ControllerFiles;
         $return = $controllerFiles->createFile($postData, $destination);
         if($return){
-            echo json_encode([
-                "message" => "Arquivo enviado com sucesso!",
-                "file_path" => $destination
-            ]);
-            exit;
+            $controllerUsuario = new ControllerUsuario;
+            if($controllerUsuario->sendEmail($postData['company_id'])){
+                echo json_encode([
+                    "message" => "Arquivo enviado com sucesso!",
+                    "file_path" => $destination
+                ]);
+                exit;
+            }else{
+                echo json_encode([
+                    "message" => "Arquivo enviado com sucesso! Porém, falha ao enviar o email para o cliente.",
+                    "file_path" => $destination
+                ]);
+                exit;
+            }
         }else{
             echo json_encode([
                 "message" => "Erro ao enviar o arquivo!",

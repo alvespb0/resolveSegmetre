@@ -4,10 +4,12 @@ namespace controllers;
 require_once($_SERVER['DOCUMENT_ROOT'] . '/DAO/daoUsuario.php');
 require_once($_SERVER['DOCUMENT_ROOT'] . '/Model/empresa.php');
 require_once($_SERVER['DOCUMENT_ROOT'] . '/Model/usuario.php');
+require_once($_SERVER['DOCUMENT_ROOT'] . '/phpMailer/phpMailer.php');
 
 use models\Empresa;
 use models\Usuario;
 use DAO\DAOusuario;
+use mail\Mailer;
 
 /**
  * classe responsável por fazer os tratamento de dados vindas da API (via JSON) ou envio de requests para a DAO
@@ -34,6 +36,27 @@ class ControllerUsuario{
 
         if($return){
             return true;
+        }else{
+            return false;
+        }
+    }
+
+    /**
+     * recebe um id company chama a função getEmailUserById($id) e chama a função do php mailer
+     * @param int
+     * @return bool
+     */
+    public function sendEmail($id){
+        $daoUsuario = new DAOusuario;
+        $email = $daoUsuario->getemailUserById($id);
+        
+        if(!empty($email['email'])){
+            $mailer = new Mailer();
+            if($mailer->enviarEmail($email['email'])){
+                return true;
+            }else{
+                return false;
+            }
         }else{
             return false;
         }

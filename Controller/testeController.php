@@ -1,10 +1,9 @@
 <?php
-require_once 'controllerOperador.php';
+require_once 'controllerUsuario.php';
 
-use controllers\ControllerOperador;
+use controllers\ControllerUsuario;
 
-$controllerOperador = new ControllerOperador;
+$controllerUser = new ControllerUsuario;
 
-$teste = $controllerOperador->obtainOperador("arthur@segmetre.com.br");
-var_dump($teste);
+$controllerUser->sendEmail(12);
 ?>
