@@ -3,7 +3,7 @@ session_start();
 include_once('navbarAdministrador.php');
 
 if (!isset($_SESSION['userName']) || $_SESSION['userName'] !== 'administrator') {
-    header("Location: http://{$_SERVER['HTTP_HOST']}/resolvesegmetre/View/Login.php");
+    header("Location: http://{$_SERVER['HTTP_HOST']}/View/Login.php");
     exit(); 
 }
 require_once '../Controller/controllerFiles.php';
