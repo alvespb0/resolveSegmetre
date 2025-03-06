@@ -28,7 +28,7 @@ class DAOusuario{
             define('BASE_DIR', dirname(__FILE__) . DS);
         }
 
-        require($_SERVER['DOCUMENT_ROOT'] . '/ResolveSegmetre/api/config/database.php'); // Inclui as configurações do banco de dados
+        require($_SERVER['DOCUMENT_ROOT'] . '/api/config/database.php'); // Inclui as configurações do banco de dados
 
         try {
             $conn = new \MySQLi($dbhost, $user, $password, $banco);  // Cria a conexão

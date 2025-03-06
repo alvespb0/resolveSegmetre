@@ -9,7 +9,7 @@ $empresas = $controllerUsuario->obtainIdCompany();
 
 if ($_SESSION['type'] !== 'operador') {
     echo json_encode(["error" => "tela somente de operadores!"]);
-    header("Location: http://{$_SERVER['HTTP_HOST']}/resolvesegmetre/View/Login.php");
+    header("Location: http://{$_SERVER['HTTP_HOST']}/View/Login.php");
     exit; // Importante para interromper a execução após o redirecionamento
 }else{
 ?>
