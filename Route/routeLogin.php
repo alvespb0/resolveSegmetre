@@ -8,11 +8,12 @@ if (!isset($data['email']) || !isset($data['senha']) || !isset($data['type'])) {
     exit;
 }else{
     // Define a URL correta
-
-    $url = "http://resolvesegmetre.com.br:8081/api/auth/validaLogin.php";
+    $url = "http://{$_SERVER['HTTP_HOST']}/api/auth/validaLogin.php";
 
     // Inicializa cURL
     $ch = curl_init($url);
+curl_setopt($ch, CURLOPT_PROXY, "");
+    curl_setopt($ch, CURLOPT_NOPROXY, "localhost,127.0.0.1");
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
     curl_setopt($ch, CURLOPT_POST, true);
     curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($data));
