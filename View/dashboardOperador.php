@@ -68,11 +68,18 @@ if ($_SESSION['type'] !== 'operador') {
             display: block;
         }
 
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+        }
+
+
         .form-container input[type="text"],
         .form-container input[type="date"],
         .form-container select,
         .form-container input[type="file"] {
-            max-width: 100%;
+            width: 100%;
             padding: 10px;
             margin-bottom: 15px;
             border: 1px solid #ddd;
