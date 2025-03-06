@@ -1,7 +1,7 @@
 <?php
 namespace DAO;
 
-require_once($_SERVER['DOCUMENT_ROOT'] . '/ResolveSegmetre/Model/files.php');
+require_once($_SERVER['DOCUMENT_ROOT'] . '/Model/files.php');
 use models\Files;
 
 /**

@@ -1,9 +1,9 @@
 <?php
 namespace controllers;
 
-require_once($_SERVER['DOCUMENT_ROOT'] . '/ResolveSegmetre/DAO/daoUsuario.php');
-require_once($_SERVER['DOCUMENT_ROOT'] . '/ResolveSegmetre/Model/empresa.php');
-require_once($_SERVER['DOCUMENT_ROOT'] . '/ResolveSegmetre/Model/usuario.php');
+require_once($_SERVER['DOCUMENT_ROOT'] . '/DAO/daoUsuario.php');
+require_once($_SERVER['DOCUMENT_ROOT'] . '/Model/empresa.php');
+require_once($_SERVER['DOCUMENT_ROOT'] . '/Model/usuario.php');
 
 use models\Empresa;
 use models\Usuario;

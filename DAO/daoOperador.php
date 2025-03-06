@@ -1,7 +1,7 @@
 <?php
 namespace DAO;
 
-require_once($_SERVER['DOCUMENT_ROOT'] . '/ResolveSegmetre/Model/operador.php');
+require_once($_SERVER['DOCUMENT_ROOT'] . '/Model/operador.php');
 use models\Operador;
 
 /**

@@ -1,8 +1,8 @@
 <?php
 namespace controllers;
 
-require_once($_SERVER['DOCUMENT_ROOT'] . '/ResolveSegmetre/DAO/daoOperador.php');
-require_once($_SERVER['DOCUMENT_ROOT'] . '/ResolveSegmetre/Model/operador.php');
+require_once($_SERVER['DOCUMENT_ROOT'] . '/DAO/daoOperador.php');
+require_once($_SERVER['DOCUMENT_ROOT'] . '/Model/operador.php');
 
 use DAO\DAOoperador;
 use models\Operador;
