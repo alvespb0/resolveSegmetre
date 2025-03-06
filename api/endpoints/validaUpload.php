@@ -26,21 +26,18 @@ if (!is_dir($path)) { #Verifica se a pasta não existe
             $controllerFiles = new ControllerFiles;
             $return = $controllerFiles->createFile($postData, $destination);
             if($return){
-                $controllerUsuario = new ControllerUsuario;
-                if($controllerUsuario->sendEmail($postData['company_id'])){
-                    echo json_encode([
-                        "message" => "Arquivo enviado com sucesso!",
-                        "file_path" => $destination
-                    ]);
-                    exit;
-                }else{
-                    echo json_encode([
-                        "message" => "Arquivo enviado com sucesso! Porém, falha ao enviar o email para o cliente.",
-                        "file_path" => $destination
-                    ]);
-                    exit;
+                echo json_encode([
+                    "message" => "Arquivo enviado com sucesso!",
+                    "file_path" => $destination
+                ]);
+                // Envia a resposta e termina a conexão com o cliente
+                if (function_exists('fastcgi_finish_request')) {
+                    fastcgi_finish_request();
                 }
-                
+                // Agora, envia o email sem impactar a experiência do usuário
+                $controllerUsuario = new ControllerUsuario;
+                $controllerUsuario->sendEmail($postData['company_id']);
+                exit;            
             }else{
                 echo json_encode([
                     "message" => "Erro ao enviar o arquivo!",
@@ -66,20 +63,18 @@ if (!is_dir($path)) { #Verifica se a pasta não existe
         $controllerFiles = new ControllerFiles;
         $return = $controllerFiles->createFile($postData, $destination);
         if($return){
-            $controllerUsuario = new ControllerUsuario;
-            if($controllerUsuario->sendEmail($postData['company_id'])){
-                echo json_encode([
-                    "message" => "Arquivo enviado com sucesso!",
-                    "file_path" => $destination
-                ]);
-                exit;
-            }else{
-                echo json_encode([
-                    "message" => "Arquivo enviado com sucesso! Porém, falha ao enviar o email para o cliente.",
-                    "file_path" => $destination
-                ]);
-                exit;
+            echo json_encode([
+                "message" => "Arquivo enviado com sucesso!",
+                "file_path" => $destination
+            ]);
+            // Envia a resposta e termina a conexão com o cliente
+            if (function_exists('fastcgi_finish_request')) {
+                fastcgi_finish_request();
             }
+            // Agora, envia o email sem impactar a experiência do usuário
+            $controllerUsuario = new ControllerUsuario;
+            $controllerUsuario->sendEmail($postData['company_id']);
+            exit;            
         }else{
             echo json_encode([
                 "message" => "Erro ao enviar o arquivo!",
