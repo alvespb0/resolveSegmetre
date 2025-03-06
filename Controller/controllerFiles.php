@@ -83,12 +83,28 @@ class ControllerFiles{
     /**
      * recebe um id e deleta os files vinculado a esse id
      * @param int
-     * @return bool
+     * @return bool|Exception
      */
     public function deleteFilesId($id){
         $daoFile = new DAOfiles();
-        $daoFile->deleteFilesById($id);
-        unset($daoFile);
+        $file_path = $daoFile->getFileByIndex($id); #recebe o file_path para excluir na pasta também
+        try{
+            if(file_exists($file_path)){
+                if(unlink($file_path)){
+                    $daoFile->deleteFilesById($id); #deleta o metadado inteiro do file no bd
+                    unset($daoFile);
+                    return true;
+                }else{
+                    return json_encode(["Error" => "Erro ao deletar arquivo da pasta"]);
+                }
+            }else{
+                $daoFile->deleteFilesById($id); #deleta apenas o metadado para um arquivo que não existe no repositório
+                unset($daoFile);
+                return true;
+            }
+        }catch(\Exception $e){
+            return json_encode(["Error" => $e->getMessage()]);
+        }   
     }
 }
 

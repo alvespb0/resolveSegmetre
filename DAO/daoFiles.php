@@ -105,6 +105,34 @@ class DAOfiles{
     }
 
     /**
+     * recebe o id (primary key) do arquivo e retorna o path, será utilizado para apagar o arquivo da pasta mesmo
+     * @var int
+     * @return Array|Exception
+     */
+    public function getFileByIndex($id){
+        try{
+            $conexaoDB = $this->conectarBanco();
+        }catch(\Exception $e){
+            die($e->getMessage());
+        }
+        try{
+            $sqlSelect = $conexaoDB->prepare("SELECT file_path FROM files where id = ?");
+            $sqlSelect->bind_param("i", $id);
+            $sqlSelect->execute();
+
+            $resultado = $sqlSelect->get_result();
+
+            if($resultado->num_rows !== 0){
+                return $resultado->fetch_assoc();
+            }else{
+                return json_encode(["Error" => "Erro ao deletar a pasta do arquivo"]);
+            }
+        }catch(\Exception $e){
+            echo json_encode(["error"=>$e->getMessage()]);
+        }
+    }
+
+    /**
      * recebe todos os files dado o select
      * @return Array|Exception
      */

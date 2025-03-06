@@ -1,8 +1,9 @@
 <?php
-require 'daoUsuario.php';
-use DAO\DAOusuario;
+require 'daoFiles.php';
+use DAO\DAOfiles;
 
-$daoUser = new DAOusuario;
+$dao = new DAOfiles;
 
-$daoUser->deleteUsuarioById(11);
+$file = $dao->getFileByIndex(62);
+echo $file['file_path'];
 ?>

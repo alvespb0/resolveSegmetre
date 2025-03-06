@@ -12,7 +12,7 @@ if (!isset($data['email']) || !isset($data['senha']) || !isset($data['type'])) {
 
     // Inicializa cURL
     $ch = curl_init($url);
-curl_setopt($ch, CURLOPT_PROXY, "");
+    curl_setopt($ch, CURLOPT_PROXY, "");
     curl_setopt($ch, CURLOPT_NOPROXY, "localhost,127.0.0.1");
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
     curl_setopt($ch, CURLOPT_POST, true);
