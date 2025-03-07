@@ -28,15 +28,9 @@ if (!is_dir($path)) { #Verifica se a pasta não existe
             if($return){
                 echo json_encode([
                     "message" => "Arquivo enviado com sucesso!",
-                    "file_path" => $destination
+                    "file_path" => $destination,
+                    "company_id" => $postData['company_id']
                 ]);
-                // Envia a resposta e termina a conexão com o cliente
-                if (function_exists('fastcgi_finish_request')) {
-                    fastcgi_finish_request();
-                }
-                // Agora, envia o email sem impactar a experiência do usuário
-                $controllerUsuario = new ControllerUsuario;
-                $controllerUsuario->sendEmail($postData['company_id']);
                 exit;            
             }else{
                 echo json_encode([
@@ -65,15 +59,9 @@ if (!is_dir($path)) { #Verifica se a pasta não existe
         if($return){
             echo json_encode([
                 "message" => "Arquivo enviado com sucesso!",
-                "file_path" => $destination
+                "file_path" => $destination,
+                "company_id" => $postData['company_id']
             ]);
-            // Envia a resposta e termina a conexão com o cliente
-            if (function_exists('fastcgi_finish_request')) {
-                fastcgi_finish_request();
-            }
-            // Agora, envia o email sem impactar a experiência do usuário
-            $controllerUsuario = new ControllerUsuario;
-            $controllerUsuario->sendEmail($postData['company_id']);
             exit;            
         }else{
             echo json_encode([

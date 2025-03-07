@@ -195,6 +195,8 @@ if($_SESSION['userName'] == 'administrator'){
             .then(data => {
                 if (data.message) {
                     alert(data.message);
+
+                    sendEmailAfterUpload(data.company_id);
                 }
                 if (data.error) {
                     alert(data.error);
@@ -204,6 +206,30 @@ if($_SESSION['userName'] == 'administrator'){
                 console.error('Erro:', error);
             });
         });
+
+        function sendEmailAfterUpload(companyId) {
+            fetch('../Route/routeSendEmail.php', {
+                method: 'POST',
+                body: JSON.stringify({
+                    company_id: companyId // Passa o company_id para a requisição
+                }),
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.message) {
+                    console.log("E-mail enviado com sucesso!");
+                } else if(data.error){
+                    console.error("Erro ao enviar e-mail:", data.error);
+                }
+            })
+            .catch((error) => {
+                console.error('Erro ao tentar enviar o e-mail:', error);
+            });
+        }
+
     </script>
 
 
