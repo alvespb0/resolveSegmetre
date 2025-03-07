@@ -1,7 +1,7 @@
 <?php
 header("Content-Type: application/json");
 
-$url = "http://{$_SERVER['HTTP_HOST']}/api/endpoints/validaEmail.php";
+$url = "https://{$_SERVER['HTTP_HOST']}/api/endpoints/validaEmail.php";
 
 $data = json_decode(file_get_contents("php://input"), true);
 

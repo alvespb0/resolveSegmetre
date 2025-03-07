@@ -9,10 +9,10 @@ if (!isset($data['type']) || !isset($data['usuario']) || !isset($data['senha']))
 }else{
     $type = $data['type'];
     if ($type === 'operador') {
-        $url = "http://{$_SERVER['HTTP_HOST']}/api/auth/registerOperador.php";
+        $url = "https://{$_SERVER['HTTP_HOST']}/api/auth/registerOperador.php";
         
     } elseif ($type === 'usuario') {
-        $url = "http://{$_SERVER['HTTP_HOST']}/api/auth/registerUsuario.php";
+        $url = "https://{$_SERVER['HTTP_HOST']}/api/auth/registerUsuario.php";
     } else {
         echo json_encode(["error" => "Tipo inválido"]);
         exit;

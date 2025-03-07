@@ -12,7 +12,7 @@ $fileId = $data['id'];
 $filePath = $data['path'];
 
 // Define a URL correta para validaDownload.php
-$url = "http://{$_SERVER['HTTP_HOST']}/api/endpoints/validaDownload.php";
+$url = "https://{$_SERVER['HTTP_HOST']}/api/endpoints/validaDownload.php";
 
 // Configuração do cURL para enviar ID e path para validaDownload.php
 $ch = curl_init($url);

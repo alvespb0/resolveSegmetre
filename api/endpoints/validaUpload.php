@@ -1,9 +1,7 @@
 <?php
 require('../../Controller/controllerFiles.php');
-require('../../Controller/controllerUsuario.php');
 
 use controllers\ControllerFiles;
-use controllers\ControllerUsuario;
 
 header("Content-Type: application/json");
 
