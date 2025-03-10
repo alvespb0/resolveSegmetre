@@ -151,7 +151,7 @@ class DAOusuario{
      * @param int
      * @return Array|Exception;
      */
-    public function getemailUserById($id){
+    public function getUserByIdCompany($id){
         try{
             $conexaoDB = $this->conectarBanco();
         }catch(\Exception $e){
@@ -160,7 +160,7 @@ class DAOusuario{
 
         try{
             $sqlSelect = $conexaoDB->prepare("SELECT * FROM users where company_id = ?");
-            $sqlSelect->bind_param("s", $id);
+            $sqlSelect->bind_param("i", $id);
             $sqlSelect->execute();
 
             $resultado = $sqlSelect->get_result();

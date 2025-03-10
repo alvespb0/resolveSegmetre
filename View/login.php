@@ -143,7 +143,7 @@ include_once('navbar.php');
                             } else if(result.type === "usuario"){
                                 window.location.href = "dashboard.php";
                             } else if(result.type === "medico"){
-                                window.location.href = "teste.php";
+                                window.location.href = "telaMedica.php";
                             }
                         }
                         

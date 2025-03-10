@@ -5,5 +5,6 @@ use controllers\ControllerUsuario;
 
 $controllerUser = new ControllerUsuario;
 
-$controllerUser->sendEmail(12);
+$teste = $controllerUser->getUserNameByIdCompany(1);
+var_dump($teste) ;
 ?>

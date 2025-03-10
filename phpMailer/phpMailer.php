@@ -85,7 +85,7 @@ class Mailer{
                     <div class="content">
                         <h1>Novo Arquivo Disponível</h1>
                         <p>Olá,</p>
-                        <p>Temos o prazer de informar que há um novo arquivo aguardando o seu download no sistema <strong><a href="http://resolveSegmetre.com.br:8081" target="_blank">ResolveSegmetre</a></strong>.</p>
+                        <p>Temos o prazer de informar que há um novo arquivo aguardando o seu download no sistema <strong><a href="https://resolveSegmetre.com.br:1443" target="_blank">ResolveSegmetre</a></strong>.</p>
                         <p>Não perca tempo! O arquivo estará disponível para você a qualquer momento.</p>
                         <div class="footer">
                             <p>Este é um e-mail automático. Caso não tenha solicitado este arquivo, ignore esta mensagem.</p>

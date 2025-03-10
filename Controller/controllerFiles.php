@@ -69,6 +69,16 @@ class ControllerFiles{
         }
     }
 
+    public function obtainFilesByDate($date){
+        $daoFile = new DAOfiles();
+        $return = $daoFile->getFilesByDate($date);
+        if(is_array($return)){
+            unset($daoFile);
+            return $return;
+        }else{
+            return false;
+        }
+    }
     /**
      * recebe um id e deleta os files vinculado a esse id de empresa
      * @param int

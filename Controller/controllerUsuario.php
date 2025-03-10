@@ -42,13 +42,13 @@ class ControllerUsuario{
     }
 
     /**
-     * recebe um id company chama a função getEmailUserById($id) e chama a função do php mailer
+     * recebe um id company chama a função getUserByIdCompany($id) e chama a função do php mailer
      * @param int
      * @return bool
      */
     public function sendEmail($id){
         $daoUsuario = new DAOusuario;
-        $email = $daoUsuario->getemailUserById($id);
+        $email = $daoUsuario->getUserByIdCompany($id);
         
         if(!empty($email['email'])){
             $mailer = new Mailer();
@@ -57,6 +57,21 @@ class ControllerUsuario{
             }else{
                 return false;
             }
+        }else{
+            return false;
+        }
+    }
+
+    /**
+     * recebe um id company e chama a função getUserByIdCompany e retorna um array encaminhando o name
+     * @param int 
+     * @return Array|false
+     */
+    public function getUserNameByIdCompany($id){
+        $daoUsuario = new DAOusuario;
+        $usuario = $daoUsuario->getUserByIdCompany($id);
+        if(!empty($usuario['name'])){
+            return $usuario['name'];
         }else{
             return false;
         }

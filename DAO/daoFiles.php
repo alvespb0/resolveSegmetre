@@ -143,7 +143,7 @@ class DAOfiles{
             die($e->getMessage());
         }
         try{
-            $sqlSelect = "SELECT file_name, id, uploaded_at, operator_id, company_id FROM files";
+            $sqlSelect = "SELECT file_name, id, uploaded_at, operator_id, company_id, file_path FROM files";
             $resultado = $conexaoDB->query($sqlSelect);
 
             if ($resultado === false) {
@@ -161,6 +161,40 @@ class DAOfiles{
         }
     }
     
+    /**
+     * recebe uma data e retorna todos os registros dado essa data
+     * @param string
+     * @return Array|Exception
+     */
+    public function getFilesByDate($date){
+        try{
+            $conexaoDB = $this->conectarBanco();
+        }catch(\Exception $e){
+            die($e->getMessage());
+        }
+
+        try{
+            $sqlSelect = $conexaoDB->prepare("SELECT * FROM files where uploaded_at like ?");
+            $sqlSelect->bind_param("s", $date);
+            $sqlSelect->execute();
+
+            $resultado = $sqlSelect->get_result();
+
+            if ($resultado === false) {
+                throw new \Exception("Erro ao executar a consulta: " . $conexaoDB->error); 
+            }else{
+                $files = [];
+                while($row = $resultado->fetch_assoc()){
+                    $files [] = $row;
+                }
+                $conexaoDB->close();
+                return $files;
+            }
+        }catch(\Exception $e){
+            echo json_encode(["error"=>$e->getMessage()]);
+        }
+    }
+
     /**
      * recebe um id de company e faz a exclusão de TODOS os arquivos dado a ID company
      * @param int
