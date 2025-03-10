@@ -12,6 +12,7 @@ if ($_SESSION['type'] !== 'operador') {
     header("Location: http://{$_SERVER['HTTP_HOST']}/View/Login.php");
     exit; // Importante para interromper a execução após o redirecionamento
 }else{
+  var_dump($_SESSION);
 ?>
 
 <!DOCTYPE html>

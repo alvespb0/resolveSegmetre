@@ -137,11 +137,16 @@ include_once('navbar.php');
                     })
                     .then(response => response.json())
                     .then(result => {
-                        if (data.type === "operador") {
-                            window.location.href = "dashboardOperador.php";
-                        } else {
-                            window.location.href = "dashboard.php";
+                        if(result.success){
+                            if (result.type === "operador") {
+                                window.location.href = "dashboardOperador.php";
+                            } else if(result.type === "usuario"){
+                                window.location.href = "dashboard.php";
+                            } else if(result.type === "medico"){
+                                window.location.href = "teste.php";
+                            }
                         }
+                        
                     })
                 }
                 if (data.error) {

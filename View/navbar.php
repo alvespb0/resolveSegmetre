@@ -45,13 +45,12 @@
 </head>
 <body>
     <div class="navbar">
-        <a href="index.php" class="navbar-brand">
+        <a href="../index.php" class="navbar-brand">
             <img src="logo1.png" alt="Logo" >
         </a>
         <div class="menu">
-            <a href="login.php">Login</a>
-            <a href="sobre.php">Sobre</a>
             <a href="https://wa.me/+554999480118" target="_blank">Contato</a>
+            <a href="login.php">Login</a>
         </div>
     </div>
 </body>
