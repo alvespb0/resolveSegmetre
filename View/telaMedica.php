@@ -15,9 +15,12 @@ $controllerUsuario = new ControllerUsuario;
 $controllerFiles = new ControllerFiles;
 
 $filterDate = isset($_GET['filterDate']) ? $_GET['filterDate'] : '';
+$filterSearch = isset($_GET['search']) ? $_GET['search'] : '';
 
 if ($filterDate) {
     $files = $controllerFiles->obtainFilesByDate($filterDate);
+}else if($filterSearch){
+    $files = $controllerFiles->obtainFilesBySearch($filterSearch);
 } else {
     $files = $controllerFiles->obtainAllFiles();
 }
@@ -95,7 +98,37 @@ if ($filterDate) {
             background: linear-gradient(135deg, #165A50, #2B8A7A);
             transform: scale(1.05);
         }
-        /* Estilo para o input date */
+        .search-bar {
+            position: relative;
+            display: inline-flex;
+            width: 100%;
+         }
+        .search-bar input[type="text"] {
+            width: 100%;
+            padding: 10px 15px;
+            font-size: 16px;
+            border-radius: 6px 0 0 6px;
+            border: 1px solid #ccc;
+            box-sizing: border-box;
+        }
+        .search-bar button {
+            background: linear-gradient(135deg, #1F7262, #3CA597);
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 0 6px 6px 0;
+            cursor: pointer;
+            transition: 0.3s;
+            font-weight: bold;
+        }
+        .search-bar button:hover {
+            background: linear-gradient(135deg, #165A50, #2B8A7A);
+            transform: scale(1.05);
+        }
+        .search-bar .fa-search {
+            margin-right: 5px;
+        }
+
  
     </style>
 </head>
@@ -105,6 +138,14 @@ if ($filterDate) {
     <div class="container">
         <?php if(is_array($files)){?>
         <h2>Exames Cadastrados</h2>
+        <form action="" method = "GET">
+        <div class="search-bar">
+            <input type="text" placeholder="Buscar Exame..." name="search">
+            <button type="submit">
+                <i class="fas fa-arrow-right"></i>
+            </button>
+        </div>
+        </form>
         <table id = "examTable">
             <thead>
                 <tr>

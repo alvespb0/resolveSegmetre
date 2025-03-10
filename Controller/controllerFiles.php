@@ -69,6 +69,11 @@ class ControllerFiles{
         }
     }
 
+    /**
+     * recebe um date e retorna os files dado esse date
+     * @param string
+     * @return Array|False
+     */
     public function obtainFilesByDate($date){
         $daoFile = new DAOfiles();
         $return = $daoFile->getFilesByDate($date);
@@ -79,6 +84,23 @@ class ControllerFiles{
             return false;
         }
     }
+
+    /**
+     * recebe um search e retorna os files com esse nome 
+     * @param string
+     * @return Array|False
+     */
+    public function obtainFilesBySearch($search){
+        $daoFile = new DAOfiles();
+        $return = $daoFile->getFilesBySearch($search);
+        if(is_array($return)){
+            unset($daoFile);
+            return $return;
+        }else{
+            return false;
+        }
+    }
+
     /**
      * recebe um id e deleta os files vinculado a esse id de empresa
      * @param int

@@ -7,11 +7,24 @@ if (!isset($_SESSION['userName']) || $_SESSION['userName'] !== 'administrator') 
     exit(); 
 }
 require_once '../Controller/controllerFiles.php';
+require_once '../Controller/controllerUsuario.php';
+
+use controllers\ControllerUsuario;
 use controllers\ControllerFiles;
 
+$controllerUsuario = new ControllerUsuario;
 $controllerFiles = new ControllerFiles;
 
-$files = $controllerFiles->obtainAllFiles();
+$filterDate = isset($_GET['filterDate']) ? $_GET['filterDate'] : '';
+$filterSearch = isset($_GET['search']) ? $_GET['search'] : '';
+
+if ($filterDate) {
+    $files = $controllerFiles->obtainFilesByDate($filterDate);
+}else if($filterSearch){
+    $files = $controllerFiles->obtainFilesBySearch($filterSearch);
+} else {
+    $files = $controllerFiles->obtainAllFiles();
+}
 
 if (isset($_GET['excluir'])) {
     $id = $_GET['excluir'];
@@ -27,6 +40,7 @@ if (isset($_GET['excluir'])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
     <title>Exames Cadastrados</title>
     <style>
         body {
@@ -92,37 +106,86 @@ if (isset($_GET['excluir'])) {
             background: linear-gradient(135deg, #165A50, #2B8A7A);
             transform: scale(1.05);
         }
+        .search-bar {
+            position: relative;
+            display: inline-flex;
+            width: 100%;
+         }
+        .search-bar input[type="text"] {
+            width: 100%;
+            padding: 10px 15px;
+            font-size: 16px;
+            border-radius: 6px 0 0 6px;
+            border: 1px solid #ccc;
+            box-sizing: border-box;
+        }
+        .search-bar button {
+            background: linear-gradient(135deg, #1F7262, #3CA597);
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 0 6px 6px 0;
+            cursor: pointer;
+            transition: 0.3s;
+            font-weight: bold;
+        }
+        .search-bar button:hover {
+            background: linear-gradient(135deg, #165A50, #2B8A7A);
+            transform: scale(1.05);
+        }
+        .search-bar .fa-search {
+            margin-right: 5px;
+        }
+
     </style>
 </head>
 <body>
     <div class="container">
+    <?php if(is_array($files)){?>
         <h2>Exames Cadastrados</h2>
-        <table>
+        <form action="" method = "GET">
+        <div class="search-bar">
+            <input type="text" placeholder="Buscar Exame..." name="search">
+            <button type="submit">
+                <i class="fas fa-arrow-right"></i>
+            </button>
+        </div>
+        </form>
+        <table id = "examTable">
             <thead>
                 <tr>
                     <th>ID</th>
                     <th>Filename</th>
-                    <th>Data</th>
+                    <th>
+                        Data
+                        <i class="fas fa-calendar-alt calendar-icon" onclick="document.getElementById('filterDate').style.display = 'inline-block';"></i>
+
+                        <form action="" METHOD = "GET">
+                        <input type="date" id="filterDate" style="display:none;" onchange="this.form.submit();" name="filterDate" />
+                        </form>
+                    </th>
                     <th>Operador Id</th>
                     <th>Company  Id</th>
                     <th>Ação</th>
                 </tr>
             </thead>
             <tbody>
-            <?php foreach ($files as $file) : ?>
+            <?php
+                if(count($files) > 0){ 
+                foreach ($files as $file) : ?>
             <tr>
                 <td><?= $file['id'] ?></td>
                 <td><?= htmlspecialchars($file['file_name']) ?></td>
                 <td><?= htmlspecialchars($file['uploaded_at']) ?></td>
                 <td><?= htmlspecialchars($file['operator_id']) ?></td>
-                <td><?= htmlspecialchars($file['company_id']) ?></td>
+                <td><?= htmlspecialchars($controllerUsuario->getUserNameByIdCompany($file['company_id'])); ?></td>
                 <td>
                     <a href="javascript:void(0);" class="btn-excluir" onclick="confirmarExclusao(<?= $file['id']; ?>)">
                         excluir
                     </a>
                 </td>
             </tr>
-        <?php endforeach; ?>
+        <?php endforeach;}else {echo "<tr><td colspan='10' style='text-align: center;'>Nenhum Arquivo Disponível para esta Data</td></tr>";}} else{ echo "<h2>Nenhum Arquivo Disponível!</h2>"; } ?>
 
             </tbody>
         </table>
