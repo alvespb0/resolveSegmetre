@@ -21,7 +21,7 @@ if (!isset($_SESSION['userName']) || $_SESSION['userName'] !== 'administrator') 
             margin: 0;
         }
         .container1 {
-            font-family: Arial, sans-serif;
+            font-family: 'Inter', 'Helvetica', Arial, sans-serif;
             display: flex;
             justify-content: center;
             align-items: center;

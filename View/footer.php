@@ -9,6 +9,7 @@
             display: flex;
             flex-direction: column;
             min-height: 100vh;
+            font-family: 'Inter', 'Helvetica', Arial, sans-serif;
         }
         .content {
             flex: 1;

@@ -1,6 +1,5 @@
 <?php
 session_start();
-include_once('navbarAdministrador.php');
 
 if (!isset($_SESSION['userName']) || $_SESSION['userName'] !== 'administrator') {
     header("Location: http://{$_SERVER['HTTP_HOST']}/View/Login.php");
@@ -45,7 +44,7 @@ if (isset($_GET['excluir'])) {
     <style>
         body {
             margin: 0;
-            font-family: 'Arial', sans-serif;
+            font-family: 'Inter', 'Helvetica', Arial, sans-serif;
             background-color: #DDEDEB; /* Verde suave para fundo */
             text-align: center;
         }
@@ -140,6 +139,7 @@ if (isset($_GET['excluir'])) {
     </style>
 </head>
 <body>
+    <?php include_once('navbarAdministrador.php'); ?>
     <div class="container">
     <?php if(is_array($files)){?>
         <h2>Exames Cadastrados</h2>

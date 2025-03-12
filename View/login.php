@@ -1,6 +1,4 @@
-<?php
-include_once('navbar.php');
-?>
+
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -13,7 +11,7 @@ include_once('navbar.php');
             background-color: #DDEDEB;
         }
         .container1 {
-            font-family: Arial, sans-serif;
+            font-family: 'Inter', 'Helvetica', Arial, sans-serif;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -85,6 +83,9 @@ include_once('navbar.php');
     </style>
 </head>
 <body>
+    <?php
+    include_once('navbar.php');
+    ?>
     <div class="container1">
         <div class="container">
             <h2>Login</h2>

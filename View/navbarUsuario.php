@@ -15,6 +15,7 @@
             color: white;
             font-size: 16px;
             font-weight: bold;
+            font-family: 'Inter', 'Helvetica', Arial, sans-serif;
         }
         .navbar .user-info {
             display: flex;

@@ -26,6 +26,7 @@ if ($_SESSION['type'] !== 'operador') {
             margin: 0;
             padding: 0;
             background-color: #DDEDEB; /* Verde suave para o fundo de toda a página */
+            font-family: 'Inter', 'Helvetica', Arial, sans-serif;
         }
         /* Estilização para o conteúdo específico da página */
         .dashboard-container {
@@ -34,7 +35,7 @@ if ($_SESSION['type'] !== 'operador') {
             align-items: flex-start; /* Ajusta o alinhamento para o topo */
             background-color: #DDEDEB;
             margin: 0;
-            padding: 1.8%; /* Remover qualquer padding-top fixo */
+            padding: 2.8%; /* Remover qualquer padding-top fixo */
             position: relative; /* Garantir que o container não seja fixo */
         }
 

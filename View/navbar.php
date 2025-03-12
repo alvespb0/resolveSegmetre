@@ -16,6 +16,8 @@
             position: fixed;
             left: 0;        
             right: 0;
+            font-family: 'Inter', 'Helvetica', Arial, sans-serif;
+
         }
 
         .navbar a {
