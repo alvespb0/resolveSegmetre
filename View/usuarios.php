@@ -39,7 +39,7 @@ if (isset($_GET['excluir'])) {
     <style>
         body {
             margin: 0;
-            font-family: "Times New Roman", Times, serif;
+            font-family: 'Inter', 'Helvetica', Arial, sans-serif;
             background-color: #DDEDEB; /* Verde suave para fundo */
             text-align: center;
         }
