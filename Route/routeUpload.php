@@ -8,6 +8,21 @@ if (!isset($_FILES['file']) || !isset($_POST['company_id']) || !isset($_POST['fi
     exit;
 }
 
+switch ($_FILES['file']['error']) {
+    case UPLOAD_ERR_INI_SIZE:
+    case UPLOAD_ERR_FORM_SIZE:
+        echo json_encode(["error" => "O arquivo enviado é muito grande. O tamanho máximo permitido é 50MB."]);
+        exit;
+
+    case UPLOAD_ERR_PARTIAL:
+        echo json_encode(["error" => "O upload do arquivo não foi concluído. Tente novamente."]);
+        exit;
+
+    case UPLOAD_ERR_NO_FILE:
+        echo json_encode(["error" => "Nenhum arquivo foi enviado."]);
+        exit;
+}
+
 // Define a URL correta
 $url = "https://{$_SERVER['HTTP_HOST']}/api/endpoints/validaUpload.php";
 
@@ -31,6 +46,7 @@ $response = curl_exec($ch);
 $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
 $curlError = curl_error($ch);
 curl_close($ch);
+
 
 // Se houver erro no cURL, retorna erro
 if ($curlError) {
