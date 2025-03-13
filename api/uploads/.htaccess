@@ -1,4 +1,0 @@
-
-# Bloqueia acesso direto a arquivos na pasta uploads
-Order Allow,Deny
-Deny from all
