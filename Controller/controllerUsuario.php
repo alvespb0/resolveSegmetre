@@ -97,10 +97,10 @@ class ControllerUsuario{
      * Recebe todos os logins de usuarios e sua company_id em forma de array associativa
      * @return Array|Exception
      */
-    public function obtainIdCompany(){
+    public function obtainUserNameASC2(){
         $daoUsuario = new DAOusuario;
         try{
-        $empresas = $daoUsuario->getIdCompany();
+        $empresas = $daoUsuario->getUserNameASC2();
         return $empresas;
         }catch(\Exception $e){
             return ['error' => 'Erro: ' . $e->getMessage()];

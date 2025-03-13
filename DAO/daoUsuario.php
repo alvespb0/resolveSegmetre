@@ -186,7 +186,7 @@ class DAOusuario{
      * Faz a busca de todos os usuarios e idcompanys vinculados
      * @return Array|Exception
      */
-    public function getIdCompany(){
+    public function getUserNameASC2(){
         try{
             $conexaoDB = $this->conectarBanco();
         }catch(\Exception $e){
@@ -194,7 +194,7 @@ class DAOusuario{
         }
 
         try{
-            $sqlSelect = "SELECT company_id, `name` from users";
+            $sqlSelect = "SELECT company_id, `name` FROM users ORDER BY `name` ASC";
             $resultado = $conexaoDB->query($sqlSelect);
 
             $companies = array();

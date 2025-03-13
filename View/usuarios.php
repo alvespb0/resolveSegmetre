@@ -16,7 +16,7 @@ use controllers\ControllerUsuario;
 $controllerUsuario = new ControllerUsuario;
 $controllerFiles = new ControllerFiles;
 
-$usuarios = $controllerUsuario->obtainIdCompany();
+$usuarios = $controllerUsuario->obtainUserNameASC2();
 
 if (isset($_GET['excluir'])) {
     $id = $_GET['excluir'];

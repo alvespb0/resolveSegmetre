@@ -5,7 +5,7 @@ session_start();
 
 $controllerUsuario = new ControllerUsuario;
 
-$empresas = $controllerUsuario->obtainIdCompany();
+$empresas = $controllerUsuario->obtainUserNameASC2();
 
 if ($_SESSION['type'] !== 'operador') {
     echo json_encode(["error" => "tela somente de operadores!"]);

@@ -46,7 +46,7 @@
             <!-- Conteúdo da página aqui -->
         </div>
         <div class="footer">
-            &copy; <?php echo date("Y"); ?> Nome da Empresa. Todos os direitos reservados. | <a href="politica_privacidade.php">Política de Privacidade</a>
+            &copy; <?php echo date("Y"); ?> Segmetre Assessoria Ambiental. Todos os direitos reservados. | <a href="politica_privacidade.php">Política de Privacidade</a>
         </div>
     </div>
 </body>

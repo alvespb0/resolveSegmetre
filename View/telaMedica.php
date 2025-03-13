@@ -1,8 +1,8 @@
 <?php
 session_start();
 
-if (!isset($_SESSION['type']) || $_SESSION['type'] !== 'medico') {
-    header("Location: http://{$_SERVER['HTTP_HOST']}/View/Login.php");
+if (!isset($_SESSION['type']) || $_SESSION['type'] !== 'medico' && $_SESSION['type'] !== 'operador') {
+    header("Location: https://{$_SERVER['HTTP_HOST']}/View/Login.php");
     exit(); 
 }
 require_once '../Controller/controllerFiles.php';
