@@ -82,7 +82,7 @@ class DAOfiles{
         }
 
         try{
-            $sqlSelect = $conexaoDB->prepare("SELECT * FROM files where company_id = ?");
+            $sqlSelect = $conexaoDB->prepare("SELECT * FROM files where company_id = ? ORDER BY id DESC");
             $sqlSelect->bind_param("i", $id);
             $sqlSelect->execute();
             $resultado = $sqlSelect->get_result();

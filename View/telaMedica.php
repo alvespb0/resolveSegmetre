@@ -36,19 +36,25 @@ if ($filterDate) {
     <title>Exames Cadastrados</title>
     <style>
         body {
+            height: 100%;
             margin: 0;
             font-family: 'Inter', 'Helvetica', Arial, sans-serif;
             background-color: #DDEDEB; /* Verde suave para fundo */
             text-align: center;
+            overflow: hidden; /* Remove a barra de rolagem do body */
+            flex-direction: column;
         }
         .container {
             max-width: 900px;
-            margin: 60px auto;
+            margin: 35px auto;
             background: white;
-            padding: 30px;
+            padding: 25px;
             border-radius: 12px;
             box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
             transition: 0.3s;
+            flex-grow: 1;
+            justify-content: center; /* Centraliza verticalmente */
+            align-items: center; /* Centraliza horizontalmente */
         }
         .container:hover {
             transform: translateY(-5px);
@@ -67,6 +73,12 @@ if ($filterDate) {
             background: #fff;
             border-radius: 8px;
             overflow: hidden;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+        .table-container {
+            max-height: 400px; /* Limite de altura */
+            overflow-y: auto; /* Rolagem vertical */
+            border-radius: 8px;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
         }
         th, td {
@@ -146,6 +158,7 @@ if ($filterDate) {
             </button>
         </div>
         </form>
+        <div class="table-container">
         <table id = "examTable">
             <thead>
                 <tr>
@@ -184,8 +197,7 @@ if ($filterDate) {
 
             </tbody>
         </table>
-        <div class="pagination" id="pagination"></div>
-
+        </div>
     </div>
     <?php include 'footer.php'; ?>
     <script>

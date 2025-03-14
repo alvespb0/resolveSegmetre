@@ -1,17 +1,26 @@
 <?php
 session_start();
 
+if ($_SESSION['type'] !== 'usuario') {
+    echo json_encode(["error" => "tens de fazer login!"]);
+    header("Location: http://{$_SERVER['HTTP_HOST']}/View/Login.php");
+    exit; // Importante para interromper a execução após o redirecionamento
+}
+
 require '../Controller/controllerFiles.php';
 use controllers\ControllerFiles;
 
 $controllerFiles = new ControllerFiles;
 
-$files = $controllerFiles->obtainFilesbyId($_SESSION['empresaId']);
+$filterDate = isset($_GET['filterDate']) ? $_GET['filterDate'] : '';
+$filterSearch = isset($_GET['search']) ? $_GET['search'] : '';
 
-if ($_SESSION['type'] !== 'usuario') {
-    echo json_encode(["error" => "tens de fazer login!"]);
-    header("Location: http://{$_SERVER['HTTP_HOST']}/View/Login.php");
-    exit; // Importante para interromper a execução após o redirecionamento
+if ($filterDate) {
+    $files = $controllerFiles->obtainFilesByDate($filterDate);
+}else if($filterSearch){
+    $files = $controllerFiles->obtainFilesBySearch($filterSearch);
+} else {
+    $files = $controllerFiles->obtainFilesbyId($_SESSION['empresaId']);
 }
 ?>
 <!DOCTYPE html>
@@ -20,22 +29,30 @@ if ($_SESSION['type'] !== 'usuario') {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" type="image/png" href="logo1.png">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
     <title>Dashboard</title>
     <style>
         body {
+            height: 100%;
             margin: 0;
             font-family: 'Inter', 'Helvetica', Arial, sans-serif;
             background-color: #DDEDEB; /* Verde suave para fundo */
             text-align: center;
+            overflow: hidden; /* Remove a barra de rolagem do body */
+            flex-direction: column;
         }
         .container {
             max-width: 900px;
-            margin: 60px auto;
+            margin: 35px auto;
             background: white;
-            padding: 30px;
+            padding: 25px;
             border-radius: 12px;
             box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
             transition: 0.3s;
+            flex-grow: 1;
+            justify-content: center; /* Centraliza verticalmente */
+            align-items: center; /* Centraliza horizontalmente */
+
         }
         .container:hover {
             transform: translateY(-5px);
@@ -47,10 +64,16 @@ if ($_SESSION['type'] !== 'usuario') {
             margin-bottom: 20px;
             font-weight: bold;
         }
+        .table-container {
+            max-height: 400px; /* Limite de altura */
+            overflow-y: auto; /* Rolagem vertical */
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
         table {
             width: 100%;
             border-collapse: collapse;
-            margin-top: 20px;
+            margin-top: 5px;
             background: #fff;
             border-radius: 8px;
             overflow: hidden;
@@ -84,6 +107,37 @@ if ($_SESSION['type'] !== 'usuario') {
             background: linear-gradient(135deg, #165A50, #2B8A7A);
             transform: scale(1.05);
         }
+        .search-bar {
+            position: relative;
+            display: inline-flex;
+            width: 100%;
+         }
+        .search-bar input[type="text"] {
+            width: 100%;
+            padding: 10px 15px;
+            font-size: 16px;
+            border-radius: 6px 0 0 6px;
+            border: 1px solid #ccc;
+            box-sizing: border-box;
+        }
+        .search-bar button {
+            background: linear-gradient(135deg, #1F7262, #3CA597);
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 0 6px 6px 0;
+            cursor: pointer;
+            transition: 0.3s;
+            font-weight: bold;
+        }
+        .search-bar button:hover {
+            background: linear-gradient(135deg, #165A50, #2B8A7A);
+            transform: scale(1.05);
+        }
+        .search-bar .fa-search {
+            margin-right: 5px;
+        }
+
     </style>
 </head>
 <body>
@@ -91,12 +145,29 @@ if ($_SESSION['type'] !== 'usuario') {
     <div class="container">
     <?php if(is_array($files)){ ?>
         <h2>Arquivos Disponíveis</h2>
-        <table>
+        <form action="" method = "GET">
+        <div class="search-bar">
+            <input type="text" placeholder="Buscar Exame..." name="search">
+            <button type="submit">
+                <i class="fas fa-arrow-right"></i>
+            </button>
+        </div>
+        </form>
+        <div class="table-container">
+        <table id = "examTable">
             <thead>
                 <tr>
                     <th>ID</th>
                     <th>Nome do Arquivo</th>
-                    <th>Data</th>
+                    <th>
+                        Data
+                        <i class="fas fa-calendar-alt calendar-icon" onclick="document.getElementById('filterDate').style.display = 'inline-block';"></i>
+
+                        <form action="" METHOD = "GET">
+                        <input type="date" id="filterDate" style="display:none;" onchange="this.form.submit();" name="filterDate" />
+                        </form>
+
+                    </th>
                     <th>Ação</th>
                 </tr>
             </thead>
@@ -118,6 +189,7 @@ if ($_SESSION['type'] !== 'usuario') {
 
             </tbody>
         </table>
+        </div>
     </div>
     <?php include 'footer.php'; ?>
     <script>
