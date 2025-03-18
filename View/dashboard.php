@@ -16,9 +16,9 @@ $filterDate = isset($_GET['filterDate']) ? $_GET['filterDate'] : '';
 $filterSearch = isset($_GET['search']) ? $_GET['search'] : '';
 
 if ($filterDate) {
-    $files = $controllerFiles->obtainFilesByDate($filterDate);
+    $files = $controllerFiles->obtainFilesByDateFilteredCompany($filterDate, $_SESSION['empresaId']);
 }else if($filterSearch){
-    $files = $controllerFiles->obtainFilesBySearch($filterSearch);
+    $files = $controllerFiles->obtainFilesBySearchFilteredCompany($filterSearch, $_SESSION['empresaId']);
 } else {
     $files = $controllerFiles->obtainFilesbyId($_SESSION['empresaId']);
 }

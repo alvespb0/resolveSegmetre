@@ -196,6 +196,41 @@ class DAOfiles{
     }
 
     /**
+     * recebe uma data e retorna todos os registros dado essa data FILTRADO PELO COMPANY ID
+     * @param string
+     * @return Array|Exception
+     */
+    public function getFilesByDateFilteredCompany($date, $id){
+        try{
+            $conexaoDB = $this->conectarBanco();
+        }catch(\Exception $e){
+            die($e->getMessage());
+        }
+
+        try{
+            $sqlSelect = $conexaoDB->prepare("SELECT * FROM files where uploaded_at like ? and company_id = ?");
+            $sqlSelect->bind_param("si", $date, $id);
+            $sqlSelect->execute();
+
+            $resultado = $sqlSelect->get_result();
+
+            if ($resultado === false) {
+                throw new \Exception("Erro ao executar a consulta: " . $conexaoDB->error); 
+            }else{
+                $files = [];
+                while($row = $resultado->fetch_assoc()){
+                    $files [] = $row;
+                }
+                $conexaoDB->close();
+                return $files;
+            }
+        }catch(\Exception $e){
+            echo json_encode(["error"=>$e->getMessage()]);
+        }
+    }
+    
+
+    /**
      * recebe um search e retorna os exames dado esse parâmetro, será usado o LIKE para isso
      * @param string
      * @return Array|Exception
@@ -228,7 +263,42 @@ class DAOfiles{
         }catch(\Exception $e){
             echo json_encode(["error"=>$e->getMessage()]);
         }
+    }
 
+    /**
+     * recebe um search e retorna os exames dado esse parâmetro, será usado o LIKE para isso FILTRADO PELO COMPANY ID
+     * @param string
+     * @param int
+     * @return Array|Exception
+     */
+    public function getFilesBySearchFilteredCompany($search, $id){
+        try{
+            $conexaoDB = $this->conectarBanco();
+        }catch(\Exception $e){
+            die($e->getMessage());
+        }
+
+        try{
+            $search = "%" . $search . "%";
+            $sqlSelect = $conexaoDB->prepare("SELECT * FROM files where file_name like ? and company_id = ?");
+            $sqlSelect->bind_param("si", $search, $id);
+            $sqlSelect->execute();
+
+            $resultado = $sqlSelect->get_result();
+
+            if ($resultado === false) {
+                throw new \Exception("Erro ao executar a consulta: " . $conexaoDB->error); 
+            }else{
+                $files = [];
+                while($row = $resultado->fetch_assoc()){
+                    $files [] = $row;
+                }
+                $conexaoDB->close();
+                return $files;
+            }
+        }catch(\Exception $e){
+            echo json_encode(["error"=>$e->getMessage()]);
+        }
     }
     /**
      * recebe um id de company e faz a exclusão de TODOS os arquivos dado a ID company

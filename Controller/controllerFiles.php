@@ -84,7 +84,21 @@ class ControllerFiles{
             return false;
         }
     }
-
+   /**
+     * recebe um date e retorna os files dado esse date
+     * @param string
+     * @return Array|False
+     */
+    public function obtainFilesByDateFilteredCompany($date, $id){
+        $daoFile = new DAOfiles();
+        $return = $daoFile->getFilesByDateFilteredCompany($date, $id);
+        if(is_array($return)){
+            unset($daoFile);
+            return $return;
+        }else{
+            return false;
+        }
+    }
     /**
      * recebe um search e retorna os files com esse nome 
      * @param string
@@ -93,6 +107,22 @@ class ControllerFiles{
     public function obtainFilesBySearch($search){
         $daoFile = new DAOfiles();
         $return = $daoFile->getFilesBySearch($search);
+        if(is_array($return)){
+            unset($daoFile);
+            return $return;
+        }else{
+            return false;
+        }
+    }
+    
+    /**
+     * recebe um search e retorna os files com esse nome FILTRADO PELO COMPANY ID
+     * @param string
+     * @return Array|False
+     */
+    public function obtainFilesBySearchFilteredCompany($search, $id){
+        $daoFile = new DAOfiles();
+        $return = $daoFile->getFilesBySearchFilteredCompany($search, $id);
         if(is_array($return)){
             unset($daoFile);
             return $return;
