@@ -1,12 +1,13 @@
 <?php
 session_start();
-include_once('navbarAdministrador.php');
 
 if (!isset($_SESSION['userName']) || $_SESSION['userName'] !== 'administrator') {
     // Redireciona o usuário não autorizado
-    header("Location: http://{$_SERVER['HTTP_HOST']}/View/Login.php");
+    header("Location: https://{$_SERVER['HTTP_HOST']}/View/Login.php");
     exit(); // Garante que o código abaixo não será executado
 }
+
+include('navbar.php');
 
 require_once '../Controller/controllerUsuario.php';
 require_once '../Controller/controllerFiles.php';
@@ -42,51 +43,68 @@ if (isset($_GET['excluir'])) {
             font-family: 'Inter', 'Helvetica', Arial, sans-serif;
             background-color: #DDEDEB; /* Verde suave para fundo */
             text-align: center;
+            overflow: hidden; /* Remove a barra de rolagem da página */
         }
-        .container {
-            max-width: 900px;
-            margin: 60px auto;
+
+        .containerUsuarios {
+            width: 900px;
+            max-height: 70vh; /* Define altura máxima para evitar que passe da tela */
             background: white;
             padding: 30px;
             border-radius: 12px;
             box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
             transition: 0.3s;
+            /* Centralização absoluta */
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
         }
-        .container:hover {
-            transform: translateY(-5px);
+
+        .containerUsuarios:hover {
+            transform: translate(-50%, -52%); 
             box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
         }
+
         h2 {
             color: #1F7262; /* Cor do logo */
             font-size: 26px;
             margin-bottom: 20px;
             font-weight: bold;
         }
+
+        .tabela-container {
+            max-height: 400px; /* Define uma altura máxima */
+            overflow-y: auto;  /* Adiciona rolagem apenas na tabela */
+            border-radius: 8px;
+            box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.1); /* Sombra interna para estética */
+        }
+
         table {
             width: 100%;
             border-collapse: collapse;
-            margin-top: 20px;
             background: #fff;
-            border-radius: 8px;
-            overflow: hidden;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
         }
+
         th, td {
             padding: 15px;
             border-bottom: 1px solid #ddd;
             text-align: center;
         }
+
         th {
             background: linear-gradient(135deg, #1F7262, #3CA597);
             color: white;
             font-size: 16px;
             text-transform: uppercase;
         }
+
         tr:hover {
             background-color: #f1f1f1;
         }
+
         .btn-excluir {
-            background: linear-gradient(135deg,rgb(255, 3, 3),rgb(178, 0, 0));
+            background: linear-gradient(135deg, rgb(255, 3, 3), rgb(178, 0, 0));
             color: white;
             padding: 10px 15px;
             border: none;
@@ -96,6 +114,7 @@ if (isset($_GET['excluir'])) {
             font-weight: bold;
             text-decoration: none;
         }
+
         .btn-excluir:hover {
             background: linear-gradient(135deg, #165A50, #2B8A7A);
             transform: scale(1.05);
@@ -103,8 +122,9 @@ if (isset($_GET['excluir'])) {
     </style>
 </head>
 <body>
-    <div class="container">
+    <div class="containerUsuarios">
         <h2>Usuario Cadastrados</h2>
+        <div class="tabela-container">
         <table>
             <thead>
                 <tr>
@@ -125,9 +145,9 @@ if (isset($_GET['excluir'])) {
                 </td>
             </tr>
         <?php endforeach; ?>
-
             </tbody>
         </table>
+        </div>
     </div>
     <?php include 'footer.php'; ?>
     <script>

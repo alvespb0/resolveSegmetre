@@ -89,7 +89,7 @@
 
         .dropdown-item:hover {
             background-color: var(--light-color);
-            transform: translatey(-1px);
+            transform: translateX(5px);
         }
 
         .navbar-toggler {
@@ -129,94 +129,26 @@
     <nav class="navbar navbar-expand-lg">
         <div class="container">
 
-            <?php if($_SESSION['type'] == 'operador'){?>
             <a class="navbar-brand" href="dashboardOperador.php">
                 <img src="logo1.png" alt="Segmetre Logo">
                 Segmetre
-            </a>
-            <?php }else{ ?>
-            <a class="navbar-brand" href="dashboard.php">
-                <img src="logo1.png" alt="Segmetre Logo">
-                Segmetre
-            </a>
-            <?php }?>
+            </a>            
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav me-auto">
-                    <?php if (isset($_SESSION['userName'])): ?>
-                        <?php if ($_SESSION['userName'] === 'administrator'): ?>
-                            <li class="nav-item">
-                                <a class="nav-link" href="Registro.php">
-                                    <i class="bi bi-speedometer2 me-1"></i> Registro
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="usuarios.php">
-                                    <i class="bi bi-people me-1"></i> Usuários
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="operadores.php">
-                                    <i class="bi bi-person-badge me-1"></i> Operadores
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="exames.php">
-                                    <i class="bi bi-file-earmark-text me-1"></i> Exames
-                                </a>
-                            </li>
-                        <?php elseif ($_SESSION['type'] === 'operador'): ?>
-                            <li class="nav-item">
-                                <a class="nav-link" href="dashboardOperador.php">
-                                    <i class="bi bi-speedometer2 me-1"></i> Dashboard
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="telaMedica.php">
-                                    <i class="bi bi-clipboard-pulse me-1"></i> Exames Cadastrados
-                                </a>
-                            </li>
-                        <?php else: ?>
-                            <li class="nav-item">
-                                <a class="nav-link" href="dashboard.php">
-                                    <i class="bi bi-speedometer2 me-1"></i> Dashboard
-                                </a>
-                            </li>
-                        <?php endif; ?>
-                    <?php else: ?>
+                <ul class="navbar-nav ms-auto">
                         <li class="nav-item">
                             <a class="nav-link" href="Login.php">
                                 <i class="bi bi-box-arrow-in-right me-1"></i> Login
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="contato.php">
-                                <i class="bi bi-envelope me-1"></i> Contato
+                        <a class="nav-link" href="https://wa.me/+554999480118" target="_blank">
+                        <i class="bi bi-envelope me-1"></i> Contato
                             </a>
                         </li>
-                    <?php endif; ?>
                 </ul>
-                <?php if (isset($_SESSION['userName'])): ?>
-                    <div class="user-info">
-                        <div class="user-avatar">
-                            <i class="bi bi-person-circle"></i>
-                        </div>
-                        <div class="dropdown">
-                            <button class="btn btn-link text-white text-decoration-none dropdown-toggle" type="button" data-bs-toggle="dropdown">
-                                <?php echo $_SESSION['userName']; ?>
-                            </button>
-                            <ul class="dropdown-menu dropdown-menu-end">
-                                <li>
-                                    <a class="dropdown-item" href="../setSession/logout.php">
-                                        <i class="bi bi-box-arrow-right me-2"></i> Sair
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                <?php endif; ?>
             </div>
         </div>
     </nav>

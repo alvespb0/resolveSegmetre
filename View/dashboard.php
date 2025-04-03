@@ -3,9 +3,11 @@ session_start();
 
 if ($_SESSION['type'] !== 'usuario') {
     echo json_encode(["error" => "tens de fazer login!"]);
-    header("Location: http://{$_SERVER['HTTP_HOST']}/View/Login.php");
+    header("Location: https://{$_SERVER['HTTP_HOST']}/View/Login.php");
     exit; // Importante para interromper a execução após o redirecionamento
 }
+include 'navbar.php';  
+
 
 require '../Controller/controllerFiles.php';
 use controllers\ControllerFiles;
@@ -41,7 +43,7 @@ if ($filterDate) {
             overflow: hidden; /* Remove a barra de rolagem do body */
             flex-direction: column;
         }
-        .container {
+        .containerDashboard {
             max-width: 900px;
             margin: 35px auto;
             background: white;
@@ -54,7 +56,7 @@ if ($filterDate) {
             align-items: center; /* Centraliza horizontalmente */
 
         }
-        .container:hover {
+        .containerDashboard:hover {
             transform: translateY(-5px);
             box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
         }
@@ -141,8 +143,8 @@ if ($filterDate) {
     </style>
 </head>
 <body>
-    <?php include 'navbarUsuario.php';  ?>
-    <div class="container">
+    <?php ?>
+    <div class="containerDashboard">
     <?php if(is_array($files)){ ?>
         <h2>Arquivos Disponíveis</h2>
         <form action="" method = "GET">

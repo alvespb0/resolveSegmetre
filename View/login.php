@@ -1,4 +1,7 @@
 
+<?php
+    include_once('navbarLogin.php');
+    ?>
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -7,39 +10,59 @@
     <link rel="icon" type="image/png" href="logo1.png">
     <title>Login</title>
     <style>
-        body {
-            margin:0;
+        /* Reset global styles */
+        .login-body {
+            margin: 0;
             background-color: #DDEDEB;
+            height: 100vh;
+            display: fixed;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden; /* Impede a barra de rolagem */
         }
-        .container1 {
-            font-family: 'Inter', 'Helvetica', Arial, sans-serif;
+
+        /* Container do Login */
+        .container-login {
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
+            margin-top: -85px;
+            width: 100%; /* Para centralizar */
+            height: 100%; /* Para centralizar */
         }
-        .container {
+
+        /* Caixa de Login */
+        .login-box {
             background: #fefefe;
             padding: 20px;
             border-radius: 12px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            width: 320px;
+            width: 400px; /* Aumentei a largura */
             text-align: center;
             display: flex;
             flex-direction: column;
             align-items: center;
         }
-        h2 {
+
+        /* Título */
+        .login-title {
+            font-family: Arial, sans-serif; /* Fonte Arial */
             color: #518076;
+            margin-bottom: 20px;
+            font-weight: bold;
         }
-        form {
+
+        /* Formulário de Login */
+        .login-form {
             width: 100%;
             display: flex;
             flex-direction: column;
             align-items: center;
         }
-        input {
-            width: 90%;
+
+        /* Estilos para os campos de input */
+        .input-field {
+            width: 100%;
             padding: 10px;
             margin: 8px 0;
             border: 1px solid #79a79a;
@@ -47,12 +70,16 @@
             outline: none;
             transition: 0.3s;
         }
-        input:focus {
+
+        /* Efeito de foco nos campos */
+        .input-field:focus {
             border-color: #518076;
             box-shadow: 0 0 8px rgba(81, 128, 118, 0.6);
         }
-        button {
-            background: linear-gradient(135deg, #1F7262, #3CA597);;
+
+        /* Estilo para o botão de login */
+        .btn-login {
+            background: linear-gradient(135deg, #1F7262, #3CA597);
             color: white;
             border: none;
             padding: 10px;
@@ -62,10 +89,14 @@
             transition: 0.3s;
             margin-top: 10px;
         }
-        button:hover {
+
+        /* Hover no botão */
+        .btn-login:hover {
             transform: translateY(-3px);
         }
-        input, select {
+
+        /* Estilo para o campo select */
+        .select-field {
             width: 90%;
             padding: 10px;
             margin: 8px 0;
@@ -74,34 +105,33 @@
             outline: none;
             transition: 0.3s;
         }
-        input:focus, select:focus {
-            border-color: #518076;
-            box-shadow: 0 0 8px rgba(81, 128, 118, 0.6);
-        }
-        label{
+
+        /* Estilo para o label */
+        .input-label {
+            font-family: Arial, sans-serif; /* Fonte Arial */
             color: #518076;
         }
+
     </style>
 </head>
-<body>
-    <?php
-    include_once('navbar.php');
-    ?>
-    <div class="container1">
-        <div class="container">
-            <h2>Login</h2>
-            <form id="formLogin">
-                <input type="text" placeholder="Email" name="email" required>
-                <input type="password" placeholder="Senha" name="senha" required>
-                <label for="type"><b>Eu sou:</b></label>
-                <select id="tipo" name="type" required>
+<body class="login-body">
+
+    <div class="container-login">
+        <div class="login-box">
+            <h2 class="login-title">Login</h2>
+            <form id="formLogin" class="login-form">
+                <input type="text" placeholder="Email" name="email" class="input-field" required>
+                <input type="password" placeholder="Senha" name="senha" class="input-field" required>
+                <label for="type" class="input-label"><b>Eu sou:</b></label>
+                <select id="tipo" name="type" class="select-field" required>
                     <option value="operador">Funcionário Segmetre</option>
                     <option value="usuario">Cliente Segmetre</option>
                 </select>
-                <button type="submit">Entrar</button>
+                <button class="btn-login" type="submit">Entrar</button>
             </form>
         </div>
     </div>
+
 
     <script>
         document.getElementById('formLogin').addEventListener('submit', function(event) {

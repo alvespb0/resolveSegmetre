@@ -1,12 +1,13 @@
 <?php
 session_start();
-include_once('navbarAdministrador.php');
 
 if (!isset($_SESSION['userName']) || $_SESSION['userName'] !== 'administrator') {
-    // Redireciona o usuário não autorizado
-    header("Location: http://{$_SERVER['HTTP_HOST']}/View/Login.php");
-    exit(); // Garante que o código abaixo não será executado
+    header("Location: https://{$_SERVER['HTTP_HOST']}/View/Login.php");
+    exit();
 }
+
+include_once('navbar.php');
+
 require_once '../Controller/controllerOperador.php';
 use controllers\ControllerOperador;
 
@@ -35,19 +36,26 @@ if (isset($_GET['excluir'])) {
             font-family: 'Inter', 'Helvetica', Arial, sans-serif;
             background-color: #DDEDEB; /* Verde suave para fundo */
             text-align: center;
+            overflow: hidden; /* Remove a barra de rolagem da página */
         }
-        .container {
-            max-width: 900px;
-            margin: 60px auto;
+        .containerOperadores {
+            width: 900px;
+            max-height: 70vh; /* Define altura máxima para evitar que passe da tela */
             background: white;
             padding: 30px;
             border-radius: 12px;
             box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
             transition: 0.3s;
+            /* Centralização absoluta */
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
         }
-        .container:hover {
-            transform: translateY(-5px);
+        .containerOperadores:hover {
+            transform: translate(-50%, -52%); 
             box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+
         }
         h2 {
             color: #1F7262; /* Cor do logo */
@@ -96,7 +104,7 @@ if (isset($_GET['excluir'])) {
     </style>
 </head>
 <body>
-    <div class="container">
+    <div class="containerOperadores">
         <h2>Operadores Cadastrados</h2>
         <table>
             <thead>

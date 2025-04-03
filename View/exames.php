@@ -1,10 +1,11 @@
 <?php
 session_start();
-
 if (!isset($_SESSION['userName']) || $_SESSION['userName'] !== 'administrator') {
-    header("Location: http://{$_SERVER['HTTP_HOST']}/View/Login.php");
+    header("Location: https://{$_SERVER['HTTP_HOST']}/View/Login.php");
     exit(); 
 }
+include_once('navbar.php');
+
 require_once '../Controller/controllerFiles.php';
 require_once '../Controller/controllerUsuario.php';
 
@@ -28,10 +29,9 @@ if ($filterDate) {
 if (isset($_GET['excluir'])) {
     $id = $_GET['excluir'];
     $controllerFiles->deleteFilesId($id);
-    header("Location: " . $_SERVER['PHP_SELF']);
+    header("Location: https://{$_SERVER['HTTP_HOST']}/View/exames.php");
     exit();
 }
-
 
 ?>
 <!DOCTYPE html>
@@ -52,7 +52,7 @@ if (isset($_GET['excluir'])) {
             overflow: hidden; /* Remove a barra de rolagem do body */
             flex-direction: column;
         }
-        .container {
+        .containerExames {
             max-width: 900px;
             margin: 35px auto;
             background: white;
@@ -65,7 +65,7 @@ if (isset($_GET['excluir'])) {
             align-items: center; /* Centraliza horizontalmente */
 
         }
-        .container:hover {
+        .containerExames:hover {
             transform: translateY(-5px);
             box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
         }
@@ -153,8 +153,7 @@ if (isset($_GET['excluir'])) {
     </style>
 </head>
 <body>
-    <?php include_once('navbarAdministrador.php'); ?>
-    <div class="container">
+    <div class="containerExames">
     <?php if(is_array($files)){?>
         <h2>Exames Cadastrados</h2>
         <form action="" method = "GET">

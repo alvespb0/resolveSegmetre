@@ -5,6 +5,9 @@ if (!isset($_SESSION['type']) || $_SESSION['type'] !== 'medico' && $_SESSION['ty
     header("Location: https://{$_SERVER['HTTP_HOST']}/View/Login.php");
     exit(); 
 }
+
+include_once('navbar.php'); 
+
 require_once '../Controller/controllerFiles.php';
 require_once '../Controller/controllerUsuario.php';
 
@@ -44,7 +47,7 @@ if ($filterDate) {
             overflow: hidden; /* Remove a barra de rolagem do body */
             flex-direction: column;
         }
-        .container {
+        .containerDownload {
             max-width: 900px;
             margin: 35px auto;
             background: white;
@@ -56,7 +59,7 @@ if ($filterDate) {
             justify-content: center; /* Centraliza verticalmente */
             align-items: center; /* Centraliza horizontalmente */
         }
-        .container:hover {
+        .containerDownload:hover {
             transform: translateY(-5px);
             box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
         }
@@ -146,8 +149,7 @@ if ($filterDate) {
 </head>
 
 <body>
-    <?php include_once('navbarOperador.php'); ?>
-    <div class="container">
+    <div class="containerDownload">
         <?php if(is_array($files)){?>
         <h2>Exames Cadastrados</h2>
         <form action="" method = "GET">

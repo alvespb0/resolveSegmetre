@@ -1,17 +1,21 @@
 <?php
 require_once ('../Controller/controllerUsuario.php');
 use controllers\ControllerUsuario;
+
 session_start();
+
+if ($_SESSION['type'] !== 'operador') {
+    echo json_encode(["error" => "tela somente de operadores!"]);
+    header("Location: https://{$_SERVER['HTTP_HOST']}/View/Login.php");
+    exit; // Importante para interromper a execução após o redirecionamento
+}else{
+
+include('navbar.php');
 
 $controllerUsuario = new ControllerUsuario;
 
 $empresas = $controllerUsuario->obtainUserNameASC2();
 
-if ($_SESSION['type'] !== 'operador') {
-    echo json_encode(["error" => "tela somente de operadores!"]);
-    header("Location: http://{$_SERVER['HTTP_HOST']}/View/Login.php");
-    exit; // Importante para interromper a execução após o redirecionamento
-}else{
 ?>
 
 <!DOCTYPE html>
@@ -27,6 +31,7 @@ if ($_SESSION['type'] !== 'operador') {
             padding: 0;
             background-color: #DDEDEB; /* Verde suave para o fundo de toda a página */
             font-family: 'Inter', 'Helvetica', Arial, sans-serif;
+            overflow:hidden;
         }
         /* Estilização para o conteúdo específico da página */
         .dashboard-container {
@@ -42,11 +47,12 @@ if ($_SESSION['type'] !== 'operador') {
         /* Form Container */
         .form-container {
             background: white;
-            padding: 22px;
+            padding: 20px;
             border-radius: 12px;
             box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
-            width: 100%;
+            width: 90%;
             max-width: 600px;
+            margin-top: -2%;            /* max-height:500px; */
             transition: 0.3s;
         }
 
@@ -137,14 +143,6 @@ if ($_SESSION['type'] !== 'operador') {
     </style>
 </head>
 <body>
-<?php 
-if($_SESSION['userName'] == 'administrator'){
-    include 'navbarAdministrador.php';
-}else{
-    include 'navbarOperador.php';  
-}
-
-?>
     <div class="dashboard-container">
         
         <div class="form-container">
