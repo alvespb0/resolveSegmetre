@@ -125,6 +125,7 @@
                 <label for="type" class="input-label"><b>Eu sou:</b></label>
                 <select id="tipo" name="type" class="select-field" required>
                     <option value="operador">Funcionário Segmetre</option>
+                    <option value="financeiro">Funcionário Segmetre (financeiro)</option>
                     <option value="usuario">Cliente Segmetre</option>
                 </select>
                 <button class="btn-login" type="submit">Entrar</button>
@@ -176,6 +177,8 @@
                                 window.location.href = "dashboard.php";
                             } else if(result.type === "medico"){
                                 window.location.href = "telaMedica.php";
+                            } else if(result.type === "financeiro"){
+                                window.location.href = "financeiro.php";
                             }
                         }
                         

@@ -32,6 +32,22 @@ class ControllerFinanceiro{
             return false;
         }
     }
+
+    /**
+     * Recebe um email e chama a função getOperador
+     * @param string
+     * @return Array|false
+     */
+    public function obtainOperadorFinanceiro($email){
+        $daoOperadorFinanceiro = new DAOopFinanceiro;
+        $operadorFinanceiro = $daoOperadorFinanceiro->getOperadorFinanceiro($email);
+
+        if($operadorFinanceiro){
+            return $operadorFinanceiro;
+        }else{
+            return false;
+        }
+    }
 }
 
 ?>

@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-if (!isset($_SESSION['userName']) || $_SESSION['userName'] !== 'administrator') {
+if (!isset($_SESSION['userName']) || $_SESSION['userName'] !== 'administrator' && $_SESSION['type'] !=='financeiro') {
     header("Location: https://{$_SERVER['HTTP_HOST']}/View/Login.php");
     exit(); // Garante que o código abaixo não será executado
 }

@@ -23,6 +23,11 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         $_SESSION['idOperador'] = $data['operadorId'];
         $_SESSION['empresaId'] = null;
         echo json_encode(["success" => true, "type" => $data['type']]);
+    }else if($data['type'] === 'financeiro'){
+        $_SESSION['userName'] = $data['userName'];
+        $_SESSION['type'] = $data['type'];
+        $_SESSION['empresaId'] = null;
+        echo json_encode(["success" => true, "type" => $data['type']]);
     }
     } else {
         echo json_encode(["success" => false, "error" => "Dados inválidos"]);

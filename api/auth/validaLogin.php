@@ -1,9 +1,11 @@
 <?php
 require_once('../../Controller/controllerOperador.php');
 require_once('../../Controller/controllerUsuario.php');
+require_once('../../Controller/controllerFinanceiro.php');
 
 use controllers\ControllerOperador;
 use controllers\ControllerUsuario;
+use controllers\ControllerFinanceiro;
 
 header("Content-Type: application/json");
 
@@ -16,7 +18,7 @@ if (!isset($data['email']) || !isset($data['senha']) || !isset($data['type'])) {
     $email = $data['email'];
     $password = $data['senha'];
     $type = $data['type'];
-
+    
     if($type === 'usuario'){
         $controllerUsuario = new ControllerUsuario;
         $usuario = $controllerUsuario->obtainUsuario($email);
@@ -48,6 +50,25 @@ if (!isset($data['email']) || !isset($data['senha']) || !isset($data['type'])) {
             }
         }else{
             echo json_encode(["error" => "Login de Operador não encontrado em nosso sistema"]); // se $operador não é uma array, ele caiu na segunda condicional da controller então não achou nada no banco
+        }
+    }else if($type === 'financeiro'){
+        $controllerOperadorFinanceiro = new ControllerFinanceiro();
+        $opFinanceiro = $controllerOperadorFinanceiro->obtainOperadorFinanceiro($email);
+        if(is_array($opFinanceiro)){
+            if($opFinanceiro && password_verify($password, $opFinanceiro['password_hash'])){
+                echo json_encode([
+                    "message" => "Login Efetuado!",
+                    "userName" => $opFinanceiro['name'],
+                    "operadorFinId" => $opFinanceiro['id'],
+                    "operadorId" => null,
+                    "empresaId" => null,
+                    "type" => "financeiro"
+                ]);
+            }else{
+                echo json_encode(["error" => "Login e/ou senha incorreta!"]); // ele valida que é uma array então existe usuario com esse email, mas a senha está errada
+            }
+        }else{
+            echo json_encode(["error" => "Login de Operador Financeiro não encontrado em nosso sistema"]); // se $operador não é uma array, ele caiu na segunda condicional da controller então não achou nada no banco
         }
     }else{
         echo json_encode(["error" => "Tens de selecionar Usuário ou Operador"]);
