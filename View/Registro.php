@@ -108,6 +108,7 @@ include_once('navbar.php');
             <select id="tipo" name="type" required>
                 <option value="operador">Operador</option>
                 <option value="usuario">Usuário</option>
+                <option value="financeiro">Financeiro</option>
             </select>
             <input type="text" name="cnpj" id="cnpj" class="hidden" placeholder="CNPJ">
             <button type="submit">Registrar</button>

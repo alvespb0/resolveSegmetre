@@ -13,7 +13,9 @@ if (!isset($data['type']) || !isset($data['usuario']) || !isset($data['senha']))
         
     } elseif ($type === 'usuario') {
         $url = "https://{$_SERVER['HTTP_HOST']}/api/auth/registerUsuario.php";
-    } else {
+    } elseif($type === 'financeiro'){
+        $url = "https://{$_SERVER['HTTP_HOST']}/api/auth/registerFinanceiro.php";
+    }else {
         echo json_encode(["error" => "Tipo inválido"]);
         exit;
     }

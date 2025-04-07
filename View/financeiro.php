@@ -48,11 +48,10 @@ include_once('navbar.php');
             transition: 0.3s;
             max-height: 600px;  /* Ajuste conforme necessário */
             overflow-y: auto;
-            padding-right: 10px; /* Para não cortar o conteúdo ao lado da scrollbar */
         }
 
         .form-container:hover {
-            transform: translateY(-5px);
+            transform: translateY(-2px);
             box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
         }
 
@@ -79,7 +78,6 @@ include_once('navbar.php');
 
         .form-container input[type="text"],
         .form-container input[type="date"],
-        .form-container select,
         .form-container input[type="file"] {
             width: 100%;
             padding: 10px;
@@ -103,7 +101,7 @@ include_once('navbar.php');
 
         .form-container button.submit:hover {
             background: linear-gradient(135deg, #406659, #5c8b7f);
-            transform: scale(1.05);
+            transform: scale(1.03);
         }
 
         .form-container button#addFileBtn {
