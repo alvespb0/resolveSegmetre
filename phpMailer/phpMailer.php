@@ -102,6 +102,61 @@ class Mailer{
             return false;
         }
     }
+    
+    public function enviaFinanceiro($mailForm, $file){
+
+        try{
+            $destinatario = $mailForm['email'];
+            $dataVenc = $mailForm['dataVenc'];
+
+            if (empty($destinatario) || empty($dataVenc)) {
+                return false;
+            }
+            
+            $mail = new PHPMailer(true);
+            $mail->isSMTP();
+            $mail->Host = 'smtp.gmail.com'; // Servidor SMTP do Google
+            $mail->SMTPAuth = true;        // Ativar autenticação SMTP
+            $mail->Username = 'arthur@segmetre.com.br'; // Substitua pelo seu e-mail
+            $mail->Password = 'ibgn sfiy nroh lydq';   // Substitua pela senha de aplicativo
+            $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS; // Habilitar TLS
+            $mail->Port = 587;             // Porta do servidor SMTP
+
+            $mail->setFrom('arthur@segmetre.com.br', 'Segmetre'); // Remetente
+            $mail->addAddress($destinatario); // Destinatário
+
+            $mail->isHTML(true);
+            $mail->Subject = 'Envio de NF e Boleto!'; // Assunto
+            $mail->Body = '<!DOCTYPE html>
+                <html lang="en">
+                <head>
+                    <meta charset="UTF-8">
+                    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                    <title>Document</title>
+                </head>
+                <body>
+                    <p> Prezado Cliente, </p>
+                    <p> Agradecemos a confiança e preferência. </p>
+                    <p> Segue em anexo contendo nota fiscal e relatórios referente ao último período. </p>
+                    <p> Data de vencimento: ' . $dataVenc . ' </p>
+                    <p> Qualquer dúvida estamos à disposição! </p>
+                    <p><b> Favor confirmar recebimento </b></p>
+                </body>
+                </html>';
+
+            foreach ($file['tmp_name'] as $index => $tmpName) {
+                if ($file['error'][$index] === UPLOAD_ERR_OK) {
+                    $mail->addAttachment($tmpName, mb_encode_mimeheader($file['name'][$index], 'UTF-8'));
+                }
+            }
+                
+            $mail->send();
+            return true;
+        }catch (Exception $e) {
+            // opcional: log do erro
+            return $mail->ErrorInfo;
+        }        
+    }
 }
 
 

@@ -167,6 +167,11 @@
                                     <i class="bi bi-file-earmark-text me-1"></i> Exames
                                 </a>
                             </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="financeiro.php">
+                                    <i class="bi bi-currency-dollar"></i> Encaminha NF e Boleto
+                                </a>
+                            </li>
                         <?php elseif ($_SESSION['type'] === 'operador'): ?>
                             <li class="nav-item">
                                 <a class="nav-link" href="dashboardOperador.php">
@@ -178,6 +183,12 @@
                                     <i class="bi bi-clipboard-pulse me-1"></i> Exames Cadastrados
                                 </a>
                             </li>
+                        <?php elseif ($_SESSION['type'] === 'financeiro'): ?>
+                        <li class="nav-item">
+                            <a class="nav-link" href="financeiro.php">
+                                <i class="bi bi-currency-dollar"></i> Encaminha NF e Boleto
+                            </a>
+                        </li>
                         <?php else: ?>
                             <li class="nav-item">
                                 <a class="nav-link" href="dashboard.php">
