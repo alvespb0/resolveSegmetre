@@ -117,32 +117,83 @@ class Mailer{
             $mail->isSMTP();
             $mail->Host = 'smtp.gmail.com'; // Servidor SMTP do Google
             $mail->SMTPAuth = true;        // Ativar autenticação SMTP
-            $mail->Username = 'arthur@segmetre.com.br'; // Substitua pelo seu e-mail
-            $mail->Password = 'ibgn sfiy nroh lydq';   // Substitua pela senha de aplicativo
+            $mail->Username = 'financeiro@segmetre.com.br'; // Substitua pelo seu e-mail
+            $mail->Password = 'mgel lcgm iuhw vtoe';   // Substitua pela senha de aplicativo
             $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS; // Habilitar TLS
             $mail->Port = 587;             // Porta do servidor SMTP
 
-            $mail->setFrom('arthur@segmetre.com.br', 'Segmetre'); // Remetente
+            $mail->setFrom('financeiro@segmetre.com.br', 'Segmetre'); // Remetente
             $mail->addAddress($destinatario); // Destinatário
 
             $mail->isHTML(true);
             $mail->Subject = 'Envio de NF e Boleto!'; // Assunto
             $mail->Body = '<!DOCTYPE html>
-                <html lang="en">
-                <head>
-                    <meta charset="UTF-8">
-                    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                    <title>Document</title>
-                </head>
-                <body>
-                    <p> Prezado Cliente, </p>
-                    <p> Agradecemos a confiança e preferência. </p>
-                    <p> Segue em anexo contendo nota fiscal e relatórios referente ao último período. </p>
-                    <p> Data de vencimento: ' . $dataVenc . ' </p>
-                    <p> Qualquer dúvida estamos à disposição! </p>
-                    <p><b> Favor confirmar recebimento </b></p>
-                </body>
-                </html>';
+                            <html lang="pt-br">
+                            <head>
+                                <meta charset="UTF-8">
+                                <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                                <title>Document</title>
+                                <style>
+                                    body {
+                                        font-family: Arial, sans-serif;
+                                        background-color: #e2eeec;
+                                        color: #518173;
+                                        margin: 0;
+                                        padding: 0;
+                                    }
+                                    .container {
+                                        width: 100%;
+                                        max-width: 600px;
+                                        margin: 0 auto;
+                                        padding: 20px;
+                                        background-color: #ffffff;
+                                        border-radius: 8px;
+                                        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+                                    }
+                                    h2 {
+                                        color: #7dc5b7;
+                                        font-size: 24px;
+                                        margin-bottom: 20px;
+                                    }
+                                    p {
+                                        font-size: 16px;
+                                        line-height: 1.5;
+                                        margin-bottom: 10px;
+                                    }
+                                    .highlight {
+                                        color: #6c948c;
+                                        font-weight: bold;
+                                    }
+                                    .footer {
+                                        font-size: 14px;
+                                        color: #518173;
+                                        margin-top: 20px;
+                                        text-align: center;
+                                    }
+                                    .footer a {
+                                        color: #649c8c;
+                                        text-decoration: none;
+                                    }
+                                    .footer a:hover {
+                                        text-decoration: underline;
+                                    }
+                                </style>
+                            </head>
+                            <body>
+                                <div class="container">
+                                    <h2>Prezado Cliente,</h2>
+                                    <p>Agradecemos a confiança e preferência em nossos serviços.</p>
+                                    <p>Em anexo, você encontrará a nota fiscal e os relatórios referentes ao último período.</p>
+                                    <p>Data de vencimento: <span class="highlight">' . $dataVenc . '</span></p>
+                                    <p>Qualquer dúvida, estamos à disposição!</p>
+                                    <p><b>Favor confirmar recebimento.</b></p>
+                                    <div class="footer">
+                                        <p>Atenciosamente, <br> Segmetre</p>
+                                        <p><a href="mailto:financeiro@segmetre.com.br">financeiro@segmetre.com.br</a> | <a href="https://wa.me/+554999480118" target="_blank">(49) 9948-0118 </a></p>
+                                    </div>
+                                </div>
+                            </body>
+                            </html>';
 
             foreach ($file['tmp_name'] as $index => $tmpName) {
                 if ($file['error'][$index] === UPLOAD_ERR_OK) {

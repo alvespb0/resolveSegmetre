@@ -180,6 +180,10 @@ include_once('navbar.php');
     </style>
 </head>
 <body>
+    <div id="loading" style="display:none; text-align: center; margin-top: 10px;">
+        <img src="loading.gif" alt="Enviando..." width="32" height="32">
+        <p>Enviando e-mail...</p>
+    </div>
     <div class="financeiro-container">
         <div class="form-container">
             <h2>Encaminha NF e Boleto</h2>
@@ -197,6 +201,7 @@ include_once('navbar.php');
             </form>
         </div>
     </div>
+    
     <?php include 'footer.php'; ?>
 
     <script>
@@ -242,6 +247,7 @@ include_once('navbar.php');
     document.getElementById('finForm').addEventListener('submit', function(event) {
         event.preventDefault();
         const formData = new FormData(this);
+        document.getElementById('loading').style.display = 'block';
 
         fetch('../Route/routeFinanceiro.php', {
                 method: 'POST',
@@ -249,6 +255,8 @@ include_once('navbar.php');
             })
             .then(response => response.json())
             .then(data => {
+                document.getElementById('loading').style.display = 'none';
+
                 if (data.message) {
                     alert(data.message);
                 }
@@ -257,6 +265,7 @@ include_once('navbar.php');
                 }
             })
             .catch((error) => {
+                document.getElementById('loading').style.display = 'none';
                 console.error('Erro:', error);
             });
 
