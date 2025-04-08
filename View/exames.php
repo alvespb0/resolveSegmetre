@@ -4,7 +4,6 @@ if (!isset($_SESSION['userName']) || $_SESSION['userName'] !== 'administrator') 
     header("Location: https://{$_SERVER['HTTP_HOST']}/View/Login.php");
     exit(); 
 }
-include_once('navbar.php');
 
 require_once '../Controller/controllerFiles.php';
 require_once '../Controller/controllerUsuario.php';
@@ -32,6 +31,7 @@ if (isset($_GET['excluir'])) {
     header("Location: https://{$_SERVER['HTTP_HOST']}/View/exames.php");
     exit();
 }
+include_once('navbar.php');
 
 ?>
 <!DOCTYPE html>

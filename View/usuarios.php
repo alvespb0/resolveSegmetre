@@ -6,9 +6,6 @@ if (!isset($_SESSION['userName']) || $_SESSION['userName'] !== 'administrator') 
     header("Location: https://{$_SERVER['HTTP_HOST']}/View/Login.php");
     exit(); // Garante que o código abaixo não será executado
 }
-
-include('navbar.php');
-
 require_once '../Controller/controllerUsuario.php';
 require_once '../Controller/controllerFiles.php';
 use controllers\ControllerFiles;
@@ -16,8 +13,6 @@ use controllers\ControllerUsuario;
 
 $controllerUsuario = new ControllerUsuario;
 $controllerFiles = new ControllerFiles;
-
-$usuarios = $controllerUsuario->obtainUserNameASC2();
 
 if (isset($_GET['excluir'])) {
     $id = $_GET['excluir'];
@@ -29,6 +24,9 @@ if (isset($_GET['excluir'])) {
     exit();
 }
 
+include('navbar.php');
+
+$usuarios = $controllerUsuario->obtainUserNameASC2();
 
 ?>
 <!DOCTYPE html>
