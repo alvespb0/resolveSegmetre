@@ -84,6 +84,14 @@ CREATE TABLE `opFinanceiro` (
   `password_hash` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+CREATE TABLE tokens_cadastro (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    token VARCHAR(255) NOT NULL UNIQUE,
+    criado_em DATETIME DEFAULT CURRENT_TIMESTAMP,
+    expiracao DATETIME,
+    usado BOOLEAN DEFAULT FALSE
+);
+
 --
 -- Despejando dados para a tabela `operators`
 --

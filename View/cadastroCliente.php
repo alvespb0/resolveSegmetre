@@ -1,24 +1,22 @@
 <?php
-session_start();
-
-if (!isset($_SESSION['userName']) || $_SESSION['userName'] !== 'administrator') {
+if (!isset($_GET['token'])) {
     header("Location: https://{$_SERVER['HTTP_HOST']}/View/Login.php");
-    exit(); // Garante que o código abaixo não será executado
+    exit;
 }
-
 require_once '../Controller/controllerUsuario.php';
 use controllers\ControllerUsuario;
 
 $controllerUsuario = new ControllerUsuario;
 
-$linkGerado = '';
+$token = $_GET['token'];
 
-if (isset($_GET['link'])) {
-    $controllerUsuario = new ControllerUsuario;
-    $linkGerado = $controllerUsuario->getLinkCadastro();
+if(!$controllerUsuario->validaToken($token)){
+    session_start();
+    $_SESSION['tokenInvalido'] = 'Link fornecido expirado após o prazo de 24 horas ou já utilizado';
+    header("Location: https://{$_SERVER['HTTP_HOST']}/View/Login.php");
+    exit;
 }
-
-include_once('navbar.php');
+include_once('navbarLogin.php');
 
 ?>
 <!DOCTYPE html>
@@ -114,59 +112,17 @@ include_once('navbar.php');
         <div class="registro-box">
         <h2>Registro</h2>
         <form id="formCadastro">
-            <input type="text" placeholder="Usuário" name="usuario" required>
+            <input type="hidden" name="type" value = "usuario">
+            <input type="text" placeholder="Empresa" name="usuario" required>
             <input type="text" placeholder="Email" name="email" required>
             <input type="password" placeholder="Senha" name="senha" required>
-            <select id="tipo" name="type" required>
-                <option value="operador">Operador</option>
-                <option value="usuario">Usuário</option>
-                <option value="financeiro">Financeiro</option>
-            </select>
-            <input type="text" name="cnpj" id="cnpj" class="hidden" placeholder="CNPJ">
+            <input type="text" name="cnpj" id="cnpj" placeholder="CNPJ" required>
             <button type="submit">Registrar</button>
         </form>
-        <form action="" method = "GET">
-            <input type="hidden" name="link">
-            <button type="submit">Gerar Link de Cadastro</button>
-        </form>
-
-        <?php if (!empty($linkGerado) && !is_array($linkGerado)): ?>
-            <div style="margin-top: 15px; display: flex; align-items: center; gap: 10px;">
-                <input type="text" id="linkGerado" value="<?= htmlspecialchars($linkGerado) ?>" readonly
-                    style="padding: 8px; width: 100%; max-width: 500px; border: 1px solid #ccc; border-radius: 5px; font-size: 14px;">
-                <button onclick="copiarLink()" type="button"
-                    style="padding: 8px 12px; background-color: #518076; color: white; border: none; border-radius: 5px; cursor: pointer;">
-                    Copiar
-                </button>
-            </div>
-
-            <script>
-                function copiarLink() {
-                    const campo = document.getElementById("linkGerado");
-                    campo.select();
-                    campo.setSelectionRange(0, 99999); // Para dispositivos móveis
-                    document.execCommand("copy");
-                    alert("Link copiado para a área de transferência!");
-                }
-            </script>
-
-        <?php elseif (is_array($linkGerado) && isset($linkGerado['error'])): ?>
-            <p style="color:red;">Erro: <?= htmlspecialchars($linkGerado['error']) ?></p>
-        <?php endif; ?>
-
         </div>
     </div>
 
     <script>
-        document.getElementById('tipo').addEventListener('change', function() {
-            let cnpjField = document.getElementById('cnpj');
-            if (this.value === 'usuario') {
-                cnpjField.classList.remove('hidden');
-            } else {
-                cnpjField.classList.add('hidden');
-            }
-        });
-
         document.getElementById('formCadastro').addEventListener('submit', function(event) {
             event.preventDefault(); // Impede o envio padrão do formulário
 

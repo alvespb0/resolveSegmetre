@@ -271,5 +271,61 @@ class DAOusuario{
         $sqlDelete->close();
         return $retorno;
     }
+
+    /**
+     * Função responsável por gerar o token e sallvar no banco com uma expiração de 24 horas
+     * @param string $token
+     * @param date $expiracao
+     * @return bool
+     */
+    public function genTokenCadastro($token, $expiracao){
+        try{
+            $conexaoDB = $this->conectarBanco();
+        }catch(\Exception $e){
+            die($e->getMessage());
+        }
+
+        $sqlInsert = $conexaoDB->prepare("INSERT INTO tokens_cadastro (token, expiracao) VALUES (?, ?)");
+        $sqlInsert->bind_param("ss", $token, $expiracao);
+        $sqlInsert->execute();
+
+        if(!$sqlInsert->error){
+            $sqlInsert->close();
+            $conexaoDB->close();
+            return true;
+        }else{
+            error_log("Erro ao executar consulta: " . $sqlInsert->error);
+            return false;
+        }
+    }
+
+    /**
+     * valida Token, recebe um token que o código pega da URL e dá um select, se o token exisitr (e for valido) e a data de expiração estiver no prazo
+     * retorna true; se não, retorna False
+     * @param string
+     * @return bool
+     */
+    public function validateTokenCadastro($token){
+        try{
+            $conexaoDB = $this->conectarBanco();
+        }catch(\Exception $e){
+            die($e->getMessage());
+        }
+
+        $sqlSelect = $conexaoDB->prepare("SELECT * FROM tokens_cadastro WHERE token = ? AND usado = 0 AND expiracao > NOW()");
+        $sqlSelect->bind_param('s', $token);
+        $sqlSelect->execute();
+        $resultado = $sqlSelect->get_result();
+        if($resultado->num_rows > 0){
+            $sqlSelect->close();
+            $conexaoDB->close();
+            return true;
+        }else{
+            $sqlSelect->close();
+            $conexaoDB->close();
+            return false;
+        }
+
+    }
 }
 ?>

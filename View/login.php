@@ -1,7 +1,15 @@
 
 <?php
+    session_start();
     include_once('navbarLogin.php');
-    ?>
+    $tokenMensagem = '';
+
+    if (isset($_SESSION['tokenInvalido'])) {
+        $tokenMensagem = $_SESSION['tokenInvalido'];
+        unset($_SESSION['tokenInvalido']); // Limpa a mensagem para não repetir
+    }
+
+?>
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -115,7 +123,11 @@
     </style>
 </head>
 <body class="login-body">
-
+    <?php if (!empty($tokenMensagem)): ?>
+        <script>
+            alert("<?= addslashes($tokenMensagem) ?>");
+        </script>
+    <?php endif; ?>
     <div class="container-login">
         <div class="login-box">
             <h2 class="login-title">Login</h2>

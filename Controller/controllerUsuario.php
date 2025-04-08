@@ -127,5 +127,38 @@ class ControllerUsuario{
         $daoUsuario = new DAOusuario;
         $daoUsuario->deleteCompanyById($id);
     }
+
+    /**
+     * lança uma request para a função genTokenCadastro contendo token e expiração gerado na controller.
+     * Feito isso, ele retorna o link
+     * @return string|Exception
+     */
+    public function getLinkCadastro(){
+        $daoUsuario = new DAOusuario;
+        try{
+            $token = bin2hex(random_bytes(32));
+            $expiracao = date('Y-m-d H:i:s', strtotime('+24 hours'));
+            $retorno = $daoUsuario->genTokenCadastro($token, $expiracao);
+
+            if($retorno == true){
+                $link = "https://resolvesegmetre.com.br:1443/view/cadastroCliente.php?token=$token";
+                return $link;
+            }else{
+                throw new \Exception("Erro ao gerar token de cadastro.");
+            }
+        }catch(\Exception $e){
+            return ['error' => 'Erro: ' . $e->getMessage()];
+        }
+    }
+
+    /**
+     * envia um token para a DAO validar se o retorno da DAO for true, então return true, se não return false.
+     * @param string
+     * @return bool
+     */
+    public function validaToken($token){
+        $daoUsuario = new DAOusuario;
+        return $daoUsuario->validateTokenCadastro($token);
+    }
 }
 ?>
