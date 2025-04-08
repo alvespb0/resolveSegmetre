@@ -16,8 +16,21 @@ if (!isset($data['usuario']) || !isset($data['email']) || !isset($data['senha'])
     $return = $controllerUsuario->createUsuario($data);
 
     if($return){
-        echo json_encode(["message" => "Usuario cadastrado com sucesso"]);
-        exit;
+        if(isset($data['token'])){
+            $retorno = $controllerUsuario->invalidaToken($data['token']);
+            if($retorno == true){
+                echo json_encode(["message" => "Usuario cadastrado com sucesso"]);
+                exit;
+            }else{
+                error_log("Erro ao inativar token mas cadastro concluido com sucesso");
+                echo json_encode(["message" => "Usuario cadastrado com sucesso"]);
+                exit;
+            }
+        }else{
+            echo json_encode(["message" => "Usuario cadastrado com sucesso"]);
+            exit;
+        }
+        
     }else{
         echo json_encode(["error" => "Erro ao cadastrar o Usuario"]);
         exit;

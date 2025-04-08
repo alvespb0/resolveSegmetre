@@ -325,7 +325,33 @@ class DAOusuario{
             $conexaoDB->close();
             return false;
         }
+    }
 
+    /**
+     * Recebe o token após o cadastro do cliente e altera valor da coluna 'usado' da tabela tokens_cadastro
+     * @param string $token
+     * @return bool
+     */
+    public function inativaTokenCadastro($token){
+        try{
+            $conexaoDB = $this->conectarBanco();
+        }catch(\Exception $e){
+            die($e->getMessage());
+        }
+
+        $sqlUpdate = $conexaoDB->prepare("UPDATE tokens_cadastro set usado = 1 where token = ?");
+        $sqlUpdate->bind_param('s', $token);
+        $sqlUpdate->execute();
+
+        if(!$sqlUpdate->error){
+            $sqlUpdate->close();
+            $conexaoDB->close();
+            return true;
+        }else{
+            $sqlUpdate->close();
+            $conexaoDB->close();
+            return false;
+        }
     }
 }
 ?>

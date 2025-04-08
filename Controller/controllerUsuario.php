@@ -160,5 +160,15 @@ class ControllerUsuario{
         $daoUsuario = new DAOusuario;
         return $daoUsuario->validateTokenCadastro($token);
     }
+
+    /**
+     * Envia um token já utilizada para a DAO, a DAO atualiza a tabela setando usado = 1
+     * @param string 
+     * @return bool
+     */
+    public function invalidaToken($token){
+        $daoUsuario = new DAOusuario;
+        return $daoUsuario->inativaTokenCadastro($token);
+    }
 }
 ?>

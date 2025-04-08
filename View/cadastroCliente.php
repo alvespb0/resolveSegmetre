@@ -113,6 +113,7 @@ include_once('navbarLogin.php');
         <h2>Registro</h2>
         <form id="formCadastro">
             <input type="hidden" name="type" value = "usuario">
+            <input type="hidden" name ="token" value = "<?php echo $token ?>">
             <input type="text" placeholder="Empresa" name="usuario" required>
             <input type="text" placeholder="Email" name="email" required>
             <input type="password" placeholder="Senha" name="senha" required>
@@ -144,6 +145,9 @@ include_once('navbarLogin.php');
                 console.log('Success:', data);
                 if (data.message) {
                     alert(data.message);  // Exibe a mensagem em um alerta
+                    setTimeout(function() {
+                        window.location.href = "Login.php";
+                    }, 100); // Espera 100ms depois do alerta
                 }
                 if (data.error) {
                     alert(data.error);  // Exibe a mensagem de erro em um alerta
