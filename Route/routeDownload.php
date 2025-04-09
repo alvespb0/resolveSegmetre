@@ -1,4 +1,6 @@
 <?php
+require_once '../Seguranca/origemSegura.php';
+
 // Obtém o JSON enviado
 $data = json_decode(file_get_contents("php://input"), true);
 

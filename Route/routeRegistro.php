@@ -1,4 +1,6 @@
 <?php
+require_once '../Seguranca/origemSegura.php';
+
 header("Content-Type: application/json"); #isso básicamente define que o conteúdo da resposta será em JSON
 
 $data = json_decode(file_get_contents("php://input"), true); #Recebe os dados via POST e converte JSON para um array

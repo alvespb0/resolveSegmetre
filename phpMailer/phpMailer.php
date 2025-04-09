@@ -208,7 +208,7 @@ class Mailer{
             return $mail->ErrorInfo;
         }        
     }
-    
+
     public function enviaEmailRecuperacao($email, $link){
         if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
             return false;
@@ -224,6 +224,7 @@ class Mailer{
 
         $mail->setFrom('documentos@segmetre.com.br', 'Segmetre'); // Remetente
         $mail->addAddress($email); // Destinatário
+        $mail->CharSet = 'UTF-8';
 
         $mail->isHTML(true);
         $mail->Subject = 'Recuperação de Senha!'; // Assunto

@@ -1,4 +1,6 @@
 <?php
+require_once '../Seguranca/origemSegura.php';
+
 header("Content-Type: application/json");
 
 
