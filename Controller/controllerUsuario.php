@@ -170,5 +170,48 @@ class ControllerUsuario{
         $daoUsuario = new DAOusuario;
         return $daoUsuario->inativaTokenCadastro($token);
     }
+    
+    /**
+     * lança uma request para a função genTokenSenha contendo token e expiração gerado na controller.
+     * Feito isso, ele retorna o link
+     * @return string|Exception
+     */
+    public function getLinkRecSenha($email){
+        $daoUsuario = new DAOusuario;
+        try{
+            $usuario = $this->obtainUsuario($email); #valida se o usuario existe dado o email
+
+            if(is_array($usuario)){  # se usuario existir vai retornar uma array com as informações do usuario
+
+                $idUsuario = $usuario['id'];
+                $token = bin2hex(random_bytes(32));
+                $expiracao = date('Y-m-d H:i:s', strtotime('+1 hours'));
+                $retorno = $daoUsuario->genTokenSenha($token, $expiracao, $idUsuario);
+                
+                if($retorno == true){
+                    $link = "https://resolvesegmetre.com.br:1443/view/esqueciMinhaSenha.php?token=$token";
+                    return $link;
+                }else{
+                    throw new \Exception("Erro ao gerar token de cadastro.");
+                }
+            }else{
+                return false; #não encontrado nenhum cliente com esse email;
+            }
+        }catch(\Exception $e){
+            return ['error' => 'Erro: ' . $e->getMessage()];
+        }
+    }
+
+    /**
+     * pega o link do getLinkRecSenha e manda um email com PHP mailer;
+     * @param string $email
+     * @param string $link
+     * @return bool
+     */
+    public function enviaEmailSenha($email, $link){
+        $mailer = new Mailer();
+        return $mailer->enviaEmailRecuperacao($email, $link);
+    }
+
 }
 ?>

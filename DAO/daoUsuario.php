@@ -353,5 +353,32 @@ class DAOusuario{
             return false;
         }
     }
+
+    /**
+     * Função responsável por salvar o token de recuperação de senha no bd
+     * @param string $token
+     * @param date $expiracao
+     * @return bool
+     */
+    public function genTokenSenha($token, $expiracao, $idUsuario){
+        try{
+            $conexaoDB = $this->conectarBanco();
+        }catch(\Exception $e){
+            die($e->getMessage());
+        }
+
+        $sqlInsert = $conexaoDB->prepare("INSERT INTO tokens_recuperacao (token, expiracao, usuario_id) VALUES (?, ?, ?)");
+        $sqlInsert->bind_param("ssi", $token, $expiracao, $idUsuario);
+        $sqlInsert->execute();
+
+        if(!$sqlInsert->error){
+            $sqlInsert->close();
+            $conexaoDB->close();
+            return true;
+        }else{
+            error_log("Erro ao executar consulta: " . $sqlInsert->error);
+            return false;
+        }
+    }
 }
 ?>

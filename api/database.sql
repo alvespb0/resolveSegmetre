@@ -91,7 +91,14 @@ CREATE TABLE tokens_cadastro (
     expiracao DATETIME,
     usado BOOLEAN DEFAULT FALSE
 );
-
+CREATE TABLE tokens_recuperacao (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    usuario_id INT NOT NULL,
+    token VARCHAR(64) NOT NULL,
+    expiracao DATETIME NOT NULL,
+    usado TINYINT DEFAULT 0,
+    FOREIGN KEY (usuario_id) REFERENCES users(id)
+);
 --
 -- Despejando dados para a tabela `operators`
 --

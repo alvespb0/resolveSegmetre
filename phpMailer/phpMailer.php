@@ -208,6 +208,106 @@ class Mailer{
             return $mail->ErrorInfo;
         }        
     }
+    
+    public function enviaEmailRecuperacao($email, $link){
+        if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+            return false;
+        }    
+        $mail = new PHPMailer(true);
+        $mail->isSMTP();
+        $mail->Host = 'smtp.gmail.com'; // Servidor SMTP do Google
+        $mail->SMTPAuth = true;        // Ativar autenticação SMTP
+        $mail->Username = 'documentos@segmetre.com.br'; // Substitua pelo seu e-mail
+        $mail->Password = 'gijs mxbr juwx fbkq';   // Substitua pela senha de aplicativo
+        $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS; // Habilitar TLS
+        $mail->Port = 587;             // Porta do servidor SMTP
+
+        $mail->setFrom('documentos@segmetre.com.br', 'Segmetre'); // Remetente
+        $mail->addAddress($email); // Destinatário
+
+        $mail->isHTML(true);
+        $mail->Subject = 'Recuperação de Senha!'; // Assunto
+        $mail->Body = '
+            <!DOCTYPE html>
+            <html lang="pt-br">
+            <head>
+                <meta charset="UTF-8">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                <title>Notificação de Novo Arquivo</title>
+                <style>
+                    body {
+                        font-family: Arial, sans-serif;
+                        margin: 0;
+                        padding: 0;
+                        background-color: #f7f7f7;
+                        color: #333;
+                    }
+                    .container {
+                        width: 100%;
+                        padding: 20px;
+                        background-color: #f7f7f7;
+                    }
+                    .content {
+                        max-width: 600px;
+                        margin: 0 auto;
+                        background-color: #ffffff;
+                        border-radius: 8px;
+                        padding: 40px;
+                        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+                    }
+                    h1 {
+                        font-size: 2.2em;
+                        margin-bottom: 15px;
+                        color: #1f7262;
+                        font-weight: bold;
+                    }
+                    p {
+                        font-size: 1.1em;
+                        line-height: 1.6;
+                        color: #555;
+                    }
+                    a {
+                        color: #1f7262;
+                        font-weight: bold;
+                    }
+
+                    .footer {
+                        font-size: 0.9em;
+                        color: #999;
+                        margin-top: 30px;
+                        text-align: center;
+                    }
+                    .footer p {
+                        margin: 0;
+                    }
+                </style>
+            </head>
+            <body>
+                <div class="container">
+                    <div class="content">
+                        <h1>Recuperação de Senha</h1>
+                        <p>Olá,</p>
+                            <p>Recebemos uma solicitação de recuperação de senha para a sua conta. Se você não solicitou essa recuperação, pode desconsiderar este e-mail.</p>
+                            <p>Para redefinir sua senha, clique no link abaixo:</p>
+                            <p><a href="'.$link.'">Redefinir sua Senha</p>
+                        <div class="footer">
+                            <p>Este link será válido por 1 hora. Após esse período, será necessário solicitar uma nova recuperação de senha.</p>
+                            <p>Se você não reconhece essa solicitação, recomendamos que altere sua senha imediatamente ao acessar sua conta.</p>
+                            <p>Atenciosamente,</p>
+                        </div>
+                    </div>
+                </div>
+            </body>
+            </html>
+                    ';
+                    
+        if($mail->send()){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
 }
 
 
