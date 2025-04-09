@@ -53,7 +53,7 @@ include_once('navbar.php');
             flex-direction: column;
         }
         .containerExames {
-            max-width: 900px;
+            max-width: 1150px;
             margin: 35px auto;
             background: white;
             padding: 25px;
@@ -66,7 +66,7 @@ include_once('navbar.php');
 
         }
         .containerExames:hover {
-            transform: translateY(-5px);
+            transform: translateY(-2px);
             box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
         }
         h2 {

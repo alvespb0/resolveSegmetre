@@ -60,7 +60,7 @@ $usuarios = $controllerUsuario->obtainUserNameASC2();
         }
 
         .containerUsuarios:hover {
-            transform: translate(-50%, -52%); 
+            transform: translate(-50%, -51%); 
             box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
         }
 

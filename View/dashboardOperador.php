@@ -57,7 +57,7 @@ $empresas = $controllerUsuario->obtainUserNameASC2();
         }
 
         .form-container:hover {
-            transform: translateY(-5px);
+            transform: translateY(-2px);
             box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
         }
 
@@ -108,7 +108,7 @@ $empresas = $controllerUsuario->obtainUserNameASC2();
 
         .form-container button:hover {
             background: linear-gradient(135deg, #406659, #5c8b7f);
-            transform: scale(1.05);
+            transform: scale(1.01);
         }
 
         .response {
