@@ -212,6 +212,39 @@ class ControllerUsuario{
         $mailer = new Mailer();
         return $mailer->enviaEmailRecuperacao($email, $link);
     }
+    
+    /**
+     * envia um token de redefinir senha para a DAO validar se o retorno da DAO for true, então return true, se não return false.
+     * @param string
+     * @return bool
+     */
+    public function validaTokenSenha($token){
+        $daoUsuario = new DAOusuario;
+        return $daoUsuario->validateTokenSenha($token);
+    }
 
+    /**
+     * recebe um token e uma senha
+     * senha transformada em hash e chamada a DAO para fazer o update
+     * @param string $token
+     * @param string $senhaNova
+     * @return bool
+     */
+    public function alterarSenha($token, $senhaNova){
+        $daoUsuario = new DAOusuario;
+        $senhaNova = password_hash($senhaNova, PASSWORD_DEFAULT); #transforma em hash
+
+        return $daoUsuario->alteraSenhaByToken($token, $senhaNova);
+    }
+
+    /**
+     * Envia um token já utilizada para a DAO, a DAO atualiza a tabela setando usado = 1
+     * @param string 
+     * @return bool
+     */
+    public function invalidaTokenSenha($token){
+        $daoUsuario = new DAOusuario;
+        return $daoUsuario->inativaTokenSenha($token);
+    }
 }
 ?>

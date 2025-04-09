@@ -121,8 +121,7 @@ if($email){
     </style>
 </head>
 <body class="recuperacao-body">
-<?php echo $link;
-?>
+
     <div class="containerMailRec">
         <div class="recuperacao-box">
             <h2>Recuperar Senha</h2>

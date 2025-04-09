@@ -142,11 +142,23 @@
                 </select>
                 <button class="btn-login" type="submit">Entrar</button>
             </form>
+            <a href="solicitarRecuperacao.php" id="linkEsqueciSenha" style="display: none; margin-top: 10px; color: #1F7262; font-weight: bold;">
+                Esqueci minha senha
+            </a>
         </div>
     </div>
 
 
     <script>
+        document.getElementById('tipo').addEventListener('change', function() {
+            const link = document.getElementById('linkEsqueciSenha');
+            if (this.value === 'usuario') {
+                link.style.display = 'block';
+            } else {
+                link.style.display = 'none';
+            }
+        });
+
         document.getElementById('formLogin').addEventListener('submit', function(event) {
             event.preventDefault();
 

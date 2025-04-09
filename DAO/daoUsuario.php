@@ -380,5 +380,107 @@ class DAOusuario{
             return false;
         }
     }
+
+        /**
+     * valida Token, recebe um token de redefinir senha que o código pega da URL e dá um select, se o token exisitr (e for valido) e a data de expiração estiver no prazo
+     * retorna true; se não, retorna False
+     * @param string
+     * @return bool
+     */
+    public function validateTokenSenha($token){
+        try{
+            $conexaoDB = $this->conectarBanco();
+        }catch(\Exception $e){
+            die($e->getMessage());
+        }
+
+        $sqlSelect = $conexaoDB->prepare("SELECT * FROM tokens_recuperacao WHERE token = ? AND usado = 0 AND expiracao > NOW()");
+        $sqlSelect->bind_param('s', $token);
+        $sqlSelect->execute();
+        $resultado = $sqlSelect->get_result();
+        if($resultado->num_rows > 0){
+            $sqlSelect->close();
+            $conexaoDB->close();
+            return true;
+        }else{
+            $sqlSelect->close();
+            $conexaoDB->close();
+            return false;
+        }
+    }
+
+    /**
+     * recebe um token, faz um select na tabela dado esse token para retornar o id do usuario
+     * após receber o id do usuario faz um alter table senha where id = ?
+     * @param string $token
+     * @param string $senhaNova
+     * @return bool|exception 
+     */
+    public function alteraSenhaByToken($token, $senhaNova){
+        try{
+            $conexaoDB = $this->conectarBanco();
+        }catch(\Exception $e){
+            die($e->getMessage());
+        }
+
+        try{
+            $sqlSelect = $conexaoDB->prepare("SELECT usuario_id FROM tokens_recuperacao where token = ?");
+            $sqlSelect->bind_param('s', $token);
+            $sqlSelect->execute();
+            $resultado = $sqlSelect->get_result();
+            if($resultado->num_rows > 0){
+                $row = $resultado->fetch_assoc();
+                $usuarioId = $row['usuario_id'];
+
+                $sqlUpdate = $conexaoDB->prepare("UPDATE users set password_hash = ? where id = ?");
+                $sqlUpdate->bind_param("si", $senhaNova, $usuarioId);
+                $sqlUpdate->execute();
+                if(!$sqlUpdate->error){
+                    $sqlUpdate->close();
+                    $sqlSelect->close();
+                    $conexaoDB->close();
+                    return true;
+                }else{
+                    $sqlUpdate->close();
+                    $sqlSelect->close();
+                    $conexaoDB->close();
+                    return false;
+                }
+            }else{
+                $sqlSelect->close();
+                $conexaoDB->close();
+                return false;
+            }
+        }catch(\Exception $e){
+            die($e->getMessage());
+        }
+    }
+
+       /**
+     * Recebe o token após a alteração de senha e altera valor da coluna 'usado' da tabela tokens_cadastro
+     * @param string $token
+     * @return bool
+     */
+    public function inativaTokenSenha($token){
+        try{
+            $conexaoDB = $this->conectarBanco();
+        }catch(\Exception $e){
+            die($e->getMessage());
+        }
+
+        $sqlUpdate = $conexaoDB->prepare("UPDATE tokens_recuperacao set usado = 1 where token = ?");
+        $sqlUpdate->bind_param('s', $token);
+        $sqlUpdate->execute();
+
+        if(!$sqlUpdate->error){
+            $sqlUpdate->close();
+            $conexaoDB->close();
+            return true;
+        }else{
+            $sqlUpdate->close();
+            $conexaoDB->close();
+            return false;
+        }
+    }
 }
 ?>
