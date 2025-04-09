@@ -48,7 +48,7 @@ if ($filterDate) {
             flex-direction: column;
         }
         .containerDownload {
-            max-width: 900px;
+            max-width: 1100px;
             margin: 35px auto;
             background: white;
             padding: 25px;

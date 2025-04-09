@@ -143,7 +143,7 @@ class DAOfiles{
             die($e->getMessage());
         }
         try{
-            $sqlSelect = "SELECT file_name, id, uploaded_at, operator_id, company_id, file_path FROM files";
+            $sqlSelect = "SELECT file_name, id, uploaded_at, operator_id, company_id, file_path FROM files ORDER BY file_name ASC";
             $resultado = $conexaoDB->query($sqlSelect);
 
             if ($resultado === false) {
