@@ -115,7 +115,7 @@ include_once('navbar.php');
         <h2>Registro</h2>
         <form id="formCadastro">
             <input type="text" placeholder="Usuário" name="usuario" required>
-            <input type="text" placeholder="Email" name="email" required>
+            <input type="email" placeholder="Email" name="email" required>
             <input type="password" placeholder="Senha" name="senha" required>
             <select id="tipo" name="type" required>
                 <option value="operador">Operador</option>

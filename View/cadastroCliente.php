@@ -115,7 +115,7 @@ include_once('navbarLogin.php');
             <input type="hidden" name="type" value = "usuario">
             <input type="hidden" name ="token" value = "<?php echo $token ?>">
             <input type="text" placeholder="Empresa" name="usuario" required>
-            <input type="text" placeholder="Email" name="email" required>
+            <input type="email" placeholder="Email" name="email" required>
             <input type="password" placeholder="Senha" name="senha" required>
             <input type="text" name="cnpj" id="cnpj" placeholder="CNPJ" required>
             <button type="submit">Registrar</button>

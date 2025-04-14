@@ -97,7 +97,7 @@ CREATE TABLE tokens_recuperacao (
     token VARCHAR(64) NOT NULL,
     expiracao DATETIME NOT NULL,
     usado TINYINT DEFAULT 0,
-    FOREIGN KEY (usuario_id) REFERENCES users(id)
+    FOREIGN KEY (usuario_id) REFERENCES users(id) ON DELETE CASCADE
 );
 --
 -- Despejando dados para a tabela `operators`

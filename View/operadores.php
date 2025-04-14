@@ -6,8 +6,6 @@ if (!isset($_SESSION['userName']) || $_SESSION['userName'] !== 'administrator') 
     exit();
 }
 
-include_once('navbar.php');
-
 require_once '../Controller/controllerOperador.php';
 use controllers\ControllerOperador;
 
@@ -22,6 +20,7 @@ if (isset($_GET['excluir'])) {
     exit();
 }
 
+include_once('navbar.php');
 
 ?>
 <!DOCTYPE html>

@@ -13,7 +13,7 @@ if (!isset($_FILES['file']) || !isset($_POST['company_id']) || !isset($_POST['fi
 switch ($_FILES['file']['error']) {
     case UPLOAD_ERR_INI_SIZE:
     case UPLOAD_ERR_FORM_SIZE:
-        echo json_encode(["error" => "O arquivo enviado é muito grande. O tamanho máximo permitido é 50MB."]);
+        echo json_encode(["error" => "O arquivo enviado é muito grande. O tamanho máximo permitido é 20MB."]);
         exit;
 
     case UPLOAD_ERR_PARTIAL:

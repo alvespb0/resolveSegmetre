@@ -6,7 +6,7 @@
 
     if (isset($_SESSION['tokenInvalido'])) {
         $tokenMensagem = $_SESSION['tokenInvalido'];
-        unset($_SESSION['tokenInvalido']); // Limpa a mensagem para não repetir
+        unset($_SESSION['tokenInvalido']); 
     }
 
 ?>
@@ -26,7 +26,7 @@
             display: fixed;
             justify-content: center;
             align-items: center;
-            overflow: hidden; /* Impede a barra de rolagem */
+            overflow: hidden; 
         }
 
         /* Container do Login */
@@ -35,8 +35,8 @@
             justify-content: center;
             align-items: center;
             margin-top: -85px;
-            width: 100%; /* Para centralizar */
-            height: 100%; /* Para centralizar */
+            width: 100%; 
+            height: 100%; 
         }
 
         /* Caixa de Login */
@@ -45,7 +45,7 @@
             padding: 20px;
             border-radius: 12px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            width: 400px; /* Aumentei a largura */
+            width: 400px; 
             text-align: center;
             display: flex;
             flex-direction: column;
@@ -54,7 +54,7 @@
 
         /* Título */
         .login-title {
-            font-family: Arial, sans-serif; /* Fonte Arial */
+            font-family: Arial, sans-serif; 
             color: #518076;
             margin-bottom: 20px;
             font-weight: bold;
@@ -116,7 +116,7 @@
 
         /* Estilo para o label */
         .input-label {
-            font-family: Arial, sans-serif; /* Fonte Arial */
+            font-family: Arial, sans-serif; 
             color: #518076;
         }
 
