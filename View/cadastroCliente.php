@@ -62,6 +62,8 @@ include_once('navbarLogin.php');
             font-family: Arial, sans-serif; /* Fonte Arial */
             color: #518076;
             font-weight: bold;
+            ; /* <-- Alinha os elementos à esquerda */
+
         }
 
         form {
@@ -105,6 +107,33 @@ include_once('navbarLogin.php');
         button:hover {
             background: #79a79a;
         }
+
+        .termos-container {
+            display: flex;
+            align-items: center;
+            gap: 8px; /* Espaço entre o checkbox e o texto */
+            font-size: 0.95rem;
+        }
+
+        .termos-container input[type="checkbox"] {
+            width: 16px;
+            height: 16px;
+            accent-color: #006666; /* cor do check para bater com o estilo da página */
+            cursor: pointer;
+        }
+
+        .termos-container label {
+            cursor: pointer;
+            user-select: none;
+        }
+
+        .termos-container a {
+            color: #006666;
+            text-decoration: underline;
+        }
+
+
+
     </style>
 </head>
 <body class= "registro-body">
@@ -118,6 +147,12 @@ include_once('navbarLogin.php');
             <input type="email" placeholder="Email" name="email" required>
             <input type="password" placeholder="Senha" name="senha" required>
             <input type="text" name="cnpj" id="cnpj" placeholder="CNPJ" required>
+            <div class="termos-container">
+                <input type="checkbox" id="termos" name="termos" required>
+                <label for="termos">
+                    Li e concordo com os <a href="termoUso.php" target="_blank">termos de uso</a>.
+                </label>
+            </div>
             <button type="submit">Registrar</button>
         </form>
         </div>
