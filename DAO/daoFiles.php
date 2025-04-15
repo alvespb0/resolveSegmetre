@@ -160,7 +160,64 @@ class DAOfiles{
             die($e->getMessage());
         }
     }
+
+    /**
+     * recebe um offset, referente para fazer a paginação baseada em 20.
+     * @param int
+     * @return Array|Exception
+     */
+    public function getFilesPaginated($offset){
+        try{
+            $conexaoDB = $this->conectarBanco();
+        }catch(\Exception $e){
+            die($e->getMessage());
+        }
+        try{
+            $sqlSelect = $conexaoDB->prepare("SELECT file_name, id, uploaded_at, operator_id, company_id, file_path 
+                        FROM files 
+                        ORDER BY file_name ASC 
+                        LIMIT 20 OFFSET ?");
+            $sqlSelect->bind_param("i", $offset);
+            $sqlSelect->execute();
+
+            $resultado = $sqlSelect->get_result();
+
+            if ($resultado === false) {
+                throw new \Exception("Erro ao executar a consulta: " . $conexaoDB->error); 
+            }else{
+                $files = [];
+                while($row = $resultado->fetch_assoc()){
+                    $files [] = $row;
+                }
+                $conexaoDB->close();
+                return $files;
+            }
+
+        }catch(\Exception $e){
+            die($e->getMessage());
+        }
+    }
     
+    /**
+     * recebe o numero de files cadastrados, utilizado para fazer a páginação
+     * @return int
+     */
+    public function getCountFiles(){
+        try{
+            $conexaoDB = $this->conectarBanco();
+        }catch(\Exception $e){
+            die($e->getMessage());
+        }
+        try{
+            $sqlSelect = "SELECT COUNT(*) as total FROM files";
+            $resultado = $conexaoDB->query($sqlSelect);
+            $row = $resultado->fetch_assoc();
+            return $row['total'];
+        }catch(\Exception $e){
+            die($e->getMessage());
+        }
+    }
+
     /**
      * recebe uma data e retorna todos os registros dado essa data
      * @param string

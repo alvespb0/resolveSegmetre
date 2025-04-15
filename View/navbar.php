@@ -163,8 +163,8 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="exames.php">
-                                    <i class="bi bi-file-earmark-text me-1"></i> Exames
+                            <a class="nav-link" href="exames.php?pagina=1">
+                            <i class="bi bi-file-earmark-text me-1"></i> Exames
                                 </a>
                             </li>
                             <li class="nav-item">

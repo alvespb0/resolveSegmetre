@@ -68,6 +68,34 @@ class ControllerFiles{
             return false;
         }
     }
+    
+    /**
+     * chama a função getCountFiles() e retorna o numero de páginas tendo em mente que o limite por pagina é 20
+     * @return int
+     */
+    public function obtainNumberPages(){
+        $daoFile = new DAOfiles();
+        $return = $daoFile->getCountFiles();
+        $totalPaginas = ceil($return/20);
+        return $totalPaginas;
+    }
+
+    /**
+     * recebe um numero de pagina vindo via metodo GET e retorna os files dado esse offset (limit 20)
+     * @param int
+     * @return Array
+     */
+    public function obtainFilesByPage($offset){
+        $daoFile = new DAOfiles();
+        $return = $daoFile->getFilesPaginated($offset);
+
+        if(is_array($return)){
+            unset($daoFile);
+            return $return;
+        }else{
+            return false;
+        }
+    }
 
     /**
      * recebe um date e retorna os files dado esse date
