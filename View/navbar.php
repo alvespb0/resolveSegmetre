@@ -179,7 +179,7 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="telaMedica.php">
+                                <a class="nav-link" href="telaMedica.php?pagina=1">
                                     <i class="bi bi-clipboard-pulse me-1"></i> Exames Cadastrados
                                 </a>
                             </li>

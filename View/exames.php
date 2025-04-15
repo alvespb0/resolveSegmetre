@@ -92,7 +92,7 @@ include_once('navbar.php');
             font-weight: bold;
         }
         .table-container {
-            max-height: 350px; /* Limite de altura */
+            max-height: 330px; /* Limite de altura */
             overflow-y: auto; /* Rolagem vertical */
             border-radius: 8px;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
@@ -192,7 +192,6 @@ include_once('navbar.php');
             color: white;
             font-weight: bold;
         }
-
 
     </style>
 </head>

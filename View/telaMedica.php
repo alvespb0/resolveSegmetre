@@ -19,13 +19,29 @@ $controllerFiles = new ControllerFiles;
 
 $filterDate = isset($_GET['filterDate']) ? $_GET['filterDate'] : '';
 $filterSearch = isset($_GET['search']) ? $_GET['search'] : '';
+$totalPaginas = $controllerFiles->obtainNumberPages();
+
+$paginaAtual = isset($_GET['pagina']) ? (int)$_GET['pagina'] : 1;
+$offset = ($paginaAtual - 1) * 20;
+
+$maxLinks = 3; // Quantidade de páginas visíveis
+$inicio = max($paginaAtual - 1, 1);
+$fim = min($paginaAtual + 1, $totalPaginas);
+
+// Corrigir se estiver no início ou final
+if ($paginaAtual <= 2) {
+    $fim = min(3, $totalPaginas);
+}
+if ($paginaAtual >= $totalPaginas - 1) {
+    $inicio = max($totalPaginas - 2, 1);
+}
 
 if ($filterDate) {
     $files = $controllerFiles->obtainFilesByDate($filterDate);
 }else if($filterSearch){
     $files = $controllerFiles->obtainFilesBySearch($filterSearch);
 } else {
-    $files = $controllerFiles->obtainAllFiles();
+    $files = $controllerFiles->obtainFilesByPage($offset);
 }
 
 ?>
@@ -79,7 +95,7 @@ if ($filterDate) {
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
         }
         .table-container {
-            max-height: 400px; /* Limite de altura */
+            max-height: 330px; /* Limite de altura */
             overflow-y: auto; /* Rolagem vertical */
             border-radius: 8px;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
@@ -144,6 +160,33 @@ if ($filterDate) {
             margin-right: 5px;
         }
 
+        .pagination-link {
+            display: inline-block;
+            padding: 10px 15px;
+            margin: 0 5px;
+            min-width: 40px;
+            text-align: center;
+            border: 1px solid #1F7262;
+            border-radius: 8px;
+            color: #1F7262;
+            text-decoration: none;
+            font-weight: 500;
+            background-color: white;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        .pagination-link:hover {
+            background: linear-gradient(135deg, #1F7262, #3CA597);
+            color: white;
+            transform: scale(1.05);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .pagination-link.active {
+            background: #1F7262;
+            color: white;
+            font-weight: bold;
+        }
  
     </style>
 </head>
@@ -200,6 +243,29 @@ if ($filterDate) {
             </tbody>
         </table>
         </div>
+
+        <!-- PARTE DE PAGINAÇÃO -->
+        <div style="margin-top: 20px;">
+            <?php if ($paginaAtual > 1): ?>
+            <a href="?pagina=<?= $paginaAtual - 1 ?>" class="pagination-link">«</a>
+            <?php endif; ?>
+
+            <?php for ($i = $inicio; $i <= $fim; $i++): ?>
+                <a href="?pagina=<?= $i ?>" class="pagination-link <?= $i == $paginaAtual ? 'active' : '' ?>">
+                    <?= $i ?>
+                </a>
+            <?php endfor; ?>
+
+            <?php if ($fim < $totalPaginas): ?>
+                <span class="pagination-link">...</span>
+                <a href="?pagina=<?= $totalPaginas ?>" class="pagination-link"><?= $totalPaginas ?></a>
+            <?php endif; ?>
+
+            <?php if ($paginaAtual < $totalPaginas): ?>
+                <a href="?pagina=<?= $paginaAtual + 1 ?>" class="pagination-link">»</a>
+            <?php endif; ?>
+        </div>
+        <!-- FIM DA PAGINAÇÃO -->
     </div>
     <?php include 'footer.php'; ?>
     <script>
