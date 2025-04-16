@@ -43,6 +43,7 @@ if (!isset($data['email']) || !isset($data['senha']) || !isset($data['type'])) {
                 echo json_encode(["message" => "Login Efetuado!",
                                   "userName" => $operador['name'],
                                   "operadorId" => $operador['id'],
+                                  "setor" => $operador['setor'],
                                   "empresaId" => null,
                                   "type" => "operador"]);
             }else{

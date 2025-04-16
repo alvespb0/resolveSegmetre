@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-if (!isset($_SESSION['type']) || $_SESSION['type'] !== 'medico' && $_SESSION['type'] !== 'operador') {
+if (!isset($_SESSION['type']) || $_SESSION['type'] !== 'medico' && $_SESSION['type'] !== 'recepcao' &&  $_SESSION['type'] !== 'admin') {
     header("Location: https://{$_SERVER['HTTP_HOST']}/View/Login.php");
     exit(); 
 }

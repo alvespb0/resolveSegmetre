@@ -129,7 +129,7 @@
     <nav class="navbar navbar-expand-lg">
         <div class="container">
 
-            <?php if($_SESSION['type'] == 'operador'){?>
+            <?php if($_SESSION['type'] == 'recepcao' || $_SESSION['type'] == 'admin'){?>
             <a class="navbar-brand" href="dashboardOperador.php">
                 <img src="logo1.png" alt="Segmetre Logo">
                 Segmetre
@@ -172,7 +172,7 @@
                                     <i class="bi bi-currency-dollar"></i> Encaminha NF e Boleto
                                 </a>
                             </li>
-                        <?php elseif ($_SESSION['type'] === 'operador'): ?>
+                        <?php elseif ($_SESSION['type'] === 'recepcao'): ?>
                             <li class="nav-item">
                                 <a class="nav-link" href="dashboardOperador.php">
                                     <i class="bi bi-speedometer2 me-1"></i> Dashboard

@@ -118,9 +118,10 @@ include_once('navbar.php');
             <input type="email" placeholder="Email" name="email" required>
             <input type="password" placeholder="Senha" name="senha" required>
             <select id="tipo" name="type" required>
+                <option value="admin">admin</option>
                 <option value="recepcao">Recepcao</option>
-                <option value="usuario">Usuário</option>
                 <option value="financeiro">Financeiro</option>
+                <option value="usuario">Usuário</option>
             </select>
             <input type="text" name="cnpj" id="cnpj" class="hidden" placeholder="CNPJ">
             <button type="submit">Registrar</button>

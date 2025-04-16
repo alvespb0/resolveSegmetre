@@ -10,7 +10,7 @@ if (!isset($data['type']) || !isset($data['usuario']) || !isset($data['senha']))
     exit;
 }else{
     $type = $data['type'];
-    if ($type === 'recepcao' || $type === 'financeiro') {
+    if ($type === 'recepcao' || $type === 'financeiro' || $type === 'admin') {
         $url = "https://{$_SERVER['HTTP_HOST']}/api/auth/registerOperador.php";
         
     } elseif ($type === 'usuario') {

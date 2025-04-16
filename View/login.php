@@ -137,7 +137,6 @@
                 <label for="type" class="input-label"><b>Eu sou:</b></label>
                 <select id="tipo" name="type" class="select-field" required>
                     <option value="operador">Funcionário Segmetre</option>
-                    <option value="financeiro">Funcionário Segmetre (financeiro)</option>
                     <option value="usuario">Cliente Segmetre</option>
                 </select>
                 <button class="btn-login" type="submit">Entrar</button>
@@ -189,13 +188,14 @@
                         userName: data.userName,
                         empresaId: data.empresaId,
                         operadorId: data.operadorId,
+                        setor: data.setor,
                         type: data.type
                     })
                     })
                     .then(response => response.json())
                     .then(result => {
                         if(result.success){
-                            if (result.type === "operador") {
+                            if (result.type === "recepcao") {
                                 window.location.href = "dashboardOperador.php";
                             } else if(result.type === "usuario"){
                                 window.location.href = "dashboard.php";
@@ -203,6 +203,8 @@
                                 window.location.href = "telaMedica.php";
                             } else if(result.type === "financeiro"){
                                 window.location.href = "financeiro.php";
+                            } else if(result.type === 'admin'){
+                                window.location.href = "dashboardOperador.php";
                             }
                         }
                         

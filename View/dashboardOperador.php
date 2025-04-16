@@ -4,7 +4,7 @@ use controllers\ControllerUsuario;
 
 session_start();
 
-if ($_SESSION['type'] !== 'operador') {
+if ($_SESSION['type'] !== 'admin' && $_SESSION['type'] !== 'recepcao') {
     echo json_encode(["error" => "tela somente de operadores!"]);
     header("Location: https://{$_SERVER['HTTP_HOST']}/View/Login.php");
     exit; // Importante para interromper a execução após o redirecionamento
