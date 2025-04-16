@@ -31,11 +31,18 @@ class Operador{
      */
     public $senha;
 
-    public function __construct($idOperador = null, $nomeOperador = null, $email = null, $senha = null){
+    /**
+     * Setor do operador (no banco é setor)
+     * @var string
+     */
+    public $setor;
+
+    public function __construct($idOperador = null, $nomeOperador = null, $email = null, $senha = null, $setor = null){
         $this->idOperador = $idOperador;  
         $this->nomeOperador = $nomeOperador;
         $this->email = $email;
         $this->senha = $senha;
+        $this->setor = $setor;
     }
 }
 ?>

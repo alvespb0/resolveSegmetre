@@ -10,14 +10,12 @@ if (!isset($data['type']) || !isset($data['usuario']) || !isset($data['senha']))
     exit;
 }else{
     $type = $data['type'];
-    if ($type === 'operador') {
+    if ($type === 'recepcao' || $type === 'financeiro') {
         $url = "https://{$_SERVER['HTTP_HOST']}/api/auth/registerOperador.php";
         
     } elseif ($type === 'usuario') {
         $url = "https://{$_SERVER['HTTP_HOST']}/api/auth/registerUsuario.php";
-    } elseif($type === 'financeiro'){
-        $url = "https://{$_SERVER['HTTP_HOST']}/api/auth/registerFinanceiro.php";
-    }else {
+    } else {
         echo json_encode(["error" => "Tipo inválido"]);
         exit;
     }

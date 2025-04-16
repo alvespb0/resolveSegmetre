@@ -49,8 +49,8 @@ class DAOoperador{
         }
 
         try{
-        $sqlInsert = $conexaoDB->prepare("INSERT INTO operators(`name`, email, password_hash) values (?,?,?)");
-        $sqlInsert->bind_param("sss", $operador->nomeOperador, $operador->email, $operador->senha);
+        $sqlInsert = $conexaoDB->prepare("INSERT INTO operators(`name`, email, password_hash, setor) values (?,?,?,?)");
+        $sqlInsert->bind_param("ssss", $operador->nomeOperador, $operador->email, $operador->senha, $operador->setor);
         $sqlInsert->execute();
         
         if(!$sqlInsert->error){

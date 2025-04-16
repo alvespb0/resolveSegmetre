@@ -22,6 +22,7 @@ class ControllerOperador{
         $operador = new Operador;
         $operador->nomeOperador = $data['usuario'];
         $operador->email = $data['email'];
+        $operador->setor = $data['type'];
         $operador->senha = password_hash($data['senha'], PASSWORD_DEFAULT);
         $daoOperador = new DAOoperador();
         $return = $daoOperador->addOperador($operador);

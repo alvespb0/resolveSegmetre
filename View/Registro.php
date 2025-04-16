@@ -118,7 +118,7 @@ include_once('navbar.php');
             <input type="email" placeholder="Email" name="email" required>
             <input type="password" placeholder="Senha" name="senha" required>
             <select id="tipo" name="type" required>
-                <option value="operador">Operador</option>
+                <option value="recepcao">Recepcao</option>
                 <option value="usuario">Usuário</option>
                 <option value="financeiro">Financeiro</option>
             </select>
