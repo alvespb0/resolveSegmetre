@@ -160,7 +160,42 @@ class DAOoperador{
         $sqlDelete->close();
         return $retorno;
 
+        }
+   
+    /**
+     * recebe um company Id e retorna o usuario vinculado a esse Id
+     * @param int
+     * @return Array|Exception;
+     */
+    public function getOperatorById($id){
+        try{
+            $conexaoDB = $this->conectarBanco();
+        }catch(\Exception $e){
+            die($e->getMessage());
+        }
+
+        try{
+            $sqlSelect = $conexaoDB->prepare("SELECT * FROM operators where id = ?");
+            $sqlSelect->bind_param("i", $id);
+            $sqlSelect->execute();
+
+            $resultado = $sqlSelect->get_result();
+
+            if($resultado->num_rows > 0){
+                $operador = $resultado->fetch_assoc();
+                $sqlSelect->close();
+                $conexaoDB->close();
+                return $operador;
+            }else{
+                $sqlSelect->close();
+                $conexaoDB->close();
+                return json_encode(['message'=>'nenhum operador encontrado']);
+            }
+        }catch(\Exception $e){
+            $sqlSelect->close();
+            $conexaoDB->close();
+            return ['error' => 'Erro na consulta: ' . $e->getMessage()];
+        }
     }
 }
-
 ?>

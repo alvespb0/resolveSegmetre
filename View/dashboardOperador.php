@@ -31,7 +31,6 @@ $empresas = $controllerUsuario->obtainUserNameASC2();
             padding: 0;
             background-color: #DDEDEB; /* Verde suave para o fundo de toda a página */
             font-family: 'Inter', 'Helvetica', Arial, sans-serif;
-            overflow:hidden;
         }
         /* Estilização para o conteúdo específico da página */
         .dashboard-container {

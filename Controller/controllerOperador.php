@@ -74,5 +74,21 @@ class ControllerOperador{
         $daoOperador = new DAOoperador;
         $daoOperador->deleteOperadorById($id);
     }
+
+    
+    /**
+     * recebe um id company e chama a função getUserByIdCompany e retorna um array encaminhando o name
+     * @param int 
+     * @return Array|false
+     */
+    public function getOperatorNameById($id){
+        $daoOperador = new DAOoperador;
+        $operador = $daoOperador->getOperatorById($id);
+        if(!empty($operador['name'])){
+            return $operador['name'];
+        }else{
+            return false;
+        }
+    }
 }
 ?>

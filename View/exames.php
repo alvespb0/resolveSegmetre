@@ -1,18 +1,21 @@
 <?php
 session_start();
-if (!isset($_SESSION['userName']) || $_SESSION['userName'] !== 'administrator') {
+if (!isset($_SESSION['type']) || $_SESSION['type'] !== 'medico' && $_SESSION['type'] !== 'recepcao' &&  $_SESSION['type'] !== 'admin') {
     header("Location: https://{$_SERVER['HTTP_HOST']}/View/Login.php");
     exit(); 
 }
 
 require_once '../Controller/controllerFiles.php';
 require_once '../Controller/controllerUsuario.php';
+require_once '../Controller/controllerOperador.php';
 
 use controllers\ControllerUsuario;
+use controllers\ControllerOperador;
 use controllers\ControllerFiles;
 
 $controllerUsuario = new ControllerUsuario;
 $controllerFiles = new ControllerFiles;
+$controllerOperador = new ControllerOperador;
 
 $filterDate = isset($_GET['filterDate']) ? $_GET['filterDate'] : '';
 $filterSearch = isset($_GET['search']) ? $_GET['search'] : '';
@@ -69,7 +72,7 @@ include_once('navbar.php');
             flex-direction: column;
         }
         .containerExames {
-            max-width: 1150px;
+            max-width: 1300px;
             margin: 35px auto;
             background: white;
             padding: 25px;
@@ -192,7 +195,23 @@ include_once('navbar.php');
             color: white;
             font-weight: bold;
         }
+        
+        .btn-download {
+            background: linear-gradient(135deg, #1F7262, #3CA597);
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: 0.3s;
+            font-weight: bold;
+            text-decoration: none;
+        }
 
+        .btn-download:hover {
+            background: linear-gradient(135deg, #165A50, #2B8A7A);
+            transform: scale(1.05);
+        }
     </style>
 </head>
 <body>
@@ -211,7 +230,6 @@ include_once('navbar.php');
         <table id = "examTable">
             <thead>
                 <tr>
-                    <th>ID</th>
                     <th>Filename</th>
                     <th>
                         Data
@@ -221,8 +239,8 @@ include_once('navbar.php');
                         <input type="date" id="filterDate" style="display:none;" onchange="this.form.submit();" name="filterDate" />
                         </form>
                     </th>
-                    <th>Operador Id</th>
-                    <th>Company  Id</th>
+                    <th>Incluído Por</th>
+                    <th>Empresa</th>
                     <th>Ação</th>
                 </tr>
             </thead>
@@ -231,14 +249,16 @@ include_once('navbar.php');
                 if(count($files) > 0){ 
                 foreach ($files as $file) : ?>
             <tr>
-                <td><?= $file['id'] ?></td>
                 <td><?= htmlspecialchars($file['file_name']) ?></td>
                 <td><?= htmlspecialchars($file['uploaded_at']) ?></td>
-                <td><?= htmlspecialchars($file['operator_id']) ?></td>
+                <td><?= htmlspecialchars($controllerOperador->getOperatorNameById($file['operator_id'])); ?></td>
                 <td><?= htmlspecialchars($controllerUsuario->getUserNameByIdCompany($file['company_id'])); ?></td>
                 <td>
                     <a href="javascript:void(0);" class="btn-excluir" onclick="confirmarExclusao(<?= $file['id']; ?>)">
                         excluir
+                    </a>
+                    <a href="javascript:void(0);" class="btn-download" data-id="<?= $file['id'] ?>" data-path="<?= htmlspecialchars($file['file_path']); ?>">
+                        Download
                     </a>
                 </td>
             </tr>
@@ -278,7 +298,42 @@ include_once('navbar.php');
                 window.location.href = "?excluir=" + id;
             }
         }
-        
+        document.querySelectorAll('.btn-download').forEach(button => {
+            button.addEventListener('click', function() {
+                const fileId = this.getAttribute('data-id'); // Pega o ID do arquivo
+                const filePath = this.getAttribute('data-path'); // Pega o caminho do arquivo
+
+                fetch('../Route/routeDownload.php', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ id: fileId, path: filePath }) // Envia ID e path
+                })
+                .then(response => {
+                    // Verifica se a resposta é válida
+                    if (response.ok) {
+                        return response.blob(); // Converte a resposta em um blob (arquivo)
+                    }
+                    throw new Error('Erro ao processar download.');
+                })
+                .then(blob => {
+                    // Cria um link temporário para o download
+                    const url = window.URL.createObjectURL(blob);
+                    const a = document.createElement('a');
+                    a.style.display = 'none';
+                    a.href = url;
+                    a.download = filePath.split('/').pop(); // Pega o nome do arquivo do path
+                    document.body.appendChild(a);
+                    a.click();
+                    window.URL.revokeObjectURL(url); // Libera o URL após o download
+                })
+                .catch(error => {
+                    console.error("Erro na requisição:", error);
+                    alert("Erro no download: " + error.message);
+                });
+            });
+        });
     </script>
 
 </body>
