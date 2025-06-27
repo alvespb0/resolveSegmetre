@@ -230,7 +230,7 @@ include_once('navbar.php');
         <table id = "examTable">
             <thead>
                 <tr>
-                    <th>Filename</th>
+                    <th>Nome do Arquivo</th>
                     <th>
                         Data
                         <i class="fas fa-calendar-alt calendar-icon" onclick="document.getElementById('filterDate').style.display = 'inline-block';"></i>
@@ -255,8 +255,8 @@ include_once('navbar.php');
                 <td><?= htmlspecialchars($controllerUsuario->getUserNameByIdCompany($file['company_id'])); ?></td>
                 <td>
                     <a href="javascript:void(0);" class="btn-excluir" onclick="confirmarExclusao(<?= $file['id']; ?>)">
-                        excluir
-                    </a>
+                        Excluir
+                    </a> &nbsp
                     <a href="javascript:void(0);" class="btn-download" data-id="<?= $file['id'] ?>" data-path="<?= htmlspecialchars($file['file_path']); ?>">
                         Download
                     </a>
